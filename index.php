@@ -34,7 +34,7 @@ DB::$password = 'RHam3MzPjMBwvrWH';
 //Nikolay SCHOOL
 DB::$dbName = 'frehelantser';
 DB::$user = 'frehelantser';
-DB::$password = '';
+DB::$password = 'ZTs9AZyyPsyGman7';
 */
 
 // DB::$host = '127.0.0.1'; // sometimes needed on Mac OSX
