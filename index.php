@@ -17,6 +17,7 @@ $log->pushHandler(new StreamHandler('logs/errors.log', Logger::ERROR));
 DB::$dbName = 'cp4724_frehelantser';
 DB::$user = 'cp4724_frehelant';
 DB::$password = 'HoeEw2DFIagZ';
+DB::$host = 'ipd.info';
 */
 /*
 //Nathalie
@@ -80,5 +81,8 @@ if (!isset($_SESSION['user'])) {
     $_SESSION['user'] = array();
 }
 
+$app->get('/project', function() use ($app, $log) {
+    $app->render('new_project_auction.html.twig');
+});
 
 $app->run();
