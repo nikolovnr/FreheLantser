@@ -1,0 +1,13 @@
+/* 
+    Created on : October 5, 2016
+    Author     : Nathalie Desrosiers
+*/
+body{
+    background-color: #e6faff;
+}
+
+#centerContent{
+    width: 750px;
+    margin: 0 auto;
+    padding: 0;    
+}

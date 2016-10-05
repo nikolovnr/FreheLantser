@@ -80,5 +80,8 @@ if (!isset($_SESSION['user'])) {
     $_SESSION['user'] = array();
 }
 
+$app->get('/', function() {
+    echo 'gggggggggggg';
+});
 
 $app->run();
