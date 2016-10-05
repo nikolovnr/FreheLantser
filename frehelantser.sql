@@ -39,10 +39,10 @@ CREATE TABLE `auctions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `counties`
+-- Table structure for table `countries`
 --
 
-CREATE TABLE `counties` (
+CREATE TABLE `countries` (
   `ID` int(11) NOT NULL,
   `fullName` varchar(50) NOT NULL,
   `shortName` varchar(3) NOT NULL
@@ -109,9 +109,9 @@ ALTER TABLE `auctions`
   ADD KEY `status` (`status`);
 
 --
--- Indexes for table `counties`
+-- Indexes for table `countries`
 --
-ALTER TABLE `counties`
+ALTER TABLE `countries`
   ADD PRIMARY KEY (`ID`);
 
 --
@@ -147,9 +147,9 @@ ALTER TABLE `users`
 ALTER TABLE `auctions`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `counties`
+-- AUTO_INCREMENT for table `countries`
 --
-ALTER TABLE `counties`
+ALTER TABLE `countries`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -193,7 +193,7 @@ ALTER TABLE `projects`
 -- Constraints for table `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`countryID`) REFERENCES `counties` (`ID`);
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`countryID`) REFERENCES `countries` (`ID`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -14,3 +14,14 @@ Nikolay:
 3- If help is needed, will Google it.
 
 
+/////Wednesday: October 5, 2016/////
+Nathalie:
+1- Started Register. I will have to ask teacher if Bootstrap use is allowed.
+2- Finish registration.
+3- Check with gregory for Bootstrap use. If help is needed, will see with w3school or Google.
+
+Nikolay:
+1- Database created, project created, initial setup done - locally and on ipd8.info.
+2- I will start working on server side (PHP) file and Payment form.
+3- I will need help with using PayPal API...
+
