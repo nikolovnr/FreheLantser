@@ -81,8 +81,6 @@ if (!isset($_SESSION['user'])) {
     $_SESSION['user'] = array();
 }
 
-$app->get('/project', function() use ($app, $log) {
-    $app->render('new_project_auction.html.twig');
-});
+
 
 $app->run();

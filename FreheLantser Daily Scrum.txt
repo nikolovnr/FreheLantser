@@ -18,10 +18,23 @@ Nikolay:
 Nathalie:
 1- Started Register. I will have to ask teacher if Bootstrap use is allowed.
 2- Finish registration.
-3- Check with gregory for Bootstrap use. If help is needed, will see with w3school or Google.
+3- Check with Gregory for Bootstrap use. If help is needed, will see with w3school or Google.
 
 Nikolay:
 1- Database created, project created, initial setup done - locally and on ipd8.info.
 2- I will start working on server side (PHP) file and Payment form.
 3- I will need help with using PayPal API...
+
+
+/////Thursday: October 6, 2016/////
+Nathalie:
+1- I worked on Registration (with his PHP counterpart) and index.html, but could not see nothing (404) via Netbeans.
+They look very good with Notepad++ though.
+2- This morning I will re-write the project proposal, then finish to plug the Bootstrap part on Register and Login.
+3- Check with Nikolay or Gregory for my 404 problem. Check with Tina for Bootstrap use.
+
+Nikolay:
+1- 
+2- 
+3- 
 
