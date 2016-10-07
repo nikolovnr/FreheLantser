@@ -77,6 +77,12 @@ $view->setTemplatesDirectory(dirname(__FILE__) . '/templates');
     'id' => '\d+'
 )); */
 
+
+
+function isValidProject ($prj, &$error, $skipID = FALSE) {
+    
+    return TRUE;
+}
 if (!isset($_SESSION['user'])) {
     $_SESSION['user'] = array();
 }
@@ -84,6 +90,23 @@ if (!isset($_SESSION['user'])) {
 
 $app->get('/projects', function() use ($app, $log) {
     $app->render('project_auction.html.twig');
+});
+
+$app->post('/projects', function() use ($app, $log) {
+    $body = $app->request->getBody();
+    $record = json_decode($body, TRUE);
+    // FIXME: verify $record contains all and only fields required with valid values
+    if (!isValidProject($record, $error, TRUE)) {
+        $app->response->setStatus(400);
+        $log->debug("POST /projects verification failed: " . $error);
+        echo json_encode($error);
+        //echo json_encode("Bad request - data validation failed");
+        return;
+    }
+    DB::insert('projects', $record);
+    echo DB::insertId();
+    // POST / INSERT is special - returns 201
+    $app->response->setStatus(201);
 });
 
 $app->run();
