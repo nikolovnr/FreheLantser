@@ -17,18 +17,19 @@ $log->pushHandler(new StreamHandler('logs/errors.log', Logger::ERROR));
 DB::$dbName = 'cp4724_frehelantser';
 DB::$user = 'cp4724_frehelant';
 DB::$password = 'HoeEw2DFIagZ';
+DB::$host = 'ipd.info';
 */
-/*
+
 //Nathalie
 DB::$dbName = 'frehelantser';
 DB::$user = 'frehelantser';
-DB::$password = '';
-*/
+DB::$password = 'Q4MGJPYZDtzhSZdv';
+DB::$host = 'ipd.info';
 
 //Nikolay HOME
-DB::$dbName = 'frehelantser';
-DB::$user = 'frehelantser';
-DB::$password = 'RHam3MzPjMBwvrWH';
+//DB::$dbName = 'frehelantser';
+//DB::$user = 'frehelantser';
+//DB::$password = 'RHam3MzPjMBwvrWH';
 
 /*
 //Nikolay SCHOOL
@@ -37,7 +38,6 @@ DB::$user = 'frehelantser';
 DB::$password = 'ZTs9AZyyPsyGman7';
 */
 
-// DB::$host = '127.0.0.1'; // sometimes needed on Mac OSX
 DB::$error_handler = 'sql_error_handler';
 DB::$nonsql_error_handler = 'nonsql_error_handler';
 
@@ -58,10 +58,9 @@ function sql_error_handler($params) {
     die; // don't want to keep going if a query broke
 }
 
-// instantiate Slim - router in front controller (this file)
 // Slim creation and setup
 $app = new \Slim\Slim(array(
-    'view' => new \Slim\Views\Twig()
+    'view' => new \Slim\Views\Twig()///////////////////////////what is that?
         ));
 
 $view = $app->view();
@@ -83,6 +82,89 @@ if (!isset($_SESSION['user'])) {
     $_SESSION['user'] = array();
 }
 
+///////////////////////////////////////////////////////////////////isUserValid()
+function isUserValid($user, &$error) {    
+    //firstname check: must be 50 characters long max
+    if ((strlen($firstname) < 3) || (strlen($firstname) > 50)) {        
+        $error = 'First name must be between 3 and 50 characters long.';
+        return FALSE;
+    }
+    
+    //lastname check: must be 50 characters long max
+    if ((strlen($lastname) < 3) || (strlen($lastname) > 50)) {        
+        $error = 'Last name must be between 3 and 50 characters long.';
+        return FALSE;
+    }
+    
+    //country check: a value must be picked
+    
+    //username check: must be 50 characters long max
+    if ((strlen($username) < 3) || (strlen($username) > 50)) {        
+        $error = 'Username must be between 3 and 50 characters long.';
+        return FALSE;
+    }
+    
+    //email check: must be 250 characters long max
+    if ((strlen($email) < 10) || (strlen($email) > 250)) {        
+        $error = 'Email must be between 10 and 250 characters long.';
+        return FALSE;
+    }
+    
+    //email check: looks like a valid email & is already registered
+    if (filter_var($email, FILTER_VALIDATE_EMAIL) === FALSE) {        
+        $error = 'It doesn\'t look like a valid email.';        
+        return FALSE;
+    }else{
+        $user = DB::queryFirstRow("SELECT ID FROM users WHERE email=%s", $email);        
+        if ($user) {            
+            return FALSE;
+        }
+    }
+    
+    //password check: must be 50 characters long max (8 min)
+    if ((strlen($password) < 8) || (strlen($password) > 50)) {        
+        $error = 'Password must be between 8 and 50 characters long.';
+        return FALSE;
+    }
+            
+    //password check: REGEX validation
+    //^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-+_!@#$%^&*()-+=.,?]).+$
+    if (!preg_match('/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-+_!@#$%^&*()-+=.,?])/', $password)){        
+        $error = '1 of each: uppercase, lowercase, digit, special character.';
+        return FALSE;     
+    }
+       
+    //password check: both passwords must be the same
+    if ($password != $password2){        
+        $error = 'Both passwords must be the same.';        
+        return FALSE;
+    } 
+    
+    return TRUE;
+}
+
+
+function getAuthUserID() {
+    global $app, $log;
+    $username = $app->request->headers("PHP_AUTH_USER");
+    $password = $app->request->headers("PHP_AUTH_PW");
+    if ($username && $password) {
+        $row = DB::queryFirstRow("SELECT * FROM users WHERE email=%s", $username);
+        if ($row && $row['password'] == $password) {
+            return $row['ID'];
+        }
+    }
+    $log->debug("BASIC auth failed for user " . $username);
+    $app->response->status(401); // Access denied, authentication required
+    $app->response->header('WWW-Authenticate', "Basic realm=TodoApp");
+    return FALSE;
+}
+
+
+
+
+
+// HEAD
 ////////////////////////////////////////////////////////////////////////////////
 //State 1: First show HOME
 $app->get('/', function() use ($app, $log){
@@ -116,73 +198,11 @@ $app->post('/register(/:id)', function($id='') use ($app, $log){
     
     $errorList = array();
 
-    //firstname check: must be 50 characters long max
-    if ((strlen($firstname) < 1) || (strlen($firstname) > 50)) {
-        array_push($errorList,
-                "First name must be between 1 and 50 characters long.");
-        unset($valueList['firstname']);
-    }
-    
-    //lastname check: must be 50 characters long max
-    if ((strlen($lastname) < 1) || (strlen($lastname) > 50)) {
-        array_push($errorList,
-                "Last name must be between 1 and 50 characters long.");
-        unset($valueList['lastname']);
-    }
-    
-    //country check: a value must be picked
-    
-    //username check: must be 50 characters long max
-    if ((strlen($username) < 1) || (strlen($username) > 50)) {
-        array_push($errorList,
-                "Username must be between 1 and 50 characters long.");
-        unset($valueList['username']);
-    }
-    
-    //email check: must be 250 characters long max
-    if ((strlen($email) < 1) || (strlen($email) > 250)) {
-        array_push($errorList,
-                "Email must be between 1 and 250 characters long.");
-        unset($valueList['email']);
-    }
-    
-    //email check: looks like a valid email & is already registered
-    if (filter_var($email, FILTER_VALIDATE_EMAIL) === FALSE) {
-        array_push($errorList,
-                "It doesn't look like a valid email.");        
-        unset($valueList['contactEmail']);
-    }else{
-        $user = DB::queryFirstRow("SELECT ID FROM users WHERE email=%s", $email);        
-        if ($user) {
-            array_push($errorList, "Email already registered.");
-            unset($valueList['email']);
-        }
-    }
-    
-    //password check: must be 50 characters long max (8 min)
-    if ((strlen($password) < 8) || (strlen($password) > 50)) {
-        array_push($errorList,
-                "Password must be between 8 and 50 characters long.");
-        unset($valueList['password']);
-    }
-    
-    //password check: REGEX validation
-    if (!preg_match('/[0-9;\'".,<>`~|!@#$%^&*()_+=-]/', $password) || (!preg_match('/[a-z]/', $password)) || (!preg_match('/[A-Z]/', $password))) {
-        array_push($errorList, "Password must be at least 8 characters " .
-                "long, contain at least one uppercase, one lowercase, " .
-                " one digit or special character");
-    }
        
-    //password check: both passwords must be the same
-    if ($password != $password2){
-        array_push($errorList,
-                "Both passwords must be the same.");        
-        unset($valueList['password']);
-        unset($valueList['password2']);
-    }    
     
     //List of errors
     if ($errorList) {
+        echo "hello";
         //State 3: Failed submission
         $app->render('register.html.twig', array(
             'errorList' => $errorList,
@@ -252,6 +272,12 @@ $app->get('/logout', function() use ($app, $log){
     unset($_SESSION['user']);
     }
     $app->render('logout_success.html.twig');
+});
+
+
+$app->get('/projects', function() use ($app, $log) {
+    $app->render('project_auction.html.twig');
+// e8d54ffca74043970bdf87c9a44b3517eb491721
 });
 
 $app->run();

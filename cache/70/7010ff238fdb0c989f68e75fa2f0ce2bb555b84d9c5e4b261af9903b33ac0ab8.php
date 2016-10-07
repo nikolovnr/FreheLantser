@@ -42,29 +42,95 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
             \$('input[name=email]').keyup(function () {
                 \$('#result').load('/emailexists/' + \$(this).val());
             });
+
+            \$('#registrationForm').submit(function (event) {
+                var email = \$(\"input[name=email]\").val();
+                var firstname = \$(\"input[name=lastname]\").val();
+                var lastname = \$(\"input[name=lastname]\").val();
+                //var country = \$(\"input[name=country]\").val();
+                var country = \$(\"input[name=country]\").selectedIndex;
+                alert(\$('#country :selected').text());
+                var username = \$(\"input[name=username]\").val();
+                var password = \$(\"input[name=password]\").val();
+                var password2 = \$(\"input[name=password2]\").val();
+
+                ///////////////////////////////////////////////verify the inputs
+                var allGood = true;
+                
+                if ((email.length < 10) || (email.length > 250)) {
+                    allGood = false;
+                }
+
+                if ((firstname.length < 3) || (firstname.length > 50)) {
+                    allGood = false;
+                }
+                if ((lastname.length < 3) || (lastname.length > 50)) {
+                    allGood = false;
+                }
+                
+                //country check
+                
+                if ((username.length < 3) || (username.length > 50)) {
+                    allGood = false;
+                }
+                                
+                if ((password.length < 8) || (password.length > 50)) {
+                    allGood = false;
+                }
+                if (password != password2) {
+                    allGood = false;
+                }
+
+
+
+
+
+
+            });
+
+
+
+
+
+
+
+
+
+        });
+
+        //username validation
+        \$(\"#userName\").blur(function () {
+            var name = \$(this).val();
+            if (name.match(/^[A-Z][a-z]{2,49}\$/)) {
+                \$(\"#userNameDiv\").removeClass(\"warning\");
+                \$(\"#userNameP\").hide();
+            } else {
+                \$(\"#userNameDiv\").addClass(\"warning\");
+                \$(\"#userNameP\").show();
+            }
         });
     </script>
 ";
     }
 
-    // line 16
+    // line 82
     public function block_content($context, array $blocks = array())
     {
-        // line 17
+        // line 83
         echo "    <div class=\"blueContainer\">
         <h1>Register</h1>
 
         ";
-        // line 20
+        // line 86
         if ((isset($context["errorList"]) ? $context["errorList"] : null)) {
-            // line 21
+            // line 87
             echo "            <ul>
                 ";
-            // line 22
+            // line 88
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["errorList"]) ? $context["errorList"] : null));
             foreach ($context['_seq'] as $context["_key"] => $context["error"]) {
-                // line 23
+                // line 89
                 echo "                    <li>";
                 echo twig_escape_filter($this->env, $context["error"], "html", null, true);
                 echo "</li>
@@ -73,30 +139,36 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['error'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 25
+            // line 91
             echo "            </ul>
         ";
         }
-        // line 27
+        // line 93
         echo "
-        <form class=\"form-horizontal\" method=\"POST\">
+        <form class=\"form-horizontal\" id=\"registrationForm\" method=\"POST\">
+            <div class=\"form-group form-group-lg\">
+                <label class=\"control-label col-sm-2\" for=\"email\">Email:</label>
+                <div class=\"col-sm-10\">
+                    <input type=\"email\" class=\"form-control input-lg\" id=\"email\" neme=\"email\" placeholder=\"Enter email\" required=\"true\">
+                </div>
+            </div>
             <div class=\"form-group form-group-lg\">
                 <label class=\"control-label col-sm-2\" for=\"firstname\">First name:</label>
                 <div class=\"col-sm-10\">
-                    <input type=\"text\" class=\"form-control input-lg\" id=\"firstname\" placeholder=\"Enter first name\">
+                    <input type=\"text\" class=\"form-control input-lg\" id=\"firstname\" name=\"firstname\" placeholder=\"Enter first name\" required=\"true\">
                 </div>
             </div>
             <div class=\"form-group form-group-lg\">
                 <label class=\"control-label col-sm-2\" for=\"lastname\">Last name:</label>
                 <div class=\"col-sm-10\">
-                    <input type=\"text\" class=\"form-control input-lg\" id=\"lastname\" placeholder=\"Enter last name\">
+                    <input type=\"text\" class=\"form-control input-lg\" id=\"lastname\" name=\"lastname\" placeholder=\"Enter last name\" required=\"true\">
                 </div>
             </div>
             <div class=\"form-group form-group-lg\">
                 <label class=\"control-label col-sm-2\" for=\"country\">Country:</label>
                 <div class=\"col-sm-10\">
-                    <select class=\"form-control input-lg\" id=\"country\" name=\"country\">
-                        <option>Select your country</option>
+                    <select class=\"form-control input-lg\" id=\"country\" name=\"country\" required=\"true\">
+                        <option value=\"0\">Select your country</option>
                         <option value=\"CAN\">Canada</option> 
                         <option value=\"USA\">United States</option>
                         <optgroup label=\"_____________\">
@@ -357,25 +429,19 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
             <div class=\"form-group form-group-lg\">
                 <label class=\"control-label col-sm-2\" for=\"username\">Username:</label>
                 <div class=\"col-sm-10\">
-                    <input type=\"text\" class=\"form-control input-lg\" id=\"username\" placeholder=\"Enter username\">
+                    <input type=\"text\" class=\"form-control input-lg\" id=\"username\" name=\"username\" placeholder=\"Enter username\" required=\"true\">
                 </div>
-            </div>
-            <div class=\"form-group form-group-lg\">
-                <label class=\"control-label col-sm-2\" for=\"email\">Email:</label>
-                <div class=\"col-sm-10\">
-                    <input type=\"email\" class=\"form-control input-lg\" id=\"email\" placeholder=\"Enter email\">
-                </div>
-            </div>
+            </div>            
             <div class=\"form-group form-group-lg\">
                 <label class=\"control-label col-sm-2\" for=\"password\">Password:</label>
                 <div class=\"col-sm-10\"> 
-                    <input type=\"password\" class=\"form-control input-lg\" id=\"password\" placeholder=\"Enter password\" data-toggle=\"tooltip\" title=\"Must be between 8 and 50 characters long, with at least one of each: uppercase letter, lowercase letter, number and special character.\">
+                    <input type=\"password\" class=\"form-control input-lg\" id=\"password\" name=\"password\" placeholder=\"Enter password\" required=\"true\" data-toggle=\"tooltip\" title=\"Must be between 8 and 50 characters long, with at least one of each: uppercase letter, lowercase letter, number and special character.\">
                 </div>
             </div>
             <div class=\"form-group form-group-lg\">
                 <label class=\"control-label col-sm-2\" for=\"password2\">Password confirmation:</label>
                 <div class=\"col-sm-10\"> 
-                    <input type=\"password\" class=\"form-control input-lg\" id=\"password2\" placeholder=\"Retype password\">
+                    <input type=\"password\" class=\"form-control input-lg\" id=\"password2\" name=\"password2\" placeholder=\"Retype password\" required=\"true\">
                 </div>
             </div><!--
             <div class=\"form-group\"> 
@@ -408,7 +474,7 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
 
     public function getDebugInfo()
     {
-        return array (  81 => 27,  77 => 25,  68 => 23,  64 => 22,  61 => 21,  59 => 20,  54 => 17,  51 => 16,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  147 => 93,  143 => 91,  134 => 89,  130 => 88,  127 => 87,  125 => 86,  120 => 83,  117 => 82,  36 => 5,  30 => 3,  11 => 1,);
     }
 
     public function getSource()
@@ -424,6 +490,72 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
             \$('input[name=email]').keyup(function () {
                 \$('#result').load('/emailexists/' + \$(this).val());
             });
+
+            \$('#registrationForm').submit(function (event) {
+                var email = \$(\"input[name=email]\").val();
+                var firstname = \$(\"input[name=lastname]\").val();
+                var lastname = \$(\"input[name=lastname]\").val();
+                //var country = \$(\"input[name=country]\").val();
+                var country = \$(\"input[name=country]\").selectedIndex;
+                alert(\$('#country :selected').text());
+                var username = \$(\"input[name=username]\").val();
+                var password = \$(\"input[name=password]\").val();
+                var password2 = \$(\"input[name=password2]\").val();
+
+                ///////////////////////////////////////////////verify the inputs
+                var allGood = true;
+                
+                if ((email.length < 10) || (email.length > 250)) {
+                    allGood = false;
+                }
+
+                if ((firstname.length < 3) || (firstname.length > 50)) {
+                    allGood = false;
+                }
+                if ((lastname.length < 3) || (lastname.length > 50)) {
+                    allGood = false;
+                }
+                
+                //country check
+                
+                if ((username.length < 3) || (username.length > 50)) {
+                    allGood = false;
+                }
+                                
+                if ((password.length < 8) || (password.length > 50)) {
+                    allGood = false;
+                }
+                if (password != password2) {
+                    allGood = false;
+                }
+
+
+
+
+
+
+            });
+
+
+
+
+
+
+
+
+
+        });
+
+        //username validation
+        \$(\"#userName\").blur(function () {
+            var name = \$(this).val();
+            if (name.match(/^[A-Z][a-z]{2,49}\$/)) {
+                \$(\"#userNameDiv\").removeClass(\"warning\");
+                \$(\"#userNameP\").hide();
+            } else {
+                \$(\"#userNameDiv\").addClass(\"warning\");
+                \$(\"#userNameP\").show();
+            }
         });
     </script>
 {% endblock %}  
@@ -440,24 +572,30 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
             </ul>
         {% endif %}
 
-        <form class=\"form-horizontal\" method=\"POST\">
+        <form class=\"form-horizontal\" id=\"registrationForm\" method=\"POST\">
+            <div class=\"form-group form-group-lg\">
+                <label class=\"control-label col-sm-2\" for=\"email\">Email:</label>
+                <div class=\"col-sm-10\">
+                    <input type=\"email\" class=\"form-control input-lg\" id=\"email\" neme=\"email\" placeholder=\"Enter email\" required=\"true\">
+                </div>
+            </div>
             <div class=\"form-group form-group-lg\">
                 <label class=\"control-label col-sm-2\" for=\"firstname\">First name:</label>
                 <div class=\"col-sm-10\">
-                    <input type=\"text\" class=\"form-control input-lg\" id=\"firstname\" placeholder=\"Enter first name\">
+                    <input type=\"text\" class=\"form-control input-lg\" id=\"firstname\" name=\"firstname\" placeholder=\"Enter first name\" required=\"true\">
                 </div>
             </div>
             <div class=\"form-group form-group-lg\">
                 <label class=\"control-label col-sm-2\" for=\"lastname\">Last name:</label>
                 <div class=\"col-sm-10\">
-                    <input type=\"text\" class=\"form-control input-lg\" id=\"lastname\" placeholder=\"Enter last name\">
+                    <input type=\"text\" class=\"form-control input-lg\" id=\"lastname\" name=\"lastname\" placeholder=\"Enter last name\" required=\"true\">
                 </div>
             </div>
             <div class=\"form-group form-group-lg\">
                 <label class=\"control-label col-sm-2\" for=\"country\">Country:</label>
                 <div class=\"col-sm-10\">
-                    <select class=\"form-control input-lg\" id=\"country\" name=\"country\">
-                        <option>Select your country</option>
+                    <select class=\"form-control input-lg\" id=\"country\" name=\"country\" required=\"true\">
+                        <option value=\"0\">Select your country</option>
                         <option value=\"CAN\">Canada</option> 
                         <option value=\"USA\">United States</option>
                         <optgroup label=\"_____________\">
@@ -718,25 +856,19 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
             <div class=\"form-group form-group-lg\">
                 <label class=\"control-label col-sm-2\" for=\"username\">Username:</label>
                 <div class=\"col-sm-10\">
-                    <input type=\"text\" class=\"form-control input-lg\" id=\"username\" placeholder=\"Enter username\">
+                    <input type=\"text\" class=\"form-control input-lg\" id=\"username\" name=\"username\" placeholder=\"Enter username\" required=\"true\">
                 </div>
-            </div>
-            <div class=\"form-group form-group-lg\">
-                <label class=\"control-label col-sm-2\" for=\"email\">Email:</label>
-                <div class=\"col-sm-10\">
-                    <input type=\"email\" class=\"form-control input-lg\" id=\"email\" placeholder=\"Enter email\">
-                </div>
-            </div>
+            </div>            
             <div class=\"form-group form-group-lg\">
                 <label class=\"control-label col-sm-2\" for=\"password\">Password:</label>
                 <div class=\"col-sm-10\"> 
-                    <input type=\"password\" class=\"form-control input-lg\" id=\"password\" placeholder=\"Enter password\" data-toggle=\"tooltip\" title=\"Must be between 8 and 50 characters long, with at least one of each: uppercase letter, lowercase letter, number and special character.\">
+                    <input type=\"password\" class=\"form-control input-lg\" id=\"password\" name=\"password\" placeholder=\"Enter password\" required=\"true\" data-toggle=\"tooltip\" title=\"Must be between 8 and 50 characters long, with at least one of each: uppercase letter, lowercase letter, number and special character.\">
                 </div>
             </div>
             <div class=\"form-group form-group-lg\">
                 <label class=\"control-label col-sm-2\" for=\"password2\">Password confirmation:</label>
                 <div class=\"col-sm-10\"> 
-                    <input type=\"password\" class=\"form-control input-lg\" id=\"password2\" placeholder=\"Retype password\">
+                    <input type=\"password\" class=\"form-control input-lg\" id=\"password2\" name=\"password2\" placeholder=\"Retype password\" required=\"true\">
                 </div>
             </div><!--
             <div class=\"form-group\"> 
