@@ -34,7 +34,7 @@ They look very good with Notepad++ though.
 3- Check with Nikolay or Gregory for my 404 problem. Check with Tina for Bootstrap use.
 
 Nikolay:
-1- 
-2- 
-3- 
+1- I started work on project registration form.
+2- I will continue working on registration form, I will make changes on Database.
+3- I will need help with Bootstrap, because I'm loosing too much time on CSS.
 
