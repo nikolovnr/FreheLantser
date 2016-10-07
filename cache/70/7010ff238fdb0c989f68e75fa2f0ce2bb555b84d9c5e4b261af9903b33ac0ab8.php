@@ -45,7 +45,7 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
 
             \$('#registrationForm').submit(function (event) {
                 var email = \$(\"input[name=email]\").val();
-                var firstname = \$(\"input[name=lastname]\").val();
+                var firstname = \$(\"input[name=firstname]\").val();
                 var lastname = \$(\"input[name=lastname]\").val();
                 //var country = \$(\"input[name=country]\").val();
                 var country = \$(\"input[name=country]\").selectedIndex;
@@ -56,8 +56,13 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
 
                 ///////////////////////////////////////////////verify the inputs
                 var allGood = true;
-                
+
                 if ((email.length < 10) || (email.length > 250)) {
+                    allGood = false;
+                }
+
+                var regexemail = /[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}/;
+                if (!regexemail.test(email)) {
                     allGood = false;
                 }
 
@@ -67,25 +72,27 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
                 if ((lastname.length < 3) || (lastname.length > 50)) {
                     allGood = false;
                 }
-                
-                //country check
-                
+
+                if (country.selectedIndex == 0) {
+                    allGood = false;
+                }
+
                 if ((username.length < 3) || (username.length > 50)) {
                     allGood = false;
                 }
-                                
+
                 if ((password.length < 8) || (password.length > 50)) {
                     allGood = false;
                 }
-                if (password != password2) {
+
+                var regexpassword = /(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#\$%^&*()-+=.,?])/;
+                if (!regexpassword.test(password)) {
                     allGood = false;
                 }
 
-
-
-
-
-
+                if (password != password2) {
+                    allGood = false;
+                }  
             });
 
 
@@ -96,7 +103,7 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
 
 
 
-        });
+        
 
         //username validation
         \$(\"#userName\").blur(function () {
@@ -113,24 +120,24 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
 ";
     }
 
-    // line 82
+    // line 89
     public function block_content($context, array $blocks = array())
     {
-        // line 83
+        // line 90
         echo "    <div class=\"blueContainer\">
         <h1>Register</h1>
 
         ";
-        // line 86
+        // line 93
         if ((isset($context["errorList"]) ? $context["errorList"] : null)) {
-            // line 87
+            // line 94
             echo "            <ul>
                 ";
-            // line 88
+            // line 95
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["errorList"]) ? $context["errorList"] : null));
             foreach ($context['_seq'] as $context["_key"] => $context["error"]) {
-                // line 89
+                // line 96
                 echo "                    <li>";
                 echo twig_escape_filter($this->env, $context["error"], "html", null, true);
                 echo "</li>
@@ -139,17 +146,17 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['error'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 91
+            // line 98
             echo "            </ul>
         ";
         }
-        // line 93
+        // line 100
         echo "
         <form class=\"form-horizontal\" id=\"registrationForm\" method=\"POST\">
             <div class=\"form-group form-group-lg\">
                 <label class=\"control-label col-sm-2\" for=\"email\">Email:</label>
                 <div class=\"col-sm-10\">
-                    <input type=\"email\" class=\"form-control input-lg\" id=\"email\" neme=\"email\" placeholder=\"Enter email\" required=\"true\">
+                    <input type=\"email\" class=\"form-control input-lg\" id=\"email\" name=\"email\" placeholder=\"Enter email\" required=\"true\">
                 </div>
             </div>
             <div class=\"form-group form-group-lg\">
@@ -474,7 +481,7 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
 
     public function getDebugInfo()
     {
-        return array (  147 => 93,  143 => 91,  134 => 89,  130 => 88,  127 => 87,  125 => 86,  120 => 83,  117 => 82,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  154 => 100,  150 => 98,  141 => 96,  137 => 95,  134 => 94,  132 => 93,  127 => 90,  124 => 89,  36 => 5,  30 => 3,  11 => 1,);
     }
 
     public function getSource()
@@ -493,7 +500,7 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
 
             \$('#registrationForm').submit(function (event) {
                 var email = \$(\"input[name=email]\").val();
-                var firstname = \$(\"input[name=lastname]\").val();
+                var firstname = \$(\"input[name=firstname]\").val();
                 var lastname = \$(\"input[name=lastname]\").val();
                 //var country = \$(\"input[name=country]\").val();
                 var country = \$(\"input[name=country]\").selectedIndex;
@@ -504,8 +511,13 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
 
                 ///////////////////////////////////////////////verify the inputs
                 var allGood = true;
-                
+
                 if ((email.length < 10) || (email.length > 250)) {
+                    allGood = false;
+                }
+
+                var regexemail = /[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}/;
+                if (!regexemail.test(email)) {
                     allGood = false;
                 }
 
@@ -515,25 +527,27 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
                 if ((lastname.length < 3) || (lastname.length > 50)) {
                     allGood = false;
                 }
-                
-                //country check
-                
+
+                if (country.selectedIndex == 0) {
+                    allGood = false;
+                }
+
                 if ((username.length < 3) || (username.length > 50)) {
                     allGood = false;
                 }
-                                
+
                 if ((password.length < 8) || (password.length > 50)) {
                     allGood = false;
                 }
-                if (password != password2) {
+
+                var regexpassword = /(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#\$%^&*()-+=.,?])/;
+                if (!regexpassword.test(password)) {
                     allGood = false;
                 }
 
-
-
-
-
-
+                if (password != password2) {
+                    allGood = false;
+                }  
             });
 
 
@@ -544,7 +558,7 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
 
 
 
-        });
+        
 
         //username validation
         \$(\"#userName\").blur(function () {
@@ -576,7 +590,7 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
             <div class=\"form-group form-group-lg\">
                 <label class=\"control-label col-sm-2\" for=\"email\">Email:</label>
                 <div class=\"col-sm-10\">
-                    <input type=\"email\" class=\"form-control input-lg\" id=\"email\" neme=\"email\" placeholder=\"Enter email\" required=\"true\">
+                    <input type=\"email\" class=\"form-control input-lg\" id=\"email\" name=\"email\" placeholder=\"Enter email\" required=\"true\">
                 </div>
             </div>
             <div class=\"form-group form-group-lg\">

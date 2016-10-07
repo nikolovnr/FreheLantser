@@ -12,19 +12,20 @@ use Monolog\Handler\StreamHandler;
 $log = new Logger('main');
 $log->pushHandler(new StreamHandler('logs/everything.log', Logger::DEBUG));
 $log->pushHandler(new StreamHandler('logs/errors.log', Logger::ERROR));
+
 /*
 //frehelantser.ipd8.info
 DB::$dbName = 'cp4724_frehelantser';
 DB::$user = 'cp4724_frehelant';
 DB::$password = 'HoeEw2DFIagZ';
-DB::$host = 'ipd.info';
+DB::$host = 'ipd8.info';
 */
 
-//Nathalie
+//Nathalie HOME
 DB::$dbName = 'frehelantser';
 DB::$user = 'frehelantser';
 DB::$password = 'Q4MGJPYZDtzhSZdv';
-DB::$host = 'ipd.info';
+//DB::$host = 'ipd.info';
 
 //Nikolay HOME
 //DB::$dbName = 'frehelantser';
@@ -60,7 +61,7 @@ function sql_error_handler($params) {
 
 // Slim creation and setup
 $app = new \Slim\Slim(array(
-    'view' => new \Slim\Views\Twig()///////////////////////////what is that?
+    'view' => new \Slim\Views\Twig()
         ));
 
 $view = $app->view();
@@ -73,8 +74,8 @@ $view->setTemplatesDirectory(dirname(__FILE__) . '/templates');
 
 \Slim\Route::setDefaultConditions(array(
     'id' => '\d+',
-    'firstName' => '[A-Za-z]{3,50}',
-    'lastName' => '[A-Za-z]{3,50}',
+    'firstname' => '[A-Za-z]{3,50}',
+    'lastname' => '[A-Za-z]{3,50}',
     'username' => '[A-Za-z]{3,50}'
 )); 
 
@@ -84,6 +85,21 @@ if (!isset($_SESSION['user'])) {
 
 ///////////////////////////////////////////////////////////////////isUserValid()
 function isUserValid($user, &$error) {    
+    $firstname = $user['firstname'];
+    $lastname = $user['lastname'];
+    $country = $user['country'];
+    $username = $user['username'];
+    $email = $user['email'];
+    $password = $user['password'];
+    $password2 = $user['password2'];
+    
+    
+    
+    
+    
+    
+    
+    
     //firstname check: must be 50 characters long max
     if ((strlen($firstname) < 3) || (strlen($firstname) > 50)) {        
         $error = 'First name must be between 3 and 50 characters long.';
@@ -97,6 +113,7 @@ function isUserValid($user, &$error) {
     }
     
     //country check: a value must be picked
+    
     
     //username check: must be 50 characters long max
     if ((strlen($username) < 3) || (strlen($username) > 50)) {        
@@ -138,8 +155,7 @@ function isUserValid($user, &$error) {
     if ($password != $password2){        
         $error = 'Both passwords must be the same.';        
         return FALSE;
-    } 
-    
+    }     
     return TRUE;
 }
 
@@ -156,7 +172,7 @@ function getAuthUserID() {
     }
     $log->debug("BASIC auth failed for user " . $username);
     $app->response->status(401); // Access denied, authentication required
-    $app->response->header('WWW-Authenticate', "Basic realm=TodoApp");
+    $app->response->header('WWW-Authenticate', "Basic realm=FreheLantserApp");
     return FALSE;
 }
 
@@ -179,16 +195,16 @@ $app->get('/register', function() use ($app, $log){
 
 //State 2: Submission REGISTER 
 $app->post('/register(/:id)', function($id='') use ($app, $log){
-    $firstname = $app->request->post('firstName');
-    $lastname = $app->request->post('lastName');
+    $firstname = $app->request->post('firstname');
+    $lastname = $app->request->post('lastname');
     $country = $app->request->post('country');
     $username = $app->request->post('username');
     $email = $app->request->post('email');
     $password = $app->request->post('password');
     $password2 = $app->request->post('password2');
     $valueList = array(
-        'firstName' => $firstname,
-        'lastName' => $lastname,
+        'firstname' => $firstname,
+        'lastname' => $lastname,
         'country' => $country,
         'username' => $username,
         'email' => $email,
@@ -196,9 +212,7 @@ $app->post('/register(/:id)', function($id='') use ($app, $log){
         'password' => $password
         );
     
-    $errorList = array();
-
-       
+    $errorList = array();       
     
     //List of errors
     if ($errorList) {
@@ -211,15 +225,14 @@ $app->post('/register(/:id)', function($id='') use ($app, $log){
     } else {
         //State 2: Successful submission
         //inserting into database
-        if($id===''){
+        if($id===''&& isUserValid){
         DB::insert('users', 
                 array(
         'firstName' => $firstname,
         'lastName' => $lastname,
-        
+        'country' => $country,
         'username' => $username,
-        'email' => $email,
-        'password' => $password,
+        'email' => $email,       
         'password' => hash('sha256', $password)
         ));
         $id=DB::insertId();

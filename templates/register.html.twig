@@ -12,7 +12,7 @@
 
             $('#registrationForm').submit(function (event) {
                 var email = $("input[name=email]").val();
-                var firstname = $("input[name=lastname]").val();
+                var firstname = $("input[name=firstname]").val();
                 var lastname = $("input[name=lastname]").val();
                 //var country = $("input[name=country]").val();
                 var country = $("input[name=country]").selectedIndex;
@@ -23,8 +23,13 @@
 
                 ///////////////////////////////////////////////verify the inputs
                 var allGood = true;
-                
+
                 if ((email.length < 10) || (email.length > 250)) {
+                    allGood = false;
+                }
+
+                var regexemail = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/;
+                if (!regexemail.test(email)) {
                     allGood = false;
                 }
 
@@ -34,25 +39,27 @@
                 if ((lastname.length < 3) || (lastname.length > 50)) {
                     allGood = false;
                 }
-                
-                //country check
-                
+
+                if (country.selectedIndex == 0) {
+                    allGood = false;
+                }
+
                 if ((username.length < 3) || (username.length > 50)) {
                     allGood = false;
                 }
-                                
+
                 if ((password.length < 8) || (password.length > 50)) {
                     allGood = false;
                 }
-                if (password != password2) {
+
+                var regexpassword = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-+_!@#$%^&*()-+=.,?])/;
+                if (!regexpassword.test(password)) {
                     allGood = false;
                 }
 
-
-
-
-
-
+                if (password != password2) {
+                    allGood = false;
+                }  
             });
 
 
@@ -63,7 +70,7 @@
 
 
 
-        });
+        
 
         //username validation
         $("#userName").blur(function () {
@@ -95,7 +102,7 @@
             <div class="form-group form-group-lg">
                 <label class="control-label col-sm-2" for="email">Email:</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control input-lg" id="email" neme="email" placeholder="Enter email" required="true">
+                    <input type="email" class="form-control input-lg" id="email" name="email" placeholder="Enter email" required="true">
                 </div>
             </div>
             <div class="form-group form-group-lg">
