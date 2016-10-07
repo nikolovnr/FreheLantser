@@ -2,12 +2,26 @@
     Created on : October 5, 2016
     Author     : Nathalie Desrosiers
 */
+
 body{
-    background-color: #e6faff;
+        background-color: #e6faff;    
+
+    margin: 0;
+    padding: 0;
 }
 
-#centerContent{
-    width: 750px;
-    margin: 0 auto;
-    padding: 0;    
+#navigation{
+    background-color: #ffffff;
+}
+
+.blueContainer{
+    background-color: #e6faff;    
+}
+
+.whiteContainer{
+    background-color: #ffffff;    
+}
+
+#footer{
+    background-color: #ffffff;    
 }
