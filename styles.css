@@ -3,25 +3,20 @@
     Author     : Nathalie Desrosiers
 */
 
-body{
-        background-color: #e6faff;    
-
-    margin: 0;
-    padding: 0;
-}
-
-#navigation{
-    background-color: #ffffff;
-}
-
 .blueContainer{
+    margin: 0px;
+    padding: 10px; 
     background-color: #e6faff;    
 }
 
 .whiteContainer{
+    margin: 0px;
+    padding: 10px;
+    width: 100%;
     background-color: #ffffff;    
 }
 
-#footer{
-    background-color: #ffffff;    
+.lefttext{
+    text-align: left;
+    padding-left: 15px;
 }

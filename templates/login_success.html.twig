@@ -10,16 +10,6 @@
 {% block content %}
     <div class="container-fluid blueContainer">
         <br>
-        <h1>Thank you {{username}}. You can continue...</h1>
-
-        {% if errorList %}
-            <ul>
-                {% for error in errorList %}
-                    <li>{{error}}</li>
-                    {% endfor %}
-            </ul>
-        {% endif %}
-
-        
+        <h1>Welcome {{firstname}} {{lastname}}.</h1>
     </div>
 {% endblock %}

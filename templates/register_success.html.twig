@@ -9,15 +9,8 @@
 {% block content %}
     <div class="container-fluid blueContainer">
         <br>
-        <h1>Dear {{firstname}}! You are now enroll. Please do this...</h1>
-
-        {% if errorList %}
-            <ul>
-                {% for error in errorList %}
-                    <li>{{error}}</li>
-                    {% endfor %}
-            </ul>
-        {% endif %}        
+        <h1>Dear {{firstname}} {{lastname}}! You are now enrolled.</h1>
+        <h2>A message will be sent at {{email}}</h2>
         <br>
     </div>
 {% endblock %}
