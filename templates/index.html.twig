@@ -4,13 +4,7 @@
 
 {% block head %}    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('input[name=email]').keyup(function () {
-                $('#result').load('/emailexists/' + $(this).val());
-            });
-        });
-    </script>
+    <!-- No script. Nothing to do nor validate. This page is for introduction only. -->
 {% endblock %}
 
 {% block content %}
@@ -49,7 +43,7 @@
             </div>
             <div class="col-sm-4">
                 <img src="/images/software_qa_testers.png" alt="Software quality assurance testers logo" height="100">
-                <h4 style="color:#303030;">SOFTWARE QA TESTERS</h4>
+                <h4>SOFTWARE QA TESTERS</h4>
             </div>
         </div>
         <br><br>

@@ -37,34 +37,28 @@ class __TwigTemplate_0332183e9d45b3daac036740c3b01486b5ca4fd2bd580f8eb15b57a46a5
     {
         echo "    
     <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js\"></script>
-    <script>
-        \$(document).ready(function () {
-            \$('input[name=email]').keyup(function () {
-                \$('#result').load('/emailexists/' + \$(this).val());
-            });
-        });
-    </script>
+    <!-- No script. Nothing to do nor validate. This page is for introduction only. -->
 ";
     }
 
-    // line 16
+    // line 10
     public function block_content($context, array $blocks = array())
     {
-        // line 17
+        // line 11
         echo "    <!-- ******************************************************************* -->
     <!-- Container (Services Section) -->
     <div id=\"services\" class=\"container-fluid text-center blueContainer\">
         <br>
         ";
-        // line 21
+        // line 15
         if ((isset($context["sessionUser"]) ? $context["sessionUser"] : null)) {
-            // line 22
+            // line 16
             echo "            ";
             echo twig_escape_filter($this->env, (isset($context["username"]) ? $context["username"] : null), "html", null, true);
             echo "
         ";
         }
-        // line 24
+        // line 18
         echo "        <h2>Work with the perfect team members</h2>
         <br>
         <div class=\"row slideanim\">
@@ -93,7 +87,7 @@ class __TwigTemplate_0332183e9d45b3daac036740c3b01486b5ca4fd2bd580f8eb15b57a46a5
             </div>
             <div class=\"col-sm-4\">
                 <img src=\"/images/software_qa_testers.png\" alt=\"Software quality assurance testers logo\" height=\"100\">
-                <h4 style=\"color:#303030;\">SOFTWARE QA TESTERS</h4>
+                <h4>SOFTWARE QA TESTERS</h4>
             </div>
         </div>
         <br><br>
@@ -164,9 +158,9 @@ class __TwigTemplate_0332183e9d45b3daac036740c3b01486b5ca4fd2bd580f8eb15b57a46a5
 </div>
 </div>
 ";
-        // line 122
+        // line 116
         if ((isset($context["sessionUser"]) ? $context["sessionUser"] : null)) {
-            // line 123
+            // line 117
             echo "    ";
             echo twig_escape_filter($this->env, (isset($context["username"]) ? $context["username"] : null), "html", null, true);
             echo "
@@ -186,7 +180,7 @@ class __TwigTemplate_0332183e9d45b3daac036740c3b01486b5ca4fd2bd580f8eb15b57a46a5
 
     public function getDebugInfo()
     {
-        return array (  170 => 123,  168 => 122,  68 => 24,  62 => 22,  60 => 21,  54 => 17,  51 => 16,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  164 => 117,  162 => 116,  62 => 18,  56 => 16,  54 => 15,  48 => 11,  45 => 10,  36 => 5,  30 => 3,  11 => 1,);
     }
 
     public function getSource()
@@ -197,13 +191,7 @@ class __TwigTemplate_0332183e9d45b3daac036740c3b01486b5ca4fd2bd580f8eb15b57a46a5
 
 {% block head %}    
     <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js\"></script>
-    <script>
-        \$(document).ready(function () {
-            \$('input[name=email]').keyup(function () {
-                \$('#result').load('/emailexists/' + \$(this).val());
-            });
-        });
-    </script>
+    <!-- No script. Nothing to do nor validate. This page is for introduction only. -->
 {% endblock %}
 
 {% block content %}
@@ -242,7 +230,7 @@ class __TwigTemplate_0332183e9d45b3daac036740c3b01486b5ca4fd2bd580f8eb15b57a46a5
             </div>
             <div class=\"col-sm-4\">
                 <img src=\"/images/software_qa_testers.png\" alt=\"Software quality assurance testers logo\" height=\"100\">
-                <h4 style=\"color:#303030;\">SOFTWARE QA TESTERS</h4>
+                <h4>SOFTWARE QA TESTERS</h4>
             </div>
         </div>
         <br><br>

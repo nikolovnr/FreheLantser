@@ -1,0 +1,152 @@
+{% extends "master.html.twig" %}
+
+{% block title %}{{"How it works"}}{% endblock %}
+
+{% block head %}    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
+    <!-- No script. Nothing to do nor validate. This page is for information only. -->
+   
+{% endblock %}
+
+{% block content %}
+    <div class="jumbotron text-center blueContainer" id="specialbackground">
+
+        <h2>Get the job done right</h2>
+        <p>Start working right away.<br>Get amazing results from a talented expert<br>or an entire team of skilled professionals.<br>To see how easy it is, click through below.</p>
+        <br>
+        <div class="row slideanim">
+            <div class="col-sm-2">
+                <a href="#"><h4></h4></a>         
+            </div>
+            <div class="col-sm-2">
+                <a href="#projects"><h4>PROJECTS</h4></a>         
+            </div>
+            <div class="col-sm-2">
+                <a href="#hiring"><h4>HIRING</h4></a>
+            </div>
+            <div class="col-sm-2">
+                <a href="#payments"><h4>PAYMENTS</h4></a>
+            </div>
+            <div class="col-sm-2">
+                <a href="#protection"><h4>PROTECTION</h4></a>
+            </div>
+            <div class="col-sm-2">
+                <a href="#"><h4></h4></a>         
+            </div>            
+        </div>
+        <br><br>        
+        <div class="col-md-11 center-block text-center">  
+            <a href="/register" class="btn btn-primary">Get Started</a>
+        </div>
+    </div>
+
+    <!-- Container (Projects Section) -->
+    <div id="projects" class="container-fluid whiteContainer">
+        <br><br><br><br><br>
+        <div class="row">
+            <div class="col-sm-6 text-left">
+                <br>
+                <h2>What kind of work can I get done?</h2><br>                
+                <p>Anything that can be done on a computer – from web and mobile programming to graphic design – can be done on Upwork. Our freelance experts can master a range of projects:<p>
+                <ul>
+                    <li>Tiny or daunting</li>
+                    <li>Short or ongoing</li>
+                    <li>Team-based or individual</li>
+                </ul>
+                <p>Whether you need a writer to knock out a 500-word blog post or a full-fledged software development team to support your business, our tools and the expert freelancers in our marketplace can accommodate you, lucky boy!<p>
+            </div>
+            <div class="col-sm-6">
+                <img src="/images/projects.png" alt="Projects" height="400">
+            </div>
+        </div>
+        <br><br>
+        <a href="#specialbackground">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+        </a>
+        <br><br>
+    </div>
+
+    <!-- Container (Hiring Section) -->
+    <div id="hiring" class="container-fluid blueContainer">
+        <br><br><br><br><br>
+        <div class="row">
+            <div class="col-sm-6">
+                <img src="/images/hiring.png" alt="Hiring" height="400">
+            </div>
+            <div class="col-sm-6 text-left">
+                <br>
+                <h2>How do I hire the right freelancer?</h2><br> 
+                <p>Start by writing a clear and concise job post. Each freelancer submits a cover letter and link to their Upwork profile covering:<p>
+                <ul>
+                    <li>Portfolios, skills and experience</li>
+                    <li>Client feedback</li>
+                    <li>Language and communication proficiency</li>
+                </ul>
+                <p>You'll get applications from independent professionals and receive our personalized recommendations within minutes. From there, just interview your strongest candidates and hire your favorite.</p>
+            </div>
+        </div>
+        <br><br>
+        <a href="#specialbackground">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+        </a>
+        <br><br>    
+    </div>
+
+    <!-- Container (Payments Section) -->
+    <div id="payments" class="container-fluid whiteContainer">
+        <br><br><br><br><br>
+        <div class="row">
+            <div class="col-sm-6 text-left">
+                <br>
+                <h2>How do payments work?</h2><br>
+                <p>Pay your freelancer per hour or per project, whichever you choose. For hourly projects, the freelancer bills you once a week, and we'll send a secure payment to your freelancer. For fixed-price projects, we'll release funds to your freelancer after they meet pre-set milestones. In either case, you're covered by FreheLantser Payment Protection, assuring that you only pay for work you approve.</p>
+                <p>All payments go through our secure system. Choose from the following billing methods:<p>
+                <ul>
+                    <li>American Express</li>
+                    <li>Mastercard</li>
+                    <li>PayPal</li>
+                    <li>Visa</li>
+                </ul>
+            </div>
+            <div class="col-sm-6">
+                <img src="/images/payments.png" alt="Payments" height="400">
+            </div>        
+        </div>
+        <br><br>
+        <a href="#specialbackground">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+        </a>
+        <br><br>    
+    </div>
+
+    <!-- Container (Protection Section) -->
+    <div id="protection" class="container-fluid blueContainer">
+        <br><br><br><br><br>
+        <div class="row">
+            <div class="col-sm-6 ">
+                <br><br>
+                <img src="/images/protection.png" alt="Protection" height="400">
+            </div> 
+            <div class="col-sm-6 text-left">
+                <br>
+                <h2>How do I know I'm protected?</h2><br>
+                <p>Enjoy peace of mind with systems designed to provide a safe and trusted workplace, including:</p>
+                <p><b>Work Diary.</b>This tool captures snapshots of your freelancer's screen every 10 minutes, helping to verify that on hourly jobs, work has been completed as invoiced.</p>
+                <p><b>Payment Protection.</b>FreheLantser Payment Protection assures you that you pay only for work you've approved.</p>
+                <p><b>Dispute Resolution.</b>If an issue ever should arise, we have programs to help fix the situation.</p>
+            </div>
+        </div>
+        <br><br>
+        <a href="#specialbackground">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+        </a>
+        <br><br>
+        <div class="row">
+            <div class="col-md-11 center-block text-center">  
+            <a href="/register" class="btn btn-primary">Get Started</a>
+        </div>
+        </div>
+        <br><br><br><br>    
+    </div>
+{% endblock %}

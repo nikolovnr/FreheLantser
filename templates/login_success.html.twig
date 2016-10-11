@@ -4,12 +4,25 @@
 
 {% block head %}    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    
+
 {% endblock %}
 
 {% block content %}
     <div class="container-fluid blueContainer">
         <br>
         <h1>Welcome {{firstname}} {{lastname}}.</h1>
+        <br><br><br><br><br>        
+        <div class="row">
+            <div class="span6">
+                <div class="logincontent-left">
+                    <button type="submit" class="btn btn-primary" value="Login">I am a recruiter</button>
+                </div>
+            </div>
+            <div class="span6">
+                <div class="logincontent-right">
+                    <button type="submit" class="btn btn-primary" value="Login">I am a freelancer</button>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

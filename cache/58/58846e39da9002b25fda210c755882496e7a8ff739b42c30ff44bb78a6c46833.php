@@ -47,25 +47,29 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
             <div class=\"container whiteContainer\">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class=\"navbar-header\">
+                    <!--
                     <button type =\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">
                         <span class=\"sr-only\">Toggle navigation</span>
                         <span class=\"icon-bar\"></span>
                         <span class=\"icon-bar\"></span>
                         <span class=\"icon-bar\"></span>
-                    </button>
-                    <img src=\"/images/logo.png\" alt=\"FreheLantser logo\" width=\"100\">
+                    </button> -->
+                    <img src=\"/images/logo.png\" alt=\"FreheLantser logo\" id=\"logo\" width=\"100\">
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">
                     <ul class=\"nav navbar-nav navbar-right\">
                         <li>
-                            <h2>Where freelancers and employers meet</h2>
+                            <h5>Where freelancers and employers meet</h5>
                         </li>
                         <li>
                             <a href=\"#\"><span class=\"glyphicon glyphicon-eye-open\"></span>&nbsp;Browse</a>
                         </li>
                         <li>
-                            <a href=\"#\"><span class=\"glyphicon glyphicon-question-sign\"></span>&nbsp;How it works</a>
+                            <a href=\"/how_it_works\"><span class=\"glyphicon glyphicon-question-sign\"></span>&nbsp;How it works</a>
+                        </li>
+                        <li>
+                            <a href=\"/become_a_freelancer\"><span class=\"glyphicon glyphicon-wrench\"></span>&nbsp;Become a freelancer</a>
                         </li>
                         <li>
                             <a href=\"/register\"><span class=\"glyphicon glyphicon-pencil\"></span>&nbsp;Sign up</a>
@@ -82,7 +86,7 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
         <div id=\"blueContainer\">
             <br><br><br><br>
             <div id=\"container\" class=\"container text-center\">";
-        // line 58
+        // line 62
         $this->displayBlock('content', $context, $blocks);
         echo "</div>            
         </div> 
@@ -129,7 +133,7 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
         echo "        ";
     }
 
-    // line 58
+    // line 62
     public function block_content($context, array $blocks = array())
     {
     }
@@ -141,7 +145,7 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
 
     public function getDebugInfo()
     {
-        return array (  133 => 58,  129 => 15,  126 => 14,  121 => 13,  86 => 58,  42 => 16,  40 => 14,  36 => 13,  22 => 1,);
+        return array (  137 => 62,  133 => 15,  130 => 14,  125 => 13,  90 => 62,  42 => 16,  40 => 14,  36 => 13,  22 => 1,);
     }
 
     public function getSource()
@@ -169,25 +173,29 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
             <div class=\"container whiteContainer\">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class=\"navbar-header\">
+                    <!--
                     <button type =\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">
                         <span class=\"sr-only\">Toggle navigation</span>
                         <span class=\"icon-bar\"></span>
                         <span class=\"icon-bar\"></span>
                         <span class=\"icon-bar\"></span>
-                    </button>
-                    <img src=\"/images/logo.png\" alt=\"FreheLantser logo\" width=\"100\">
+                    </button> -->
+                    <img src=\"/images/logo.png\" alt=\"FreheLantser logo\" id=\"logo\" width=\"100\">
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">
                     <ul class=\"nav navbar-nav navbar-right\">
                         <li>
-                            <h2>Where freelancers and employers meet</h2>
+                            <h5>Where freelancers and employers meet</h5>
                         </li>
                         <li>
                             <a href=\"#\"><span class=\"glyphicon glyphicon-eye-open\"></span>&nbsp;Browse</a>
                         </li>
                         <li>
-                            <a href=\"#\"><span class=\"glyphicon glyphicon-question-sign\"></span>&nbsp;How it works</a>
+                            <a href=\"/how_it_works\"><span class=\"glyphicon glyphicon-question-sign\"></span>&nbsp;How it works</a>
+                        </li>
+                        <li>
+                            <a href=\"/become_a_freelancer\"><span class=\"glyphicon glyphicon-wrench\"></span>&nbsp;Become a freelancer</a>
                         </li>
                         <li>
                             <a href=\"/register\"><span class=\"glyphicon glyphicon-pencil\"></span>&nbsp;Sign up</a>

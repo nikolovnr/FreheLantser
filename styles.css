@@ -1,22 +1,103 @@
 /* 
     Created on : October 5, 2016
-    Author     : Nathalie Desrosiers
+    Author     : Nathalie Desrosiers & Nikolay Nikolov
 */
 
-.blueContainer{
-    margin: 0px;
-    padding: 10px; 
-    background-color: #e6faff;    
+/* Nathalie */
+#navigation{
+    margin: 0;
+    padding: 10px;
+    height: 50px;
 }
 
+/* Nathalie logo*/
+#logo{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+/* Nathalie */
+.blueContainer{
+    margin: 0px;
+    padding: 5px; 
+    background-color: #e6faff;
+    min-height:75% !important;    
+}
+
+/* Nathalie */
 .whiteContainer{
     margin: 0px;
     padding: 10px;
     width: 100%;
-    background-color: #ffffff;    
+    background-color: #ffffff; 
+    min-height:75% !important; 
 }
 
+/* Nathalie Carousels controls (left & right)*/
+.carousel-control.left, .carousel-control.right {
+    background-image: none
+}
+
+/* Nathalie (& Nikolay?)*/
 .lefttext{
     text-align: left;
     padding-left: 15px;
 }
+
+/* Nathalie */
+.errorIcon{
+    background-color: #ffffff;
+    color: #ff0000;
+}
+
+/* Nathalie */
+.succesIcon{
+    background-color: #ffffff;
+    color: #0000ff;
+}
+
+/* Nathalie how_it_works background-image*/
+#specialbackground{
+    margin: 0;
+    background-image: url('/images/background-howitworks.png');
+    background-size: 100%;
+    background-repeat:no-repeat;
+    height: 480px;    
+}
+
+/* Nathalie become_a_freelancer background-image */
+#freelancerhowto{
+    margin: 0;
+    background-image: url('/images/background-freelancer.png');
+    background-size: 100%;
+    background-repeat:no-repeat;
+    height: 475px;   
+}
+
+/* Nathalie Login_success */
+.logincontent-left {
+  border-right: 1px dashed #ffffff;
+}
+
+/*Keep for now the next 3-4 classes*/
+#imaginary_container{
+    margin-top:20%; /* Don't copy this */
+}
+.stylish-input-group .input-group-addon{
+    background: white !important; 
+}
+.stylish-input-group .form-control{
+	border-right:0; 
+	box-shadow:0 0 0; 
+	border-color:#ccc;
+}
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
+
+.right-inner-addon {
+    position: relative;
+}
+
