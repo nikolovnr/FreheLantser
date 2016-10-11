@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link rel="shortcut icon" href="">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
@@ -22,22 +23,86 @@
     }
 </style>
 <script>
+<<<<<<< HEAD
         var currPrjID = 0;
+=======
+    var currentID = 0; // 0 means nothing is selected
+    var username = "", password = "";
+
+    function selectProject(prjID) {
+        currentID = prjID;
+        $("#currentID").html(currentID);
+        $.ajax({
+            url: "/index.php/projects/" + currentID,
+            // data: {},
+            type: "GET",
+            dataType: "json"
+        }).done(function (data) {
+            
+            $("#projectName").val(data.projectName);
+            $("#startDate").val(data.startDate);
+            $("#endDate").val(data.endDate);
+            $("#prjDescr").val(data.description);
+            $('#prjStatus').val(data.status);
+                             
+        });
+    }
+
+
+    function refreshProjectList() {
+        alert("Into refresh");
+        $.ajax({
+            url: "/index.php/projects",
+            // data: {},
+            type: "GET",
+            dataType: "json",
+            error: function (request, error) {
+                console.log(arguments);
+                alert(" Can't do because: " + error);
+            }
+        }).done(function (data) {
+            var result = '<tr><th>#</th><th>Project Name</th><th>Start Date</th>'
+                    + '<th>End Date </th><th>Status</th></tr>';
+            for (var i = 0; i < data.length; i++) {
+                var project = data[i];
+                result += '<tr onclick="selectProject(' + project.ID + ')">';
+                result += '<td>' + project.ID + '</td>';
+                result += '<td>' + project.projectName + '</td>';
+                result += '<td>' + project.startDate + '</td>';
+                result += '<td>' + project.endDate + '</td>';
+                result += '<td>' + project.status + '</td>';
+                result += '</tr>';
+            }
+            alert(result);
+            $("#listTable").html(result);
+            alert(result);
+            //$("#listPane").show();
+        });
+    }
+/*
+    $(document).ajaxError(function () {
+        alert("AJAX request failed");
+    });*/
+>>>>>>> 4f22e63faca4e6d7699b7895016f1b54c2bf2a6b
     $(document).ready(function () {
-        $("#saveProject").click(function () {
+        //$("#viewAddEditPane").hide();
+        //$("#listPane").hide();
+        refreshProjectList();
+        $("#showAddProject").click(function () {
+            $("#viewAddEditPane").show();
+        });
+        $("#saveOrAdd").click(function () {
             // FIXME: verify inputs seem okay,
             // * title is at least 1-100 chars long
             // * dueDate must be chosen
-            var projectNameRaw = $("#projectName").val();
-            var startDateRaw = $("#startDate").val();
-            var endDateRaw = $("#endDate").val();
-            var prjDescrRaw = $("#prjDescr").val();
-            var prjStatusRaw = $('#prjStatus').find(":selected").text();
-            
-            if (currPrjID == 0) {
+            var titleRaw = $("input[name=title]").val();
+            var dueDateRaw = $("input[name=dueDate]").val();
+            console.log("DDR: " + dueDateRaw);
+            var isDoneRaw = $("input[name=isDone]").attr('checked');
+            if (currentID == 0) {
                 // INSERT
                 $.ajax({
-                    url: "/index.php/projects",
+                    url: "/api.php/todoitems",
                     statusCode: {
                         400: function(xhr) {
                             var msg = xhr.responseText;
@@ -45,34 +110,24 @@
                         }
                     },
                     data: JSON.stringify({
-                        projectName: projectNameRaw,
-                        ownerID: 1,
-                        startDate: startDateRaw,
-                        endDate: endDateRaw,
-                        status: prjStatusRaw,
-                        description: prjDescrRaw,
-                        documentsFolder: 'path to files',
-                        rating: 1
+                        title: titleRaw,
+                        dueDate: dueDateRaw,
+                        isDone: isDoneRaw ? "true" : "false"
                     }),
                     type: "POST",
                     dataType: "json"
                 }).done(function () {
                     alert("Addedd successfully");
-                    //refreshTodoList();
+                    refreshTodoList();
                 });
             } else {
                 // UPDATE
                 $.ajax({
-                    url: "//index.php/projects/" + currPrjID,
+                    url: "/api.php/todoitems/" + currentID,
                     data: JSON.stringify({
-                        projectName: projectNameRaw,
-                        ownerID: 1,
-                        startDate: startDateRaw,
-                        endDate: endDateRaw,
-                        status: prjStatusRaw,
-                        description: prjDescrRaw,
-                        documentsFolder: 'path to files',
-                        rating: 1
+                        title: titleRaw,
+                        dueDate: dueDateRaw,
+                        isDone: isDoneRaw ? "true" : "false"
                     }),
                     type: "PUT",
                     dataType: "json"
@@ -82,7 +137,29 @@
                 });
             }
         });
+        $("#delete").click(function () {
+            if (currentID == 0)
+                return;
+            $.ajax({
+                url: "/api.php/todoitems/" + currentID,
+                data: {},
+                type: "DELETE",
+                dataType: "json"
+            }).done(function () {
+                alert("Deleted successfully");
+                refreshTodoList();
+            });
+        });
+        $("#cancel").click(function () {
+            currentID = 0;
+            $("#currentID").html('');
+            $("input[name=title]").val('');
+            $("input[name=dueDate]").val('');
+            $("input[name=isDone]").removeProp('checked');
+            $("#viewAddEditPane").hide();
+        });
     });
+<<<<<<< HEAD
     </script>
 {% endblock %}
 
@@ -114,64 +191,80 @@
             <div class="col-md-8">
                 <textarea rows="10" class="form-control" id="prjDescr" placeholder="Type project description"></textarea>
             </div>
+=======
+</script>
+</head>
+<body>
+    <div id="centerContent">
+        <!-- left list -->
+        <div id="listPane">
+            <button id="showAddProject">Add Project</button>
+            <table id="listTable" border="1">
+
+            </table>
+
+>>>>>>> 4f22e63faca4e6d7699b7895016f1b54c2bf2a6b
         </div>
-        <div class="form-group">
-            <label class="control-label col-md-4">Status:</label>
-            <div class="col-md-2">
-                <select class="form-control" id="prjStatus">
-                    <option selected="true" disabled="disabled">Select status (stage) for the project</option>
-                    <option>Draft</option>
-                    <option>Auction</option>
-                    <option>In Progress</option>
-                    <option>Evaluation</option>
-                    <option>Completed</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-4">Project Documents:</label>
-            <div class="col-md-8">
-                <input type="file" class="form-control" id="fileUpload" value="Project Documents">
-            </div>
-        </div>
-        
-        <h2>Positions (Jobs)</h2>
-        <div class="form-group">
-            <label class="control-label col-md-4" for="jobTitle">Position Title:</label>
-            <div class="col-xs-8">
-                <input type="text" class="form-control" id="jobTitle" placeholder="Position Title">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-4" for="jobDescr">Position Description:</label>
-            <div class="col-md-8">
-                <textarea rows="10" class="form-control" id="jobDescr" placeholder="Type position details"></textarea>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-4 col-xs-8">
-                <button class="btn btn-default" id="jobAdd">Add</button>
-                <button class="btn btn-default" id="jobAdd">Update</button>
-                <button class="btn btn-default" id="jobAdd">Delete</button>
-            </div>
-        </div>
-        <div class="form-group">
-            <!-- <div class="col-md-offset-4 col-xs-6"> -->
-                <label class="control-label col-md-4" for="auctionStatus">Submit Auction:</label>
-                <div class="col-md-2">
-                    <input type="checkbox" class="form-control" id="auctionStatus" checked data-toggle="toggle">
-                </div>
-            <!-- </div> -->
+        <!-- right view of single item -->
+        <div id="viewAddEditPane" class="form-horizontal">
+            <!-- Current ID: <span id="currentID"></span><br>
+            Title: <input type="text" name="title"><br>
+            Due date: <input type="date" name="dueDate"><br>
+            Is done: <input type="checkbox" name="isDone"><br>
+            <button id="saveOrAdd">Save or Add</button>
+            <button id="delete">Delete</button>
+            <button id="cancel">Cancel</button>
+            -->
             
-        </div>
-        <div class="form-group">
-            <!-- <label class="control-label col-md-8 ">Save current project information</label> -->
-            <div class="col-md-offset-10">
-                <button id="saveProject" class="btn btn-primary">Save</button>
-                <button id="cancel" class="btn btn-default">Cancel</button>
+            
+            <div class="form-group">
+                <label class="control-label col-md-4" for="projectName">Project Name:</label>
+                <div class="col-xs-8">
+                    <input type="text" class="form-control" id="projectName" placeholder="Project Title">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4" for="startDate">Start Date:</label>
+                <div class="col-md-2">
+                    <input type="date" class="form-control" id="startDate" placeholder="Select start date">
+                </div>
+                <label class="control-label col-md-4" for="endDate">End Date:</label>
+                <div class="col-md-2">
+                    <input type="date" class="form-control" id="endDate" placeholder="Select end date">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4" for="prjDescr">Project Description:</label>
+                <div class="col-md-8">
+                    <textarea rows="10" class="form-control" id="prjDescr" placeholder="Type project description"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">Status:</label>
+                <div class="col-md-2">
+                    <select class="form-control" id="prjStatus">
+                        <option selected="true" disabled="disabled">Select status (stage) for the project</option>
+                        <option value="Draft">Draft</option>
+                        <option value="Auction">Auction</option>
+                        <option value="InProgress">InProgress</option>
+                        <option value="Evaluation">Evaluation</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">Project Documents:</label>
+                <div class="col-md-8">
+                    <input type="file" class="form-control" id="fileUpload" value="Project Documents">
+                </div>
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 </div>
 {% endblock %}
                                		
+=======
+</body>
+</html>                                		{# empty Twig template #}
+>>>>>>> 4f22e63faca4e6d7699b7895016f1b54c2bf2a6b

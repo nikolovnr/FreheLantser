@@ -50,3 +50,27 @@ Nikolay:
 2- I will continue working on registration form and will start working on Send Message form
 3- Need to clarify with Nathalie master template, so to have common design of the pages
 
+
+/////Week-end: October 8-9-10, 2016/////
+Nathalie:
+1- I worked on my Registration and Login forms. Trying to validate on focus instead of when submit button is pressed.
+   I completed a 'Terms and Conditions' page as well.
+2- This week-end I will try to finish my login (including login from Facebook & retreive password from email),
+   create a 'How it works' page, and...
+3- If I don't find it on Google, I will have to wait for Monday.
+
+Nikolay:
+1- I did worked on create project form, I read documentation and fine example for PayPal API.
+2- I will work messaging form.
+3- I need help with PayPal API integration.
+
+/////Tuesday: October 11, 2016/////
+Nathalie:
+1- I worked on my Registration and Login forms and made 2 how it works (recruiter/freelancer) pages.
+2- I will fix that Login thing once and for all... And work on a captcha & retrieve password by email.
+3- I need Nikolay help for this.
+
+Nikolay:
+1- I did project creation and add job to project form.
+2- I will write user side and server side verification, will start work on sending messages form.
+3- I need help with CSS and Bootstrap to add style to my forms.

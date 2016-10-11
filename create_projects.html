@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects</title>
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+--><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<style type="text/css">
+    h1{
+        margin: 30px 0;
+        padding: 0 200px 15px 0;
+        border-bottom: 1px solid #E5E5E5;
+    }
+	.bs-example{
+    	margin: 20px;
+    }
+</style>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+--><script>
+    var currentID = 0; // 0 means nothing is selected
+    var currentJobID = 0;
+    var username = "", password = "";
+
+    function selectProject(prjID) {
+        currentID = prjID;
+        $("#currentID").html(currentID);
+        $.ajax({
+            url: "/index.php/projects/" + currentID,
+            // data: {},
+            type: "GET",
+            dataType: "json"
+        }).done(function (data) {
+            
+            $("#projectName").val(data.projectName);
+            $("#startDate").val(data.startDate);
+            $("#endDate").val(data.endDate);
+            $("#prjDescr").val(data.description);
+            $('#prjStatus').val(data.status);
+            refreshJobList();
+        });
+        
+    }
+
+    function selectJob(jobID) {
+        currentJobID = jobID;
+        $("#currentID").html(currentJobID);
+        $.ajax({
+            url: "/index.php/job/" + currentJobID,
+            // data: {},
+            type: "GET",
+            dataType: "json"
+        }).done(function (data) {
+            
+            $("#jobTitle").val(data.title);
+            $("#jobDescr").val(data.description);
+            $("#jobStatus").val(data.status);
+            
+        });
+        
+    }
+
+
+
+    function refreshProjectList() {
+        $.ajax({
+            url: "/index.php/projects",
+            // data: {},
+            type: "GET",
+            dataType: "json",
+            error: function (request, error) {
+                console.log(arguments);
+                alert(" Can't do because: " + error);
+            }
+        }).done(function (data) {
+            var result = '<tr><th>#</th><th>Project Name</th><th>Start Date</th>'
+                    + '<th>End Date </th><th>Status</th></tr>';
+            for (var i = 0; i < data.length; i++) {
+                var project = data[i];
+                result += '<tr onclick="selectProject(' + project.ID + ')">';
+                result += '<td>' + project.ID + '</td>';
+                result += '<td>' + project.projectName + '</td>';
+                result += '<td>' + project.startDate + '</td>';
+                result += '<td>' + project.endDate + '</td>';
+                result += '<td>' + project.status + '</td>';
+                result += '</tr>';
+            }
+            $("#listTable").html(result);
+            //$("#listPane").show();
+        });
+    }
+    
+    function refreshJobList() {
+        //currentID = prjID;
+        
+        $.ajax({
+            url: "/index.php/jobs/" + currentID,
+            // data: {},
+            statusCode: {
+                404: function(xhr) {
+                    $("#listJobs").hide();
+                }
+            },
+            type: "GET",
+            dataType: "json",
+        }).done(function (data) {
+            var result = '<tr><th>#</th><th>Job Title</th><th>Status</th></tr>';
+            for (var i = 0; i < data.length; i++) {
+                var job = data[i];
+                result += '<tr onclick="selectJob(' + job.ID + ')">';
+                result += '<td>' + job.ID + '</td>';
+                result += '<td>' + job.title + '</td>';
+                result += '<td>' + job.status + '</td>';
+                result += '</tr>';
+            }
+            $("#listJobs").html(result);
+            $("#listJobs").show();
+        });
+    }
+/*
+    $(document).ajaxError(function () {
+        alert("AJAX request failed");
+    });*/
+    $(document).ready(function () {
+        refreshProjectList();
+        
+        $("#prjAdd").click(function () {
+            
+            var projectNameRaw = $("#projectName").val();
+            var startDateRaw = $("#startDate").val();
+            var endDateRaw = $("#endDate").val();
+            var prjDescrRaw = $("#prjDescr").val();
+            var prjStatusRaw = $('#prjStatus').find(":selected").text();
+            
+            $.ajax({
+                url: "index.php/projects",
+                statusCode: {
+                    400: function(xhr) {
+                        var msg = xhr.responseText;
+                        alert("400 received: " + msg);
+                    }
+                },
+                data: JSON.stringify({
+                    projectName: projectNameRaw,
+                    ownerID: 1,
+                    startDate: startDateRaw,
+                    endDate: endDateRaw,
+                    status: prjStatusRaw,
+                    description: prjDescrRaw,
+                    documentsFolder: 'path to files',
+                    rating: 1
+                }),
+                type: "POST",
+                dataType: "json"
+            }).done(function(){
+                refreshProjectList();
+            });
+        });
+        
+        $("#prjSave").click(function () {
+            // UPDATE
+            var projectNameRaw = $("#projectName").val();
+            var startDateRaw = $("#startDate").val();
+            var endDateRaw = $("#endDate").val();
+            var prjDescrRaw = $("#prjDescr").val();
+            var prjStatusRaw = $('#prjStatus').find(":selected").text();
+            
+            $.ajax({
+                url: "index.php/projects/" + currentID,
+                data: JSON.stringify({
+                    projectName: projectNameRaw,
+                    ownerID: 1,
+                    startDate: startDateRaw,
+                    endDate: endDateRaw,
+                    status: prjStatusRaw,
+                    description: prjDescrRaw,
+                    documentsFolder: 'path to files',
+                    rating: 1
+                }),
+                type: "PUT",
+                dataType: "json"
+            }).done(function () {
+                alert("Updated successfully");
+                refreshProjectList();
+            });
+        });
+        
+        
+        $("#prjDelete").click(function () {
+            if (currentID == 0)
+                return;
+            $.ajax({
+                url: "index.php/projects/" + currentID,
+                data: {},
+                type: "DELETE",
+                dataType: "json"
+            }).done(function () {
+                alert("Deleted successfully");
+                refreshProjectList();
+            });
+        });
+        
+        $("#jobAdd").click(function () {
+            
+            var jobTitleRaw = $("#jobTitle").val();
+            var jobDescrRaw = $("#jobDescr").val();
+            var jobStatusRaw = $("#jobStatus").val();
+            
+            $.ajax({
+                url: "index.php/job",
+                statusCode: {
+                    400: function(xhr) {
+                        var msg = xhr.responseText;
+                        alert("400 received: " + msg);
+                    }
+                },
+                data: JSON.stringify({
+                    title: jobTitleRaw,
+                    description: jobDescrRaw,
+                    status: jobStatusRaw,
+                    projectID: currentID
+                }),
+                type: "POST",
+                dataType: "json"
+            }).done(function(){
+                refreshJobList();
+            });
+        });
+        
+        $("#jobSave").click(function () {
+            // UPDATE
+            var jobTitleRaw = $("#jobTitle").val();
+            var jobDescrRaw = $("#jobDescr").val();
+            var jobStatusRaw = $("#jobStatus").val();
+            
+            $.ajax({
+                url: "index.php/job/" + currentJobID,
+                data: JSON.stringify({
+                    title: jobTitleRaw,
+                    description: jobDescrRaw,
+                    status: jobStatusRaw,
+                    projectID: currentID
+                }),
+                type: "PUT",
+                dataType: "json"
+            }).done(function () {
+                alert("Updated successfully");
+                refreshJobList();
+            });
+        });
+        
+        $("#jobDelete").click(function () {
+            if (currentJobID == 0)
+                return;
+            $.ajax({
+                url: "index.php/job/" + currentJobID,
+                data: {},
+                type: "DELETE",
+                dataType: "json"
+            }).done(function () {
+                alert("Deleted successfully");
+                refreshJobList();
+            });
+        });
+        
+        
+        
+        $("#cancel").click(function () {
+            currentID = 0;
+            $("#currentID").html('');
+            $("input[name=title]").val('');
+            $("input[name=dueDate]").val('');
+            $("input[name=isDone]").removeProp('checked');
+            $("#viewAddEditPane").hide();
+        });
+    });
+</script>
+</head>
+<body>
+    <div id="centerContent">
+        <!-- left list -->
+        <h2>Projects</h2>
+        <div id="listPane">
+            <table id="listTable" border="1">
+
+            </table>
+        </div>
+        <!-- right view of single item -->
+        <div id="viewAddEditPane" class="form-horizontal">
+            <!-- Current ID: <span id="currentID"></span><br>
+            Title: <input type="text" name="title"><br>
+            Due date: <input type="date" name="dueDate"><br>
+            Is done: <input type="checkbox" name="isDone"><br>
+            <button id="saveOrAdd">Save or Add</button>
+            <button id="delete">Delete</button>
+            <button id="cancel">Cancel</button>
+            -->
+            
+            
+            <div class="form-group">
+                <label class="control-label col-md-4" for="projectName">Project Name:</label>
+                <div class="col-xs-8">
+                    <input type="text" class="form-control" id="projectName" placeholder="Project Title">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4" for="startDate">Start Date:</label>
+                <div class="col-md-2">
+                    <input type="date" class="form-control" id="startDate">
+                </div>
+                <label class="control-label col-md-4" for="endDate">End Date:</label>
+                <div class="col-md-2">
+                    <input type="date" class="form-control" id="endDate">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4" for="prjDescr">Project Description:</label>
+                <div class="col-md-8">
+                    <textarea rows="10" cols="50" class="form-control" id="prjDescr" placeholder="Type project description"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">Status:</label>
+                <div class="col-md-2">
+                    <select class="form-control" id="prjStatus">
+                        <option selected disabled="disabled">Select status (stage) for the project</option>
+                        <option value="Draft">Draft</option>
+                        <option value="Auction">Auction</option>
+                        <option value="InProgress">InProgress</option>
+                        <option value="Evaluation">Evaluation</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">Project Documents:</label>
+                <div class="col-md-8">
+                    <input type="file" class="form-control" id="fileUpload">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-2">
+                    <button id="prjAdd">Add Project</button>
+                    <button id="prjSave">Save Changes</button>
+                    <button id="prjDelete">Delete Project</button>
+                </div>
+            </div>
+        </div>
+        <h2>Jobs</h2>
+        <div id="jobsPane">
+            <table id="listJobs" border="1">
+                
+            </table>
+            <div class="form-group">
+                <label class="control-label col-md-4" for="jobTitle">Project Name:</label>
+                <div class="col-xs-8">
+                    <input type="text" class="form-control" id="jobTitle" placeholder="Job Title">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4" for="jobDescr">Job Description:</label>
+                <div class="col-md-8">
+                    <textarea rows="10" cols="50" class="form-control" id="jobDescr" placeholder="Type job description"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">Status:</label>
+                <div class="col-md-2">
+                    <select class="form-control" id="jobStatus">
+                        <option selected disabled="disabled">Select status for the position</option>
+                        <option value="approved">approved</option>
+                        <option value="rejected">rejected</option>
+                        <option value="pending">pending</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button id="jobAdd">Add Job</button>
+                <button id="jobSave">Save Job</button>
+                <button id="jobDelete">Delete Job</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
