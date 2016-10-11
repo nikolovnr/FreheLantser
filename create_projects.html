@@ -23,6 +23,7 @@
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 --><script>
     var currentID = 0; // 0 means nothing is selected
+    var currentJobID = 0;
     var username = "", password = "";
 
     function selectProject(prjID) {
@@ -44,6 +45,25 @@
         });
         
     }
+
+    function selectJob(jobID) {
+        currentJobID = jobID;
+        $("#currentID").html(currentJobID);
+        $.ajax({
+            url: "/index.php/job/" + currentJobID,
+            // data: {},
+            type: "GET",
+            dataType: "json"
+        }).done(function (data) {
+            
+            $("#jobTitle").val(data.title);
+            $("#jobDescr").val(data.description);
+            $("#jobStatus").val(data.status);
+            
+        });
+        
+    }
+
 
 
     function refreshProjectList() {
@@ -74,7 +94,7 @@
         });
     }
     
-    function refreshJobList(prjID) {
+    function refreshJobList() {
         //currentID = prjID;
         
         $.ajax({
@@ -184,6 +204,70 @@
             });
         });
         
+        $("#jobAdd").click(function () {
+            
+            var jobTitleRaw = $("#jobTitle").val();
+            var jobDescrRaw = $("#jobDescr").val();
+            var jobStatusRaw = $("#jobStatus").val();
+            
+            $.ajax({
+                url: "index.php/job",
+                statusCode: {
+                    400: function(xhr) {
+                        var msg = xhr.responseText;
+                        alert("400 received: " + msg);
+                    }
+                },
+                data: JSON.stringify({
+                    title: jobTitleRaw,
+                    description: jobDescrRaw,
+                    status: jobStatusRaw,
+                    projectID: currentID
+                }),
+                type: "POST",
+                dataType: "json"
+            }).done(function(){
+                refreshJobList();
+            });
+        });
+        
+        $("#jobSave").click(function () {
+            // UPDATE
+            var jobTitleRaw = $("#jobTitle").val();
+            var jobDescrRaw = $("#jobDescr").val();
+            var jobStatusRaw = $("#jobStatus").val();
+            
+            $.ajax({
+                url: "index.php/job/" + currentJobID,
+                data: JSON.stringify({
+                    title: jobTitleRaw,
+                    description: jobDescrRaw,
+                    status: jobStatusRaw,
+                    projectID: currentID
+                }),
+                type: "PUT",
+                dataType: "json"
+            }).done(function () {
+                alert("Updated successfully");
+                refreshJobList();
+            });
+        });
+        
+        $("#jobDelete").click(function () {
+            if (currentJobID == 0)
+                return;
+            $.ajax({
+                url: "index.php/job/" + currentJobID,
+                data: {},
+                type: "DELETE",
+                dataType: "json"
+            }).done(function () {
+                alert("Deleted successfully");
+                refreshJobList();
+            });
+        });
+        
+        
         
         $("#cancel").click(function () {
             currentID = 0;
@@ -272,7 +356,7 @@
                 
             </table>
             <div class="form-group">
-                <label class="control-label col-md-4" for="projectName">Project Name:</label>
+                <label class="control-label col-md-4" for="jobTitle">Project Name:</label>
                 <div class="col-xs-8">
                     <input type="text" class="form-control" id="jobTitle" placeholder="Job Title">
                 </div>

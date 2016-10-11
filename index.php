@@ -86,6 +86,11 @@ function isValidProject ($prj, &$error, $skipID = FALSE) {
     
     return TRUE;
 }
+
+function isValidJob ($prj, &$error, $skipID = FALSE) {
+    
+    return TRUE;
+}
 if (!isset($_SESSION['user'])) {
     $_SESSION['user'] = array();
 }
@@ -352,6 +357,55 @@ $app->get('/jobs/:ID', function($ID) use ($app) {
         return;
     }
     echo json_encode($jobsList, JSON_PRETTY_PRINT);
+});
+
+$app->get('/job/:ID', function($ID) use ($app) {
+//    sleep(1);
+    $jobsList = DB::queryFirstRow("SELECT * FROM jobs WHERE ID=%d", $ID);
+    // 404 if record not found
+    if (!$jobsList) {
+        $app->response->setStatus(404);
+        echo json_encode("Record not found");
+        return;
+    }
+    echo json_encode($jobsList, JSON_PRETTY_PRINT);
+});
+
+$app->post('/job', function() use ($app, $log) {
+    $body = $app->request->getBody();
+    $record = json_decode($body, TRUE);
+    // FIXME: verify $record contains all and only fields required with valid values
+    if (!isValidJob($record, $error, TRUE)) {
+        $app->response->setStatus(400);
+        $log->debug("POST /jobs verification failed: " . $error);
+        echo json_encode($error);
+        //echo json_encode("Bad request - data validation failed");
+        return;
+    }
+    DB::insert('jobs', $record);
+    echo DB::insertId();
+    // POST / INSERT is special - returns 201
+    $app->response->setStatus(201);
+});
+
+$app->put('/job/:ID', function($ID) use ($app) {
+    $body = $app->request->getBody();
+    $record = json_decode($body, TRUE);
+    $record['ID'] = $ID; // prevent changing of ID
+    // FIXME: verify $record contains all and only fields required with valid values
+    if (!isValidJob($record, $error)) {
+        $app->response->setStatus(400);
+        $log->debug("PUT /job verification failed: " . $error);
+        echo json_encode("Bad request - data validation failed");
+        return;
+    }
+    DB::update('jobs', $record, "ID=%d", $ID);
+    echo json_encode(TRUE); // same as: echo 'true';
+});
+
+$app->delete('/job/:ID', function($ID) {
+    DB::delete('jobs', "ID=%d", $ID);
+    echo 'true';
 });
 
 $app->run();
