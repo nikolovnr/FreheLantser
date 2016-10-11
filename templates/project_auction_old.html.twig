@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<style type="text/css">
+    h1{
+        margin: 30px 0;
+        padding: 0 200px 15px 0;
+        border-bottom: 1px solid #E5E5E5;
+    }
+	.bs-example{
+    	margin: 20px;
+    }
+</style>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script>
+    var currPrjID = 0;
+    $(document).ready(function () {
+        $("#saveProject").click(function () {
+            // FIXME: verify inputs seem okay,
+            // * title is at least 1-100 chars long
+            // * dueDate must be chosen
+            var projectNameRaw = $("#projectName").val();
+            var startDateRaw = $("#startDate").val();
+            var endDateRaw = $("#endDate").val();
+            var prjDescrRaw = $("#prjDescr").val();
+            var prjStatusRaw = $('#prjStatus').find(":selected").text();
+            
+            if (currPrjID == 0) {
+                // INSERT
+                $.ajax({
+                    url: "/index.php/projects",
+                    statusCode: {
+                        400: function(xhr) {
+                            var msg = xhr.responseText;
+                            alert("400 received: " + msg);
+                        }
+                    },
+                    data: JSON.stringify({
+                        projectName: projectNameRaw,
+                        ownerID: 1,
+                        startDate: startDateRaw,
+                        endDate: endDateRaw,
+                        status: prjStatusRaw,
+                        description: prjDescrRaw,
+                        documentsFolder: 'path to files',
+                        rating: 1
+                    }),
+                    type: "POST",
+                    dataType: "json"
+                }).done(function () {
+                    alert("Addedd successfully");
+                    //refreshTodoList();
+                });
+            } else {
+                // UPDATE
+                $.ajax({
+                    url: "//index.php/projects/" + currPrjID,
+                    data: JSON.stringify({
+                        projectName: projectNameRaw,
+                        ownerID: 1,
+                        startDate: startDateRaw,
+                        endDate: endDateRaw,
+                        status: prjStatusRaw,
+                        description: prjDescrRaw,
+                        documentsFolder: 'path to files',
+                        rating: 1
+                    }),
+                    type: "PUT",
+                    dataType: "json"
+                }).done(function () {
+                    alert("Updated successfully");
+                    refreshTodoList();
+                });
+            }
+        });
+    });
+</script>
+</head>
+<body>
+<div class="bs-example">
+    <h1>Projects</h1>
+    <div bgcolor="green">
+    </div>
+    <div class="form-horizontal">
+        
+        <div class="form-group">
+            <label class="control-label col-md-4" for="projectName">Project Name:</label>
+            <div class="col-xs-8">
+                <input type="text" class="form-control" id="projectName" placeholder="Project Title">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-4" for="startDate">Start Date:</label>
+            <div class="col-md-2">
+                <input type="date" class="form-control" id="startDate" placeholder="Select start date">
+            </div>
+            <label class="control-label col-md-4" for="endDate">End Date:</label>
+            <div class="col-md-2">
+                <input type="date" class="form-control" id="endDate" placeholder="Select end date">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-4" for="prjDescr">Project Description:</label>
+            <div class="col-md-8">
+                <textarea rows="10" class="form-control" id="prjDescr" placeholder="Type project description"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-4">Status:</label>
+            <div class="col-md-2">
+                <select class="form-control" id="prjStatus">
+                    <option selected="true" disabled="disabled">Select status (stage) for the project</option>
+                    <option>Draft</option>
+                    <option>Auction</option>
+                    <option>In Progress</option>
+                    <option>Evaluation</option>
+                    <option>Completed</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-4">Project Documents:</label>
+            <div class="col-md-8">
+                <input type="file" class="form-control" id="fileUpload" value="Project Documents">
+            </div>
+        </div>
+        
+        <h2>Positions (Jobs)</h2>
+        <div class="form-group">
+            <label class="control-label col-md-4" for="jobTitle">Position Title:</label>
+            <div class="col-xs-8">
+                <input type="text" class="form-control" id="jobTitle" placeholder="Position Title">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-4" for="jobDescr">Position Description:</label>
+            <div class="col-md-8">
+                <textarea rows="10" class="form-control" id="jobDescr" placeholder="Type position details"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-4 col-xs-8">
+                <button class="btn btn-default" id="jobAdd">Add</button>
+                <button class="btn btn-default" id="jobAdd">Update</button>
+                <button class="btn btn-default" id="jobAdd">Delete</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <!-- <div class="col-md-offset-4 col-xs-6"> -->
+                <label class="control-label col-md-4" for="auctionStatus">Submit Auction:</label>
+                <div class="col-md-2">
+                    <input type="checkbox" class="form-control" id="auctionStatus" checked data-toggle="toggle">
+                </div>
+            <!-- </div> -->
+            
+        </div>
+        <div class="form-group">
+            <!-- <label class="control-label col-md-8 ">Save current project information</label> -->
+            <div class="col-md-offset-10">
+                <button id="saveProject" class="btn btn-primary">Save</button>
+                <button id="cancel" class="btn btn-default">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>                                		{# empty Twig template #}

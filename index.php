@@ -21,16 +21,17 @@ DB::$password = 'HoeEw2DFIagZ';
 DB::$host = 'ipd8.info';
 */
 
+/*
 //Nathalie HOME
 DB::$dbName = 'frehelantser';
 DB::$user = 'frehelantser';
 DB::$password = 'Q4MGJPYZDtzhSZdv';
 //DB::$host = 'ipd.info';
-
+*/
 //Nikolay HOME
-//DB::$dbName = 'frehelantser';
-//DB::$user = 'frehelantser';
-//DB::$password = 'RHam3MzPjMBwvrWH';
+DB::$dbName = 'frehelantser';
+DB::$user = 'frehelantser';
+DB::$password = 'RHam3MzPjMBwvrWH';
 
 /*
 //Nikolay SCHOOL
@@ -285,8 +286,23 @@ $app->get('/termsandconditions', function() use ($app, $log){
 });
 
 $app->get('/projects', function() use ($app, $log) {
-    $app->render('project_auction.html.twig');
-// e8d54ffca74043970bdf87c9a44b3517eb491721
+    //$userID=getAuthUserID();
+    //if (!$userID) return;
+    $recordList = DB::query("SELECT * FROM projects");
+    echo json_encode($recordList, JSON_PRETTY_PRINT);
+    //$app->render('project_auction.html.twig', $recordList);
+});
+
+$app->get('/projects/:ID', function($ID) use ($app) {
+//    sleep(1);
+    $record = DB::queryFirstRow("SELECT * FROM projects WHERE ID=%d", $ID);
+    // 404 if record not found
+    if (!$record) {
+        $app->response->setStatus(404);
+        echo json_encode("Record not found");
+        return;
+    }
+    echo json_encode($record, JSON_PRETTY_PRINT);
 });
 
 $app->post('/projects', function() use ($app, $log) {
@@ -304,6 +320,38 @@ $app->post('/projects', function() use ($app, $log) {
     echo DB::insertId();
     // POST / INSERT is special - returns 201
     $app->response->setStatus(201);
+});
+
+$app->put('/projects/:ID', function($ID) use ($app) {
+    $body = $app->request->getBody();
+    $record = json_decode($body, TRUE);
+    $record['ID'] = $ID; // prevent changing of ID
+    // FIXME: verify $record contains all and only fields required with valid values
+    if (!isValidProject($record, $error)) {
+        $app->response->setStatus(400);
+        $log->debug("POST /projects verification failed: " . $error);
+        echo json_encode("Bad request - data validation failed");
+        return;
+    }
+    DB::update('projects', $record, "ID=%d", $ID);
+    echo json_encode(TRUE); // same as: echo 'true';
+});
+
+$app->delete('/projects/:ID', function($ID) {
+    DB::delete('projects', "ID=%d", $ID);
+    echo 'true';
+});
+
+$app->get('/jobs/:ID', function($ID) use ($app) {
+//    sleep(1);
+    $jobsList = DB::query("SELECT * FROM jobs WHERE projectID=%d", $ID);
+    // 404 if record not found
+    if (!$jobsList) {
+        $app->response->setStatus(404);
+        echo json_encode("Record not found");
+        return;
+    }
+    echo json_encode($jobsList, JSON_PRETTY_PRINT);
 });
 
 $app->run();
