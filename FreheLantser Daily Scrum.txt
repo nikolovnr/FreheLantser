@@ -63,3 +63,14 @@ Nikolay:
 1- I did
 2- I will 
 3- I need
+
+/////Tuesday: October 11, 2016/////
+Nathalie:
+1- I worked on my Registration and Login forms and made 2 how it works (recruiter/freelancer) pages.
+2- I will fix that Login thing once and for all... And work on a captcha & retrieve password by email.
+3- I need Nikolay help for this.
+
+Nikolay:
+1- I did
+2- I will 
+3- I need
