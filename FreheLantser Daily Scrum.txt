@@ -60,9 +60,9 @@ Nathalie:
 3- If I don't find it on Google, I will have to wait for Monday.
 
 Nikolay:
-1- I did
-2- I will 
-3- I need
+1- I did worked on create project form, I read documentation and fine example for PayPal API.
+2- I will work messaging form.
+3- I need help with PayPal API integration.
 
 /////Tuesday: October 11, 2016/////
 Nathalie:
@@ -71,6 +71,6 @@ Nathalie:
 3- I need Nikolay help for this.
 
 Nikolay:
-1- I did project creation form and job add form
-2- I will 
-3- I need
+1- I did project creation and add job to project form.
+2- I will write user side and server side verification, will start work on sending messages form.
+3- I need help with CSS and Bootstrap to add style to my forms.
