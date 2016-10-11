@@ -101,10 +101,10 @@ $app->get('/emailexists/:email', function($email) use ($app, $log) {
 
 function getAuthUserID() {
     global $app, $log;
-    $username = $app->request->headers("PHP_AUTH_USER");
+    //$username = $app->request->headers("PHP_AUTH_USER");
     $password = $app->request->headers("PHP_AUTH_PW");
-    if ($username && $password) {
-        $row = DB::queryFirstRow("SELECT * FROM users WHERE email=%s", $username);
+    if (/*$username && */$password) {
+        $row = DB::queryFirstRow("SELECT * FROM users WHERE email=%s", $email);
         if ($row && $row['password'] == $password) {
             return $row['ID'];
         }
@@ -150,7 +150,7 @@ $app->post('/register(/:id)', function($id = '') use ($app, $log) {
     $firstname = $app->request->post('firstname');
     $lastname = $app->request->post('lastname');
     $country = $app->request->post('country');
-    $username = $app->request->post('username');
+    //$username = $app->request->post('username');
     $email = $app->request->post('email');
     $password = $app->request->post('password');
     $password2 = $app->request->post('password2');
@@ -158,7 +158,7 @@ $app->post('/register(/:id)', function($id = '') use ($app, $log) {
         'firstname' => $firstname,
         'lastname' => $lastname,
         'country' => $country,
-        'username' => $username,
+        //'username' => $username,
         'email' => $email,
         'password' => $password,
         'password' => $password
@@ -179,10 +179,11 @@ $app->post('/register(/:id)', function($id = '') use ($app, $log) {
 
     //country check: a value must be picked
     //username check: must be 50 characters long max
+    /*
     if ((strlen($username) < 3) || (strlen($username) > 50)) {
         array_push($errorList, "Username must be between 3 and 50 characters long.");
         unset($valueList['username']);
-    }
+    }*/
 
     //email check: must be 250 characters long max
     if ((strlen($email) < 10) || (strlen($email) > 250)) {
@@ -235,7 +236,7 @@ $app->post('/register(/:id)', function($id = '') use ($app, $log) {
                 'firstName' => $firstname,
                 'lastName' => $lastname,
                 'country' => $country,
-                'username' => $username,
+                //'username' => $username,
                 'email' => $email,
                 'password' => hash('sha256', $password)
             ));
@@ -259,7 +260,7 @@ $app->get('/login', function() use ($app, $log) {
 
 //State 2: Submission LOGIN
 $app->post('/login(/:id)', function($id = '') use ($app, $log) {
-    $username = $app->request->post('username');
+    //$username = $app->request->post('username');
     $email = $app->request->post('email');
     $password = $app->request->post('password');
     $valueList = array(
@@ -274,9 +275,9 @@ $app->post('/login(/:id)', function($id = '') use ($app, $log) {
     } else {
         //password MUST be compared in PHP because SQL is case-insensitive
         //$hashedpassword = hash('sha256', $password);
-        //if ($user['password'] == hash('sha256', $password) ) {
+        if ($user['password'] == hash('sha256', $password) ) {
         //if (!password_verify($password, $user['password'])) {
-            if (!password_verify($password, $user['password'])) {
+            //if (!password_verify($password, $user['password'])) {
             //LOGIN not found
             $log->debug(sprintf("User failed for email %s from IP %s", $email, $_SERVER['REMOTE_ADDR']));
             $app->render('login_notfound.html.twig', array('loginFailed' => TRUE));
@@ -367,6 +368,8 @@ $app->delete('/projects/:ID', function($ID) {
     echo 'true';
 });
 
+////////////////////////////////////////////////////////////////////////////////
+//State 1: First show JOBS
 $app->get('/jobs/:ID', function($ID) use ($app) {
 //    sleep(1);
     $jobsList = DB::query("SELECT * FROM jobs WHERE projectID=%d", $ID);

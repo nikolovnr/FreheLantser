@@ -38,10 +38,10 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
         echo "    
     <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js\"></script>
     <script>
-        \$(document).ready(function () {
+        //\$(document).ready(function () {
             
             //this come from Slimshop
-            function checkEmail() {
+        function checkEmail() {
             var email = \$('input[name=email]').val();
             if (email != '') {
                 //\$('#result').load('/emailexists/' + email);
@@ -63,7 +63,7 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
             \$('input[name=email]').bind('paste', function() {
                 checkEmail();
             });
-        });//end of Slimshop import
+        //});//end of Slimshop import
             
             
             
@@ -82,7 +82,7 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
                 var firstname = \$(\"input[name=firstname]\").val();
                 var lastname = \$(\"input[name=lastname]\").val();
                 var country = \$(\"input[name=country]\").selectedIndex;
-                var username = \$(\"input[name=username]\").val();
+                //var username = \$(\"input[name=username]\").val();
                 var password = \$(\"input[name=password]\").val();
                 var password2 = \$(\"input[name=password2]\").val();
 
@@ -148,7 +148,7 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
                 event.preventDefault();
             }
         });
-        });
+        //});
     </script>
 ";
     }
@@ -588,10 +588,10 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
 {% block head %}    
     <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js\"></script>
     <script>
-        \$(document).ready(function () {
+        //\$(document).ready(function () {
             
             //this come from Slimshop
-            function checkEmail() {
+        function checkEmail() {
             var email = \$('input[name=email]').val();
             if (email != '') {
                 //\$('#result').load('/emailexists/' + email);
@@ -613,7 +613,7 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
             \$('input[name=email]').bind('paste', function() {
                 checkEmail();
             });
-        });//end of Slimshop import
+        //});//end of Slimshop import
             
             
             
@@ -632,7 +632,7 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
                 var firstname = \$(\"input[name=firstname]\").val();
                 var lastname = \$(\"input[name=lastname]\").val();
                 var country = \$(\"input[name=country]\").selectedIndex;
-                var username = \$(\"input[name=username]\").val();
+                //var username = \$(\"input[name=username]\").val();
                 var password = \$(\"input[name=password]\").val();
                 var password2 = \$(\"input[name=password2]\").val();
 
@@ -698,7 +698,7 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
                 event.preventDefault();
             }
         });
-        });
+        //});
     </script>
 {% endblock %}  
 

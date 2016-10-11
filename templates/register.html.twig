@@ -5,10 +5,10 @@
 {% block head %}    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
-        $(document).ready(function () {
+        //$(document).ready(function () {
             
             //this come from Slimshop
-            function checkEmail() {
+        function checkEmail() {
             var email = $('input[name=email]').val();
             if (email != '') {
                 //$('#result').load('/emailexists/' + email);
@@ -30,7 +30,7 @@
             $('input[name=email]').bind('paste', function() {
                 checkEmail();
             });
-        });//end of Slimshop import
+        //});//end of Slimshop import
             
             
             
@@ -49,7 +49,7 @@
                 var firstname = $("input[name=firstname]").val();
                 var lastname = $("input[name=lastname]").val();
                 var country = $("input[name=country]").selectedIndex;
-                var username = $("input[name=username]").val();
+                //var username = $("input[name=username]").val();
                 var password = $("input[name=password]").val();
                 var password2 = $("input[name=password2]").val();
 
@@ -115,7 +115,7 @@
                 event.preventDefault();
             }
         });
-        });
+        //});
     </script>
 {% endblock %}  
 
