@@ -5,115 +5,201 @@
 {% block head %}    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
-        //$(document).ready(function () {
-            
-            //this come from Slimshop
+        //////////////////////////////////////////verifying email does not exist
         function checkEmail() {
             var email = $('input[name=email]').val();
             if (email != '') {
-                //$('#result').load('/emailexists/' + email);
+                $('#result').load('/emailexists/' + email);
                 // NOTE: .load is actually .ajax call like below
                 $.ajax({
                     url: '/emailexists/' + email
                 }).done(function (data) {
                     $("#result").html(data);
-                });                
+                });
             } else {
                 $('#result').html("");
             }
         }
-        
-        $(document).ready(function() {
-            $('input[name=email]').keyup(function() {
+
+
+        $(document).ready(function () {
+            ///////////////////////////////////////////////////verify the inputs
+            var allGood = true;
+
+            ///////////////////////////////////inviting user to select a country
+            $("#countrynotselected").show();
+
+            //////////////////////////////////////////first submit button hidden
+            $("#submit").hide();
+
+            ///////////////////////////calling verification email does not exist
+            //$('input[name=email]').keyup(function () {
+            $('input[name=email]').blur(function () {
                 checkEmail();
             });
-            $('input[name=email]').bind('paste', function() {
+            $('input[name=email]').bind('paste', function () {
                 checkEmail();
             });
-        //});//end of Slimshop import
-            
-            
-            
-            //these don't work
-            $("#firstname").blur(function () {
-                var firstname = $("input[name=firstname]").val();
-                if ((firstname.length < 3) || (firstname.length > 50)) {
+
+            ////////////////////////////////////////////////////validating email              
+            $("#email").blur(function () {
+                var regexemail = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/;
+                var email = $("input[name=email]").val();
+                if ((email.length < 10) || (email.length > 250)) {
                     allGood = false;
-                    alert("Handler for .blur() called.");
-                    $("#firstalertcharacters").show();
+                    $("#emailalertcharacters").show();
+                    $("#submit").hide();
+                }
+                if (!email.match(regexemail)) {
+                    allGood = false;
+                    $("#emailalertregex").show();
+                } else if ((email.match(regexemail)) &&
+                        (email.length >= 10) &&
+                        (email.length <= 250)) {
+                    allGood = true;
+                    $("#emailalertcharacters").hide();
+                    $("#emailalertregex").hide();
+                    $("#submit").show();
                 }
             });
 
+            ///////////////////////////////////////////////validating first name              
+            $("#firstname").blur(function () {
+                var regexfirstname = /^[A-Za-z -]+$/;
+                var firstname = $("input[name=firstname]").val();
+                if ((firstname.length < 3) || (firstname.length > 50)) {
+                    allGood = false;
+                    $("#firstalertcharacters").show();
+                    $("#submit").hide();
+                }
+                if (!firstname.match(regexfirstname)) {
+                    allGood = false;
+                    $("#firstalertregex").show();
+                    $("#submit").hide();
+                } else if ((firstname.match(regexfirstname)) &&
+                        (firstname.length >= 3) &&
+                        (firstname.length <= 50)) {
+                    allGood = true;
+                    $("#firstalertcharacters").hide();
+                    $("#firstalertregex").hide();
+                    $("#submit").show();
+
+                }
+            });
+
+            ////////////////////////////////////////////////validating last name             
+            $("#lastname").blur(function () {
+                var regexlastname = /^[A-Za-z -]+$/;
+                var lastname = $("input[name=lastname]").val();
+                if ((lastname.length < 3) || (lastname.length > 50)) {
+                    allGood = false;
+                    $("#lastalertcharacters").show();
+                    $("#submit").hide();
+                }
+                if (!lastname.match(regexlastname)) {
+                    allGood = false;
+                    $("#lastalertregex").show();
+                    $("#submit").hide();
+                } else if ((lastname.match(regexlastname)) &&
+                        (lastname.length >= 3) &&
+                        (lastname.length <= 50)) {
+                    allGood = true;
+                    $("#lastalertcharacters").hide();
+                    $("#lastalertregex").hide();
+                    $("#submit").show();
+                }
+            });
+
+            //////////////////////////////////////////////////validating country
+            $('#country').blur(function () {
+                var country = $("#country").val();
+                if (country == "") {
+                    allGood = false;
+                    $("#countrynotselected").show();
+                    $("#submit").hide();
+                } else {
+                    allGood = true;
+                    $("#countrynotselected").hide();
+                    $("#submit").show();
+                }
+            });
+
+            ////////////////////////////////////////////////validating passwords            
+            $("#password").blur(function () {
+                var regexpassword = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-+_!@#$%^&*()-+=.,?])/;
+                var password = $("input[name=password]").val();
+                if ((password.length < 8) || (password.length > 50)) {
+                    allGood = false;
+                    $("#passwordalertcharacters").show();
+                    $("#submit").hide();
+                }
+                if (!password.match(regexpassword)) {
+                    allGood = false;
+                    $("#passwordalertregex").show();
+                    $("#submit").hide();
+                } else if ((password.match(regexpassword)) &&
+                        (password.length >= 8) &&
+                        (password.length <= 50)) {
+                    allGood = true;
+                    $("#passwordalertcharacters").hide();
+                    $("#passwordalertregex").hide();
+                    $("#submit").show();
+                }
+            });
+
+            $("#password2").blur(function () {
+                var regexpassword = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-+_!@#$%^&*()-+=.,?])/;
+                var password = $("input[name=password]").val();
+                var password2 = $("input[name=password2]").val();
+                if ((password2.length < 8) || (password2.length > 50)) {
+                    allGood = false;
+                    $("#password2alertcharacters").show();
+                    $("#submit").hide();
+                }
+                if (!password2.match(regexpassword)) {
+                    allGood = false;
+                    $("#password2alertregex").show();
+                    $("#submit").hide();
+                }
+                if (password != password2) {
+                    allGood = false;
+                    $("#passwordalertdifferent").show();
+                    $("#password2alertdifferent").show();
+                    $("#submit").hide();
+                } else if ((password2.match(regexpassword)) &&
+                        (password2.length >= 8) &&
+                        (password2.length <= 50) &&
+                        (password == password2)) {
+                    allGood = true;
+                    $("#password2alertcharacters").hide();
+                    $("#password2alertregex").hide();
+                    $("#passwordalertdifferent").hide();
+                    $("#password2alertdifferent").hide();
+                    $("#submit").show();
+                }
+            });
+
+            if (!allGood) {
+                $("#submit").hide();
+                event.preventDefault();
+            } else if (allGood) {
+                $("#submit").show();
+            }
+
+            //});
+
+
+
+
+            /////////////////////////////////////////////////////Register button
             $('#registrationForm').submit(function (event) {
                 var email = $("input[name=email]").val();
                 var firstname = $("input[name=firstname]").val();
                 var lastname = $("input[name=lastname]").val();
                 var country = $("input[name=country]").selectedIndex;
-                //var username = $("input[name=username]").val();
-                var password = $("input[name=password]").val();
-                var password2 = $("input[name=password2]").val();
+                var password = $("input[name=password]").val();        
 
-                ////////////////////////////////////////////Firstname & Lastname
-                firstname = firstname.substring(0, 1).toUpperCase() + firstname.substring(1).toLowerCase();
-                firstname = firstname.substring(0, 1).toUpperCase() + firstname.substring(1).toLowerCase();
-
-                ///////////////////////////////////////////////verify the inputs
-                var allGood = true;
-                var regexemail = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/;
-                var regexname = /[A-Za-z -]{3,50}/;
-                var regexpassword = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-+_!@#$%^&*()-+=.,?])/;
-                ////////////////////////////////////////////////validating email
-                if ((email.length < 10) || (email.length > 250)) {
-                    allGood = false;
-                }
-                if (!regexemail.test(email)) {
-                    allGood = false;
-                }
-
-                ///////////////////////////////////////////validating first name
-                if ((firstname.length < 3) || (firstname.length > 50)) {
-                    allGood = false;
-                }
-                if (!regexname.match(firstname)) {
-                    allGood = false;
-                }
-
-                ////////////////////////////////////////////validating last name
-                if ((lastname.length < 3) || (lastname.length > 50)) {
-                    allGood = false;
-                }
-                if (!regexname.match(lastname)) {
-                    allGood = false;
-                }
-
-                //////////////////////////////////////////////validating country
-                if (country.selectedIndex == 0) {
-                    allGood = false;
-                }
-
-                /////////////////////////////////////////////validating username
-                if ((username.length < 3) || (username.length > 50)) {
-                    allGood = false;
-                }
-                if (!regexname.match(username)) {
-                    allGood = false;
-                }
-
-                ////////////////////////////////////////////validating passwords
-                if ((password.length < 8) || (password.length > 50)) {
-                    allGood = false;
-                }
-                if (!regexpassword.test(password)) {
-                    allGood = false;
-                }
-                if (password != password2) {
-                    allGood = false;
-                }
             });
-
-            if (!allGood) {
-                event.preventDefault();
-            }
         });
         //});
     </script>
@@ -133,10 +219,6 @@
         {% endif %}
 
         <form class="form-horizontal" id="registrationForm" method="POST" action="">
-
-
-
-
             <!-- Email input -->   
             <div class="row">
                 <div class="form-group add-on form-group-lg">
@@ -145,24 +227,27 @@
                         <input type="email" class="form-control input-lg" id="email" name="email" placeholder="Enter email" required="true">
                     </div>
                 </div>
-            </div> 
-            <span id="result"></span>
-
-
-
+            </div>
+            <div class="alert alert-danger collapse" id="emailalertcharacters">
+                <strong>Email</strong> must be between 10 and 250 characters long.
+            </div>
+            <div class="alert alert-danger collapse" id="emailalertregex">
+                <strong>Email</strong> must look like a valid email.
+            </div>
+            <div class="alert alert-danger collapse" id="result">
+                <strong>Email</strong> already exists.
+                <a href="/login" class="btn btn-primary">Login</a>
+            </div>
 
             <!-- First name input -->
-            <div class="row">
+            <div class="row" id="firstnamerow">
                 <div class="form-group add-on form-group-lg">
                     <label class="control-label col-sm-2" for="firstname">First name:</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control input-lg" id="firstname" name="firstname" placeholder="Enter first name" required="true">
                     </div>
                 </div>
-            </div>
-            <!--<div class="alert alert-info">
-                <strong>First name</strong> must be between 3 and 50 characters and consisting only of letters (spaces and hyphens are allowed).
-            </div>-->
+            </div>           
             <div class="alert alert-danger collapse" id="firstalertcharacters">
                 <strong>First name</strong> must be between 3 and 50 characters long.
             </div>
@@ -170,28 +255,8 @@
                 <strong>First name</strong> must consist only of letters (spaces and hyphens are allowed).
             </div>
 
-            <!-- Username input -->
-            <div class="row">
-                <div class="form-group form-group-lg">
-                    <label class="control-label col-sm-2" for="username">Username</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control input-lg" id="username" name="username" placeholder="Username" required="true"/>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- First name input --><!--
-            <div class="row">
-                <div class="form-group add-on form-group-lg">
-                    <label class="control-label col-sm-2" for="firstname">First name:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control input-lg" id="firstname" name="firstname" placeholder="Enter first name" required="true">
-                    </div>
-                </div>
-            </div> -->
             <!-- Last name input -->
-            <div class="row">
+            <div class="row" id="lastnamerow">
                 <div class="form-group add-on form-group-lg">
                     <label class="control-label col-sm-2" for="lastname">Last name:</label>
                     <div class="col-sm-10">
@@ -199,13 +264,20 @@
                     </div>
                 </div>
             </div>
+            <div class="alert alert-danger collapse" id="lastalertcharacters">
+                <strong>Last name</strong> must be between 10 and 250 characters long.
+            </div>
+            <div class="alert alert-danger collapse" id="lastalertregex">
+                <strong>Last name</strong> must consist only of letters (spaces and hyphens are allowed).
+            </div>
+
             <!-- Country input -->
-            <div class="row">
+            <div class="row" id="countryrow">
                 <div class="form-group form-group-lg">
                     <label class="control-label col-sm-2" for="country">Country:</label>
                     <div class="col-sm-10">
                         <select class="form-control input-lg" id="country" name="country" required="true">
-                            <option value="0">Select your country</option>
+                            <option value="">Select your country</option>
                             <option value="Canada">Canada</option> 
                             <option value="USA">United States</option>
                             <optgroup label="_____________">
@@ -463,17 +535,12 @@
                     </div>
                 </div>
             </div>
-            <!-- Username input -->
-            <div class="row">
-                <div class="form-group add-on form-group-lg">
-                    <label class="control-label col-sm-2" for="username">Username:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control input-lg" id="username" name="username" placeholder="Enter username" required="true">
-                    </div>
-                </div> 
+            <div class="alert alert-danger collapse" id="countrynotselected">
+                <strong>Country</strong> must be selected.
             </div>
+
             <!-- Password input -->
-            <div class="row">
+            <div class="row" id="passwordrow">
                 <div class="form-group add-on form-group-lg">
                     <label class="control-label col-sm-2" for="password">Password:</label>
                     <div class="col-sm-10"> 
@@ -481,15 +548,33 @@
                     </div>
                 </div>
             </div>
+            <div class="alert alert-danger collapse" id="passwordalertcharacters">
+                <strong>Password</strong> must be between 8 and 50 characters long.
+            </div>
+            <div class="alert alert-danger collapse" id="passwordalertregex">
+                <strong>Password</strong> must contain 1 of each: uppercase, lowercase, digit, special character.
+            </div>            
+
             <!-- Password confirmation input -->
-            <div class="row">
+            <div class="row" id="password2row">
                 <div class="form-group add-on form-group-lg">
                     <label class="control-label col-sm-2" for="password2">Password confirmation:</label>
                     <div class="col-sm-10"> 
                         <input type="password" class="form-control input-lg" id="password2" name="password2" placeholder="Retype password" required="true">
                     </div>
                 </div>
-            </div><!--  I'm keeping it in case 'I'm a freelancer' 'I'm a hirer'...
+            </div>
+            <div class="alert alert-danger collapse" id="password2alertcharacters">
+                <strong>Password confirmation</strong> must be between 8 and 50 characters long.
+            </div>
+            <div class="alert alert-danger collapse" id="password2alertregex">
+                <strong>Password confirmation</strong> must contain 1 of each: uppercase, lowercase, digit, special character.
+            </div>
+            <div class="alert alert-danger collapse" id="password2alertdifferent">
+                Both <strong>passwords</strong> must be identical.
+            </div>
+
+            <!--  I'm keeping it in case 'I'm a freelancer' 'I'm a hirer'...
                <div class="form-group"> 
                   <div class="col-sm-offset-2 col-sm-10">
                     <div class="checkbox">
@@ -498,10 +583,10 @@
                   </div>
                 </div>-->
             <!-- Submit button --> 
-            <div class="row">
+            <div class="row" id="registerbutton">
                 <div class="form-group"> 
                     <div class="col-sm-offset-2 col-sm-10 text-center">
-                        <button type="submit" class="btn btn-primary" value="Register">Register</button>
+                        <button type="submit" class="btn btn-primary" value="Register" id="submit">Register</button>
                         <br><br>
                     </div>
                 </div>

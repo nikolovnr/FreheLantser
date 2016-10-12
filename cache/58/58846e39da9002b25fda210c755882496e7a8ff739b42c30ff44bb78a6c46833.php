@@ -38,7 +38,7 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
         ";
         // line 14
         $this->displayBlock('head', $context, $blocks);
-        // line 16
+        // line 28
         echo "    </head>
     <body>
         <!-- *************************************************************** -->
@@ -46,21 +46,14 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
         <nav class=\"navbar navbar-default navbar-fixed-top\" role=\"navigation\" id=\"navigation\">
             <div class=\"container whiteContainer\">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <div class=\"navbar-header\">
-                    <!--
-                    <button type =\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">
-                        <span class=\"sr-only\">Toggle navigation</span>
-                        <span class=\"icon-bar\"></span>
-                        <span class=\"icon-bar\"></span>
-                        <span class=\"icon-bar\"></span>
-                    </button> -->
+                <div class=\"navbar-header\">                    
                     <img src=\"/images/logo.png\" alt=\"FreheLantser logo\" id=\"logo\" width=\"100\">
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">
                     <ul class=\"nav navbar-nav navbar-right\">
                         <li>
-                            <h5>Where freelancers and employers meet</h5>
+                            <h4>Where freelancers and employers meet</h4>
                         </li>
                         <li>
                             <a href=\"#\"><span class=\"glyphicon glyphicon-eye-open\"></span>&nbsp;Browse</a>
@@ -74,8 +67,11 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
                         <li>
                             <a href=\"/register\"><span class=\"glyphicon glyphicon-pencil\"></span>&nbsp;Sign up</a>
                         </li>
-                        <li>
+                        <li id=\"login\">
                             <a href=\"/login\"><span class=\"glyphicon glyphicon-log-in\"></span>&nbsp;Login</a>
+                        </li>
+                        <li id=\"logout\">
+                            <a href=\"/logout\"><span class=\"glyphicon glyphicon-log-out\"></span>&nbsp;Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -86,7 +82,7 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
         <div id=\"blueContainer\">
             <br><br><br><br>
             <div id=\"container\" class=\"container text-center\">";
-        // line 62
+        // line 70
         $this->displayBlock('content', $context, $blocks);
         echo "</div>            
         </div> 
@@ -95,7 +91,7 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
         <div >
             <div id=\"footer\"></div>
             <div class=\"container-fluid text-center whiteContainer\">
-                                       
+
                 <footer>
                     <hr> 
                     <div class=\"row\">
@@ -130,10 +126,22 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
     public function block_head($context, array $blocks = array())
     {
         // line 15
-        echo "        ";
+        echo "            <script>
+                var session = <?php echo \$_SESSION['is_logged']?'true':'false'; ?>;
+                //alert(session);
+                if(session){
+                    \$(\"#login\").hide();
+                    \$(\"#logout\").show();
+                }else{
+                    \$(\"#login\").show();
+                    \$(\"#logout\").hide();
+                }
+                        
+            </script>            
+        ";
     }
 
-    // line 62
+    // line 70
     public function block_content($context, array $blocks = array())
     {
     }
@@ -145,7 +153,7 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
 
     public function getDebugInfo()
     {
-        return array (  137 => 62,  133 => 15,  130 => 14,  125 => 13,  90 => 62,  42 => 16,  40 => 14,  36 => 13,  22 => 1,);
+        return array (  145 => 70,  129 => 15,  126 => 14,  121 => 13,  86 => 70,  42 => 28,  40 => 14,  36 => 13,  22 => 1,);
     }
 
     public function getSource()
@@ -164,6 +172,18 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
         <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>   
         <title>{% block title %}{% endblock %}</title>        
         {% block head %}
+            <script>
+                var session = <?php echo \$_SESSION['is_logged']?'true':'false'; ?>;
+                //alert(session);
+                if(session){
+                    \$(\"#login\").hide();
+                    \$(\"#logout\").show();
+                }else{
+                    \$(\"#login\").show();
+                    \$(\"#logout\").hide();
+                }
+                        
+            </script>            
         {% endblock %}
     </head>
     <body>
@@ -172,21 +192,14 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
         <nav class=\"navbar navbar-default navbar-fixed-top\" role=\"navigation\" id=\"navigation\">
             <div class=\"container whiteContainer\">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <div class=\"navbar-header\">
-                    <!--
-                    <button type =\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">
-                        <span class=\"sr-only\">Toggle navigation</span>
-                        <span class=\"icon-bar\"></span>
-                        <span class=\"icon-bar\"></span>
-                        <span class=\"icon-bar\"></span>
-                    </button> -->
+                <div class=\"navbar-header\">                    
                     <img src=\"/images/logo.png\" alt=\"FreheLantser logo\" id=\"logo\" width=\"100\">
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">
                     <ul class=\"nav navbar-nav navbar-right\">
                         <li>
-                            <h5>Where freelancers and employers meet</h5>
+                            <h4>Where freelancers and employers meet</h4>
                         </li>
                         <li>
                             <a href=\"#\"><span class=\"glyphicon glyphicon-eye-open\"></span>&nbsp;Browse</a>
@@ -200,8 +213,11 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
                         <li>
                             <a href=\"/register\"><span class=\"glyphicon glyphicon-pencil\"></span>&nbsp;Sign up</a>
                         </li>
-                        <li>
+                        <li id=\"login\">
                             <a href=\"/login\"><span class=\"glyphicon glyphicon-log-in\"></span>&nbsp;Login</a>
+                        </li>
+                        <li id=\"logout\">
+                            <a href=\"/logout\"><span class=\"glyphicon glyphicon-log-out\"></span>&nbsp;Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -218,7 +234,7 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
         <div >
             <div id=\"footer\"></div>
             <div class=\"container-fluid text-center whiteContainer\">
-                                       
+
                 <footer>
                     <hr> 
                     <div class=\"row\">

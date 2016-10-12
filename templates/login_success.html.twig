@@ -10,19 +10,19 @@
 {% block content %}
     <div class="container-fluid blueContainer">
         <br>
-        <h1>Welcome {{firstname}} {{lastname}}.</h1>
+        <h1>Welcome {{firstname}} {{lastname}} from {{email}}</h1>
         <br><br><br><br><br>        
-        <div class="row">
-            <div class="span6">
-                <div class="logincontent-left">
-                    <button type="submit" class="btn btn-primary" value="Login">I am a recruiter</button>
-                </div>
-            </div>
-            <div class="span6">
-                <div class="logincontent-right">
-                    <button type="submit" class="btn btn-primary" value="Login">I am a freelancer</button>
-                </div>
-            </div>
+
+        <div class="col-sm-2 sidenav navbar-left">
+            <p>I am a recruiter</a></p>
+            <p><a href="/how_it_works">How it works?</a></p>
+            <p><a href="/projects">Create a project</a></p>
         </div>
+        <div class="col-sm-2 sidenav navbar-right">
+            <p>I am a freelancer</a></p>
+            <p><a href="/become_a_freelancer">How it works?</a></p>
+            <p><a href="/freelancer">My portfolio</a></p>
+        </div>
+        
     </div>
 {% endblock %}

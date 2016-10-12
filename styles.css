@@ -2,6 +2,9 @@
     Created on : October 5, 2016
     Author     : Nathalie Desrosiers & Nikolay Nikolov
 */
+body{
+    width:100%;
+}
 
 /* Nathalie */
 #navigation{
@@ -20,18 +23,27 @@
 /* Nathalie */
 .blueContainer{
     margin: 0px;
-    padding: 5px; 
+    padding: 0px; 
     background-color: #e6faff;
-    min-height:75% !important;    
+    min-height:75% !important; 
+    width: 100% !important;
 }
 
 /* Nathalie */
 .whiteContainer{
     margin: 0px;
-    padding: 10px;
-    width: 100%;
+    padding: 0px;    
     background-color: #ffffff; 
-    min-height:75% !important; 
+    min-height:75% !important;
+    width: 100% !important;
+}
+
+.div{
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    
 }
 
 /* Nathalie Carousels controls (left & right)*/
