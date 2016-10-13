@@ -96,6 +96,6 @@ Nathalie:
 3- I will need help from Nikolay the Great, mainly about that uploading picture.
 
 Nikolay:
-1- I worked 
-2- I will 
-3- I need to 
+1- I worked messaging form - almost done.
+2- I will finish messaging form and work on PayPal API.
+3- I need to check is there is a way to use PayPal API only for testing.
