@@ -88,3 +88,14 @@ Nikolay:
 2- I will finish messaging form and start work on PayPal integration.
 3- I need to read more about PayPal API and try example.
 
+
+/////Thursday: October 13, 2016/////
+Nathalie:
+1- I did add a page for freelancer's portfolio/profile.
+2- I will work on that freelancer's portfolio page (starting with validating checkboxes buttons).
+3- I will need help from Nikolay the Great, mainly about that uploading picture.
+
+Nikolay:
+1- I worked 
+2- I will 
+3- I need to 
