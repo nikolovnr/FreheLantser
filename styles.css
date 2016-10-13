@@ -2,15 +2,17 @@
     Created on : October 5, 2016
     Author     : Nathalie Desrosiers & Nikolay Nikolov
 */
-body{
+
+/* Nathalie everything width to 100%*/
+.container{
     width:100%;
+    padding: 0;
 }
 
 /* Nathalie */
-#navigation{
-    margin: 0;
+#navigation{    
     padding: 10px;
-    height: 50px;
+    height: 100px !important;
 }
 
 /* Nathalie logo*/
@@ -24,26 +26,14 @@ body{
 .blueContainer{
     margin: 0px;
     padding: 0px; 
-    background-color: #e6faff;
-    min-height:75% !important; 
-    width: 100% !important;
+    background-color: #e6faff;    
 }
 
 /* Nathalie */
 .whiteContainer{
     margin: 0px;
     padding: 0px;    
-    background-color: #ffffff; 
-    min-height:75% !important;
-    width: 100% !important;
-}
-
-.div{
-    margin-left: 0;
-    margin-right: 0;
-    padding-left: 0;
-    padding-right: 0;
-    
+    background-color: #ffffff;    
 }
 
 /* Nathalie Carousels controls (left & right)*/
@@ -55,18 +45,6 @@ body{
 .lefttext{
     text-align: left;
     padding-left: 15px;
-}
-
-/* Nathalie */
-.errorIcon{
-    background-color: #ffffff;
-    color: #ff0000;
-}
-
-/* Nathalie */
-.succesIcon{
-    background-color: #ffffff;
-    color: #0000ff;
 }
 
 /* Nathalie how_it_works background-image*/
@@ -86,30 +64,3 @@ body{
     background-repeat:no-repeat;
     height: 475px;   
 }
-
-/* Nathalie Login_success */
-.logincontent-left {
-  border-right: 1px dashed #ffffff;
-}
-
-/*Keep for now the next 3-4 classes*/
-#imaginary_container{
-    margin-top:20%; /* Don't copy this */
-}
-.stylish-input-group .input-group-addon{
-    background: white !important; 
-}
-.stylish-input-group .form-control{
-	border-right:0; 
-	box-shadow:0 0 0; 
-	border-color:#ccc;
-}
-.stylish-input-group button{
-    border:0;
-    background:transparent;
-}
-
-.right-inner-addon {
-    position: relative;
-}
-

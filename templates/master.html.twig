@@ -13,23 +13,14 @@
         <title>{% block title %}{% endblock %}</title>        
         {% block head %}
             <script>
-                var session = <?php echo $_SESSION['is_logged']?'true':'false'; ?>;
-                //alert(session);
-                if(session){
-                    $("#login").hide();
-                    $("#logout").show();
-                }else{
-                    $("#login").show();
-                    $("#logout").hide();
-                }
-                        
+
             </script>            
         {% endblock %}
     </head>
     <body>
         <!-- *************************************************************** -->
         <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="navigation">
+        <nav class="navbar navbar-fixed-top" role="navigation" id="navigation">
             <div class="container whiteContainer">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">                    
@@ -45,20 +36,35 @@
                             <a href="#"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;Browse</a>
                         </li>
                         <li>
-                            <a href="/how_it_works"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;How it works</a>
+                            <a href="/how_it_works_recruiter"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;I am a recruiter</a>
                         </li>
                         <li>
-                            <a href="/become_a_freelancer"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Become a freelancer</a>
-                        </li>
-                        <li>
-                            <a href="/register"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Sign up</a>
-                        </li>
-                        <li id="login">
-                            <a href="/login"><span class="glyphicon glyphicon-log-in"></span>&nbsp;Login</a>
-                        </li>
-                        <li id="logout">
-                            <a href="/logout"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a>
-                        </li>
+                            <a href="/how_it_works_freelancer"><span class="glyphicon glyphicon-wrench"></span>&nbsp;I am a freelancer</a>
+                        </li>                        
+                        {% if fbUser %}
+                            <li>
+                                <img src="//graph.facebook.com/{{fbUser.ID}}/picture"><span style="color:#337ab7;">{{fbUser.firstName}}</span>
+                            </li>
+                            <li>
+                                <a href="/logout"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a>
+                            </li>
+                        {% else %}
+                            {% if user %}
+                                <li>                                    
+                                    <a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;{{user.firstName}}</a>
+                                </li>
+                                <li>
+                                    <a href="/logout"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a>
+                                </li>
+                            {% else %}
+                                <li>
+                                    <a href="/register"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Sign up</a>
+                                </li>
+                                <li>
+                                    <a href="/login"><span class="glyphicon glyphicon-log-in"></span>&nbsp;Login</a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
                     </ul>
                 </div>
             </div>

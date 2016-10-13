@@ -13,16 +13,21 @@
         <h1>Welcome {{firstname}} {{lastname}} from {{email}}</h1>
         <br><br><br><br><br>        
 
-        <div class="col-sm-2 sidenav navbar-left">
-            <p>I am a recruiter</a></p>
-            <p><a href="/how_it_works">How it works?</a></p>
-            <p><a href="/projects">Create a project</a></p>
+        <div class="row">
+            <div class="col-sm-2 sidenav navbar-left">
+                <p>I am a recruiter</a></p>
+                <p><a href="/how_it_works">How it works?</a></p>
+                <p><a href="/projects">Create a project</a></p>
+            </div>
+            <div>
+                <img src="/images/recruiter.jpg" alt="Recruiter" height="200">
+                <img src="/images/freelancer.jpg" alt="Freelancer" height="200">
+            </div>
+            <div class="col-sm-2 sidenav navbar-right">
+                <p>I am a freelancer</a></p>
+                <p><a href="/become_a_freelancer">How it works?</a></p>
+                <p><a href="/freelancer">My portfolio</a></p>
+            </div>
         </div>
-        <div class="col-sm-2 sidenav navbar-right">
-            <p>I am a freelancer</a></p>
-            <p><a href="/become_a_freelancer">How it works?</a></p>
-            <p><a href="/freelancer">My portfolio</a></p>
-        </div>
-        
     </div>
 {% endblock %}

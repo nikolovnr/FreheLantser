@@ -38,12 +38,12 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
         ";
         // line 14
         $this->displayBlock('head', $context, $blocks);
-        // line 28
+        // line 19
         echo "    </head>
     <body>
         <!-- *************************************************************** -->
         <!-- Navigation -->
-        <nav class=\"navbar navbar-default navbar-fixed-top\" role=\"navigation\" id=\"navigation\">
+        <nav class=\"navbar navbar-fixed-top\" role=\"navigation\" id=\"navigation\">
             <div class=\"container whiteContainer\">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class=\"navbar-header\">                    
@@ -59,21 +59,57 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
                             <a href=\"#\"><span class=\"glyphicon glyphicon-eye-open\"></span>&nbsp;Browse</a>
                         </li>
                         <li>
-                            <a href=\"/how_it_works\"><span class=\"glyphicon glyphicon-question-sign\"></span>&nbsp;How it works</a>
+                            <a href=\"/how_it_works_recruiter\"><span class=\"glyphicon glyphicon-briefcase\"></span>&nbsp;I am a recruiter</a>
                         </li>
                         <li>
-                            <a href=\"/become_a_freelancer\"><span class=\"glyphicon glyphicon-wrench\"></span>&nbsp;Become a freelancer</a>
-                        </li>
-                        <li>
-                            <a href=\"/register\"><span class=\"glyphicon glyphicon-pencil\"></span>&nbsp;Sign up</a>
-                        </li>
-                        <li id=\"login\">
-                            <a href=\"/login\"><span class=\"glyphicon glyphicon-log-in\"></span>&nbsp;Login</a>
-                        </li>
-                        <li id=\"logout\">
-                            <a href=\"/logout\"><span class=\"glyphicon glyphicon-log-out\"></span>&nbsp;Logout</a>
-                        </li>
-                    </ul>
+                            <a href=\"/how_it_works_freelancer\"><span class=\"glyphicon glyphicon-wrench\"></span>&nbsp;I am a freelancer</a>
+                        </li>                        
+                        ";
+        // line 44
+        if ((isset($context["fbUser"]) ? $context["fbUser"] : null)) {
+            // line 45
+            echo "                            <li>
+                                <img src=\"//graph.facebook.com/";
+            // line 46
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["fbUser"]) ? $context["fbUser"] : null), "ID", array()), "html", null, true);
+            echo "/picture\"><span style=\"color:#337ab7;\">";
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["fbUser"]) ? $context["fbUser"] : null), "firstName", array()), "html", null, true);
+            echo "</span>
+                            </li>
+                            <li>
+                                <a href=\"/logout\"><span class=\"glyphicon glyphicon-log-out\"></span>&nbsp;Logout</a>
+                            </li>
+                        ";
+        } else {
+            // line 52
+            echo "                            ";
+            if ((isset($context["user"]) ? $context["user"] : null)) {
+                // line 53
+                echo "                                <li>                                    
+                                    <a href=\"#\"><span class=\"glyphicon glyphicon-user\"></span>&nbsp;";
+                // line 54
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["user"]) ? $context["user"] : null), "firstName", array()), "html", null, true);
+                echo "</a>
+                                </li>
+                                <li>
+                                    <a href=\"/logout\"><span class=\"glyphicon glyphicon-log-out\"></span>&nbsp;Logout</a>
+                                </li>
+                            ";
+            } else {
+                // line 60
+                echo "                                <li>
+                                    <a href=\"/register\"><span class=\"glyphicon glyphicon-pencil\"></span>&nbsp;Sign up</a>
+                                </li>
+                                <li>
+                                    <a href=\"/login\"><span class=\"glyphicon glyphicon-log-in\"></span>&nbsp;Login</a>
+                                </li>
+                            ";
+            }
+            // line 67
+            echo "                        ";
+        }
+        // line 68
+        echo "                    </ul>
                 </div>
             </div>
         </nav>
@@ -82,7 +118,7 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
         <div id=\"blueContainer\">
             <br><br><br><br>
             <div id=\"container\" class=\"container text-center\">";
-        // line 70
+        // line 76
         $this->displayBlock('content', $context, $blocks);
         echo "</div>            
         </div> 
@@ -127,21 +163,12 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
     {
         // line 15
         echo "            <script>
-                var session = <?php echo \$_SESSION['is_logged']?'true':'false'; ?>;
-                //alert(session);
-                if(session){
-                    \$(\"#login\").hide();
-                    \$(\"#logout\").show();
-                }else{
-                    \$(\"#login\").show();
-                    \$(\"#logout\").hide();
-                }
-                        
+
             </script>            
         ";
     }
 
-    // line 70
+    // line 76
     public function block_content($context, array $blocks = array())
     {
     }
@@ -151,9 +178,14 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
         return "master.html.twig";
     }
 
+    public function isTraitable()
+    {
+        return false;
+    }
+
     public function getDebugInfo()
     {
-        return array (  145 => 70,  129 => 15,  126 => 14,  121 => 13,  86 => 70,  42 => 28,  40 => 14,  36 => 13,  22 => 1,);
+        return array (  172 => 76,  165 => 15,  162 => 14,  157 => 13,  122 => 76,  112 => 68,  109 => 67,  100 => 60,  91 => 54,  88 => 53,  85 => 52,  74 => 46,  71 => 45,  69 => 44,  42 => 19,  40 => 14,  36 => 13,  22 => 1,);
     }
 
     public function getSource()
@@ -173,23 +205,14 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
         <title>{% block title %}{% endblock %}</title>        
         {% block head %}
             <script>
-                var session = <?php echo \$_SESSION['is_logged']?'true':'false'; ?>;
-                //alert(session);
-                if(session){
-                    \$(\"#login\").hide();
-                    \$(\"#logout\").show();
-                }else{
-                    \$(\"#login\").show();
-                    \$(\"#logout\").hide();
-                }
-                        
+
             </script>            
         {% endblock %}
     </head>
     <body>
         <!-- *************************************************************** -->
         <!-- Navigation -->
-        <nav class=\"navbar navbar-default navbar-fixed-top\" role=\"navigation\" id=\"navigation\">
+        <nav class=\"navbar navbar-fixed-top\" role=\"navigation\" id=\"navigation\">
             <div class=\"container whiteContainer\">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class=\"navbar-header\">                    
@@ -205,20 +228,35 @@ class __TwigTemplate_6507eef089410e554b0c88ae100188c291182b04a084868f77c75c31497
                             <a href=\"#\"><span class=\"glyphicon glyphicon-eye-open\"></span>&nbsp;Browse</a>
                         </li>
                         <li>
-                            <a href=\"/how_it_works\"><span class=\"glyphicon glyphicon-question-sign\"></span>&nbsp;How it works</a>
+                            <a href=\"/how_it_works_recruiter\"><span class=\"glyphicon glyphicon-briefcase\"></span>&nbsp;I am a recruiter</a>
                         </li>
                         <li>
-                            <a href=\"/become_a_freelancer\"><span class=\"glyphicon glyphicon-wrench\"></span>&nbsp;Become a freelancer</a>
-                        </li>
-                        <li>
-                            <a href=\"/register\"><span class=\"glyphicon glyphicon-pencil\"></span>&nbsp;Sign up</a>
-                        </li>
-                        <li id=\"login\">
-                            <a href=\"/login\"><span class=\"glyphicon glyphicon-log-in\"></span>&nbsp;Login</a>
-                        </li>
-                        <li id=\"logout\">
-                            <a href=\"/logout\"><span class=\"glyphicon glyphicon-log-out\"></span>&nbsp;Logout</a>
-                        </li>
+                            <a href=\"/how_it_works_freelancer\"><span class=\"glyphicon glyphicon-wrench\"></span>&nbsp;I am a freelancer</a>
+                        </li>                        
+                        {% if fbUser %}
+                            <li>
+                                <img src=\"//graph.facebook.com/{{fbUser.ID}}/picture\"><span style=\"color:#337ab7;\">{{fbUser.firstName}}</span>
+                            </li>
+                            <li>
+                                <a href=\"/logout\"><span class=\"glyphicon glyphicon-log-out\"></span>&nbsp;Logout</a>
+                            </li>
+                        {% else %}
+                            {% if user %}
+                                <li>                                    
+                                    <a href=\"#\"><span class=\"glyphicon glyphicon-user\"></span>&nbsp;{{user.firstName}}</a>
+                                </li>
+                                <li>
+                                    <a href=\"/logout\"><span class=\"glyphicon glyphicon-log-out\"></span>&nbsp;Logout</a>
+                                </li>
+                            {% else %}
+                                <li>
+                                    <a href=\"/register\"><span class=\"glyphicon glyphicon-pencil\"></span>&nbsp;Sign up</a>
+                                </li>
+                                <li>
+                                    <a href=\"/login\"><span class=\"glyphicon glyphicon-log-in\"></span>&nbsp;Login</a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
                     </ul>
                 </div>
             </div>

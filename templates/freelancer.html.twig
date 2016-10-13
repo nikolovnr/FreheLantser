@@ -5,44 +5,58 @@
 {% block head %}    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
+        $('#portfolioForm').submit(function (event) {
+            var skills = = $("#find-table input:checkbox:checked").map(function(){
+        return $(this).val();
+    }).toArray();
+    alert(skills);
+});
         
-            ///////////////////////////////////////////////validating first name              
-            $("#firstname").blur(function () {
-                var regexfirstname = /^[A-Za-z -]+$/;
-                var firstname = $("input[name=firstname]").val();
-                if ((firstname.length < 3) || (firstname.length > 50)) {
-                    allGood = false;
-                    $("#firstalertcharacters").show();
-                    $("#submit").hide();
-                }
-                if (!firstname.match(regexfirstname)) {
-                    allGood = false;
-                    $("#firstalertregex").show();
-                    $("#submit").hide();
-                } else if ((firstname.match(regexfirstname)) &&
-                        (firstname.length >= 3) &&
-                        (firstname.length <= 50)) {
-                    allGood = true;
-                    $("#firstalertcharacters").hide();
-                    $("#firstalertregex").hide();
-                    $("#submit").show();
-
-                }
-            });
-
-           
-
-            /////////////////////////////////////////////////////Register button
-            $('#registrationForm').submit(function (event) {
-                var email = $("input[name=email]").val();
-                var firstname = $("input[name=firstname]").val();
-                var lastname = $("input[name=lastname]").val();
-                var country = $("input[name=country]").selectedIndex;
-                var password = $("input[name=password]").val();        
-
-            });
+        /*<?php
+$target_dir = "uploads/";
+$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+$uploadOk = 1;
+$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+// Check if image file is an actual image or fake image
+if(isset($_POST["submit"])) {
+    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+    if($check !== false) {
+        echo "File is an image - " . $check["mime"] . ".";
+        $uploadOk = 1;
+    } else {
+        echo "File is not an image.";
+        $uploadOk = 0;
+    }
+}
+// Check if file already exists
+if (file_exists($target_file)) {
+    echo "Sorry, file already exists.";
+    $uploadOk = 0;
+}
+// Check file size
+if ($_FILES["fileToUpload"]["size"] > 500000) {
+    echo "Sorry, your file is too large.";
+    $uploadOk = 0;
+}
+// Allow certain file formats
+if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+&& $imageFileType != "gif" ) {
+    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+    $uploadOk = 0;
+}
+// Check if $uploadOk is set to 0 by an error
+if ($uploadOk == 0) {
+    echo "<br>Sorry, your file was not uploaded.";
+// if everything is ok, try to upload file
+} else {
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+    } else {
+        echo "Sorry, there was an error uploading your file.";
+    }
+}        
         
-        
+?> */     
     </script>
 {% endblock %}  
 
@@ -67,30 +81,31 @@
                   <div class="col-sm-3 lefttext">
                     <div class="checkbox" id="skills">
                         <h3>My skills</h3>
-                        <label><input type="checkbox" name="skills[]" value="1">C</label><br>
-                        <label><input type="checkbox" name="skills[]" value="2">C++</label><br>
-                        <label><input type="checkbox" name="skills[]" value="3">C#</label><br>
-                        <label><input type="checkbox" name="skills[]" value="4">Objective C</label><br>
-                        <label><input type="checkbox" name="skills[]" value="5">CSS</label><br>
-                        <label><input type="checkbox" name="skills[]" value="6">HTML</label><br>
-                        <label><input type="checkbox" name="skills[]" value="7">Java</label><br>
-                        <label><input type="checkbox" name="skills[]" value="8">JavaScript</label><br>
-                        <label><input type="checkbox" name="skills[]" value="9">PHP</label><br>
-                        <label><input type="checkbox" name="skills[]" value="10">Python</label><br>
-                        <label><input type="checkbox" name="skills[]" value="11">Ruby</label><br>
-                        <label><input type="checkbox" name="skills[]" value="11">Other</label><br>
+                        <label><input type="checkbox" name="skills" value="C">C</label><br>
+                        <label><input type="checkbox" name="skills" value="C++">C++</label><br>
+                        <label><input type="checkbox" name="skills[]" value="C#">C#</label><br>
+                        <label><input type="checkbox" name="skills[]" value="Objective C">Objective C</label><br>
+                        <label><input type="checkbox" name="skills[]" value="CSS">CSS</label><br>
+                        <label><input type="checkbox" name="skills[]" value="HTML">HTML</label><br>
+                        <label><input type="checkbox" name="skills[]" value="Java">Java</label><br>
+                        <label><input type="checkbox" name="skills[]" value="JavaScript">JavaScript</label><br>
+                        <label><input type="checkbox" name="skills[]" value="PHP">PHP</label><br>
+                        <label><input type="checkbox" name="skills[]" value="Python">Python</label><br>
+                        <label><input type="checkbox" name="skills[]" value="Ruby">Ruby</label><br>
+                        <label><input type="checkbox" name="skills[]" value="Other">Other</label><br>
                     </div>
                   </div>
                 </div>
             
             <!-- Submit button --> 
-            <div class="row" id="registerbutton">
+            <div class="row" id="submitbutton">
                 <div class="form-group"> 
                     <div class="col-sm-offset-2 col-sm-10 text-center">
                         <button type="submit" class="btn btn-primary" value="" id="submit">Save my portfolio</button>
                         <br><br>
                     </div>
                 </div>
+            </div>
         </form>
     </div>
 {% endblock %}

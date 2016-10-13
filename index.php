@@ -78,6 +78,14 @@ $view->setTemplatesDirectory(dirname(__FILE__) . '/templates');
     'username' => '[A-Za-z]{3,50}'
 ));
 
+if (!isset($_SESSION['user'])) {
+    $_SESSION['user'] = array();
+}
+
+//Next two lines gracefully shared by Tina to pass global variable to all the twigs
+$twig = $app->view()->getEnvironment();
+$twig->addGlobal('user', $_SESSION['user']);
+
 function isValidProject($prj, &$error, $skipID = FALSE) {
 
     return TRUE;
@@ -87,15 +95,13 @@ function isValidJob($prj, &$error, $skipID = FALSE) {
 
     return TRUE;
 }
-
-if (!isset($_SESSION['user'])) {
-    $_SESSION['user'] = array();
-}
-
+////////////////////////////////////////////////////////////////////email exists
 $app->get('/emailexists/:email', function($email) use ($app, $log) {
     $user = DB::queryFirstRow("SELECT * FROM users WHERE email=%s", $email);
     if ($user) {
-        echo "Email already registered.";
+        echo TRUE;        
+    }else{
+        echo FALSE;
     }
 });
 
@@ -128,15 +134,15 @@ $app->get('/hello', function() use ($app) {
 });
 
 ////////////////////////////////////////////////////////////////////////////////
-//State 1: First show HOW IT WORKS
-$app->get('/how_it_works', function() use ($app) {
-    $app->render('how_it_works.html.twig');
+//State 1: First show HOW_IT_WORKS_RECRUITER
+$app->get('/how_it_works_recruiter', function() use ($app) {
+    $app->render('how_it_works_recruiter.html.twig');
 });
 
 ////////////////////////////////////////////////////////////////////////////////
-//State 1: First show BECOME A FREELANCER
-$app->get('/become_a_freelancer', function() use ($app) {
-    $app->render('become_a_freelancer.html.twig');
+//State 1: First show HOW_IT_WORKS_FREELANCER
+$app->get('/how_it_works_freelancer', function() use ($app) {
+    $app->render('how_it_works_freelancer.html.twig');
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -176,7 +182,6 @@ $app->post('/register(/:id)', function($id = '') use ($app, $log) {
     }
 
     //country check: a value must be picked    
-    
     //email check: must be 250 characters long max
     if ((strlen($email) < 10) || (strlen($email) > 250)) {
         array_push($errorList, "Email must be between 10 and 250 characters long.");
@@ -275,8 +280,8 @@ $app->post('/login(/:id)', function($id = '') use ($app, $log) {
             unset($user['password']);
             $_SESSION['user'] = $user;
             $log->debug(sprintf("User %s logged in successfuly from IP %s", $user['ID'], $_SERVER['REMOTE_ADDR']));
-            $app->render('login_success.html.twig', array(                
-                'firstname' => $user['firstName'],                
+            $app->render('login_success.html.twig', array(
+                'firstname' => $user['firstName'],
                 'lastname' => $user['lastName'],
                 'email' => $email
             ));
@@ -326,11 +331,11 @@ $app->post('/projects', function() use ($app, $log) {
     $body = $app->request->getBody();
     $record = json_decode($body, TRUE);
     // FIXME: verify $record contains all and only fields required with valid values
-    
-    
-    
-    
-    
+
+
+
+
+
     if (!isValidProject($record, $error, TRUE)) {
         $app->response->setStatus(400);
         $log->debug("POST /projects verification failed: " . $error);
@@ -427,10 +432,50 @@ $app->delete('/job/:ID', function($ID) {
     echo 'true';
 });
 
-//////////////////////////////////////////////////////////////////////////////
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////
 //Sate 1: First show FREELANCER PORTFOLIO
-$app->get('/freelancer', function() use ($app, $log){
+$app->get('/freelancer', function() use ($app, $log) {
     $app->render('freelancer.html.twig');
 });
+//State 2: Submission FREELANCER PORTFOLIO    
+$app->post('/freelancer(/:id)', function($id = '') use ($app, $log) {
+    /*//Next lines to allow freelancer to upload his pictures
+    $target_dir = "uploads/";
+    $max_file_size = 5 * 1024 * 1024;
+    $fileUpload = $_FILES['fileToUpload'];
+    $check = getimagesize($fileUpload["tmp_name"]);
+    if (!$check) {
+        die("Error: This file was not an image file.");
+    }
+    switch ($check['mime']) {
+        case 'image/bmp':
+        case 'image/gif':
+        case 'image/jpeg':
+        case 'image/png':
+            break;
+        default :
+            die("Error: Only accepting valid bmp, gif, jpg and png files.");
+    }
+    if ($fileUpload['size'] > $max_file_size) {
+        die("Error: File too big, maximum accepted is $max_file_size bytes.");
+    }
+    //generating our own file name, preventing SQL injection
+    $file_extension = explode('/', $check['mime'])[1];
+    $target_file = $target_dir . md5($fileUpload["name"] . time()) . '.' . $file_extension;
+
+    if (move_uploaded_file($fileUpload, ["tmp_name"], $target_file)) {
+        alert("The file " . basename($fileUpload["name"]) . " has been uploaded.");
+    } else {
+        alert("Sorry, there was an error uploading your file.");
+    }*/
+    
+    //checkboxes here
+});
+
+
 
 $app->run();
