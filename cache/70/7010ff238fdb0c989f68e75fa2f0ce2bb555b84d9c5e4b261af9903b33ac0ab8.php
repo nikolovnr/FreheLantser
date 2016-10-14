@@ -221,12 +221,7 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
             } else if (allGood) {
                 \$(\"#submit\").show();
             }
-
-            //});
-
-
-
-
+           
             /////////////////////////////////////////////////////Register button
             \$('#registrationForm').submit(function (event) {
                 var email = \$(\"input[name=email]\").val();
@@ -237,30 +232,29 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
 
             });
         });
-        //});
     </script>
 ";
     }
 
-    // line 211
+    // line 205
     public function block_content($context, array $blocks = array())
     {
-        // line 212
+        // line 206
         echo "    <div class=\"blueContainer\">
         <br>
         <h1>Register</h1>
 
         ";
-        // line 216
+        // line 210
         if ((isset($context["errorList"]) ? $context["errorList"] : null)) {
-            // line 217
+            // line 211
             echo "            <ul>
                 ";
-            // line 218
+            // line 212
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["errorList"]) ? $context["errorList"] : null));
             foreach ($context['_seq'] as $context["_key"] => $context["error"]) {
-                // line 219
+                // line 213
                 echo "                    <li>";
                 echo twig_escape_filter($this->env, $context["error"], "html", null, true);
                 echo "</li>
@@ -269,11 +263,11 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['error'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 221
+            // line 215
             echo "            </ul>
         ";
         }
-        // line 223
+        // line 217
         echo "
         <form class=\"form-horizontal\" id=\"registrationForm\" method=\"POST\" action=\"\">
             <!-- Email input -->   
@@ -634,14 +628,6 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
                     Both <strong>passwords</strong> must be identical.
                 </div>
 
-                <!--  I'm keeping it in case 'I'm a freelancer' 'I'm a hirer'...
-                   <div class=\"form-group\"> 
-                      <div class=\"col-sm-offset-2 col-sm-10\">
-                        <div class=\"checkbox\">
-                          <label><input type=\"checkbox\"> Remember me</label>
-                        </div>
-                      </div>
-                    </div>-->
                 <!-- Submit button --> 
                 <div class=\"row\" id=\"registerbutton\">
                     <div class=\"form-group\"> 
@@ -669,7 +655,7 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
 
     public function getDebugInfo()
     {
-        return array (  277 => 223,  273 => 221,  264 => 219,  260 => 218,  257 => 217,  255 => 216,  249 => 212,  246 => 211,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  271 => 217,  267 => 215,  258 => 213,  254 => 212,  251 => 211,  249 => 210,  243 => 206,  240 => 205,  36 => 5,  30 => 3,  11 => 1,);
     }
 
     public function getSource()
@@ -864,12 +850,7 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
             } else if (allGood) {
                 \$(\"#submit\").show();
             }
-
-            //});
-
-
-
-
+           
             /////////////////////////////////////////////////////Register button
             \$('#registrationForm').submit(function (event) {
                 var email = \$(\"input[name=email]\").val();
@@ -880,7 +861,6 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
 
             });
         });
-        //});
     </script>
 {% endblock %}  
 
@@ -1256,14 +1236,6 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
                     Both <strong>passwords</strong> must be identical.
                 </div>
 
-                <!--  I'm keeping it in case 'I'm a freelancer' 'I'm a hirer'...
-                   <div class=\"form-group\"> 
-                      <div class=\"col-sm-offset-2 col-sm-10\">
-                        <div class=\"checkbox\">
-                          <label><input type=\"checkbox\"> Remember me</label>
-                        </div>
-                      </div>
-                    </div>-->
                 <!-- Submit button --> 
                 <div class=\"row\" id=\"registerbutton\">
                     <div class=\"form-group\"> 

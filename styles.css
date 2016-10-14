@@ -47,20 +47,39 @@
     padding-left: 15px;
 }
 
-/* Nathalie how_it_works background-image*/
+/* Nathalie how_it_works_recruiter background-image*/
 #specialbackground{
     margin: 0;
-    background-image: url('/images/background-howitworks.png');
+    background-image: url('/images/background-how-it-works-recruiter.png');
     background-size: 100%;
     background-repeat:no-repeat;
     height: 480px;    
 }
 
-/* Nathalie become_a_freelancer background-image */
+/* Nathalie how_it_works_freelancer background-image */
 #freelancerhowto{
     margin: 0;
-    background-image: url('/images/background-freelancer.png');
+    background-image: url('/images/background-how-it-works-freelancer.png');
     background-size: 100%;
     background-repeat:no-repeat;
     height: 475px;   
+}
+
+/* Nathalie freelancer portfolio fieldset border */
+fieldset.fieldset-border {
+    margin: 1.5em !important;
+    border: 1px groove #ffffff !important;
+    padding: 0 1.4em 1.4em 1.4em !important;    
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+}
+
+/* Nathalie freelancer portfolio fieldset legend */
+legend.fieldset-border {
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    text-align: left !important;
+    width: inherit; /* Or auto */
+    padding: 0 10px; 
+    border-bottom: none;
 }

@@ -13,30 +13,32 @@ $log = new Logger('main');
 $log->pushHandler(new StreamHandler('logs/everything.log', Logger::DEBUG));
 $log->pushHandler(new StreamHandler('logs/errors.log', Logger::ERROR));
 
-/*
-  //frehelantser.ipd8.info
-  DB::$dbName = 'cp4724_frehelantser';
-  DB::$user = 'cp4724_frehelant';
-  DB::$password = 'HoeEw2DFIagZ';
-  DB::$host = 'ipd8.info';
- */
 
+
+if ($_SERVER['SERVER_NAME'] == 'localhost') {
 //Nathalie HOME
-DB::$dbName = 'frehelantser';
-DB::$user = 'frehelantser';
-DB::$password = 'Q4MGJPYZDtzhSZdv';
+    DB::$dbName = 'frehelantser';
+    DB::$user = 'frehelantser';
+    DB::$password = 'Q4MGJPYZDtzhSZdv';
 //DB::$host = 'ipd.info';
 //Nikolay HOME
 //DB::$dbName = 'frehelantser';
 //DB::$user = 'frehelantser';
 //DB::$password = 'RHam3MzPjMBwvrWH';
+    /*
+      //Nikolay SCHOOL
+      DB::$dbName = 'frehelantser';
+      DB::$user = 'frehelantser';
+      DB::$password = 'ZTs9AZyyPsyGman7';
+     */
+} else {
+    //frehelantser.ipd8.info
+    DB::$dbName = 'cp4724_frehelantser';
+    DB::$user = 'cp4724_frehelant';
+    DB::$password = 'HoeEw2DFIagZ';
+    DB::$host = 'ipd8.info';
+}
 
-/*
-  //Nikolay SCHOOL
-  DB::$dbName = 'frehelantser';
-  DB::$user = 'frehelantser';
-  DB::$password = 'ZTs9AZyyPsyGman7';
- */
 
 DB::$error_handler = 'sql_error_handler';
 DB::$nonsql_error_handler = 'nonsql_error_handler';
@@ -74,8 +76,7 @@ $view->setTemplatesDirectory(dirname(__FILE__) . '/templates');
 \Slim\Route::setDefaultConditions(array(
     'id' => '\d+',
     'firstname' => '[A-Za-z]{3,50}',
-    'lastname' => '[A-Za-z]{3,50}',
-    'username' => '[A-Za-z]{3,50}'
+    'lastname' => '[A-Za-z]{3,50}'
 ));
 
 if (!isset($_SESSION['user'])) {
@@ -95,21 +96,21 @@ function isValidJob($prj, &$error, $skipID = FALSE) {
 
     return TRUE;
 }
+
 ////////////////////////////////////////////////////////////////////email exists
 $app->get('/emailexists/:email', function($email) use ($app, $log) {
     $user = DB::queryFirstRow("SELECT * FROM users WHERE email=%s", $email);
     if ($user) {
-        echo TRUE;        
-    }else{
+        echo TRUE;
+    } else {
         echo FALSE;
     }
 });
 
 function getAuthUserID() {
-    global $app, $log;
-    //$username = $app->request->headers("PHP_AUTH_USER");
+    global $app, $log;    
     $password = $app->request->headers("PHP_AUTH_PW");
-    if (/* $username && */$password) {
+    if ($password) {
         $row = DB::queryFirstRow("SELECT * FROM users WHERE email=%s", $email);
         if ($row && $row['password'] == $password) {
             return $row['ID'];
@@ -128,7 +129,7 @@ $app->get('/', function() use ($app) {
 });
 
 ////////////////////////////////////////////////////////////////////////////////
-//State 1: First show HELLO
+//State 1: First show HELLO (just a testing page)
 $app->get('/hello', function() use ($app) {
     $app->render('hello.html.twig');
 });
@@ -151,7 +152,7 @@ $app->get('/register', function() use ($app, $log) {
     $app->render('register.html.twig');
 });
 
-//State 2: Submission REGISTER 
+//Submission REGISTER 
 $app->post('/register(/:id)', function($id = '') use ($app, $log) {
     $firstname = $app->request->post('firstname');
     $lastname = $app->request->post('lastname');
@@ -206,7 +207,6 @@ $app->post('/register(/:id)', function($id = '') use ($app, $log) {
     }
 
     //password check: REGEX validation
-    //^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-+_!@#$%^&*()-+=.,?]).+$
     if (!preg_match('/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-+_!@#$%^&*()-+=.,?])/', $password)) {
         array_push($errorList, "1 of each: uppercase, lowercase, digit, special character.");
         unset($valueList['password']);
@@ -254,18 +254,16 @@ $app->get('/login', function() use ($app, $log) {
     $app->render('login.html.twig');
 });
 
-//State 2: Submission LOGIN
+//Submission LOGIN
 $app->post('/login(/:id)', function($id = '') use ($app, $log) {
     $email = $app->request->post('email');
-    $password = $app->request->post('password');
-    //$firstname = $app->request->post('firstname');
-    //$lastname = $app->request->post('lastname');
+    $password = $app->request->post('password');    
     $valueList = array(
         'email' => $email,
         'password' => $password
     );
     $user = DB::queryFirstRow("SELECT * FROM users WHERE email=%s", $email);
-
+  //  print_r($user);
     if (!$user) {
         $log->debug(sprintf("User failed for email %s from IP %s", $email, $_SERVER['REMOTE_ADDR']));
         $app->render('login.html.twig', array('loginFailed' => TRUE));
@@ -280,6 +278,7 @@ $app->post('/login(/:id)', function($id = '') use ($app, $log) {
             unset($user['password']);
             $_SESSION['user'] = $user;
             $log->debug(sprintf("User %s logged in successfuly from IP %s", $user['ID'], $_SERVER['REMOTE_ADDR']));
+            print_r($_SESSION);
             $app->render('login_success.html.twig', array(
                 'firstname' => $user['firstName'],
                 'lastname' => $user['lastName'],
@@ -305,7 +304,12 @@ $app->get('/termsandconditions', function() use ($app, $log) {
 });
 
 ////////////////////////////////////////////////////////////////////////////////
-//State 1: First show PROJECTS
+//State 1: First show CREATE PROJECTS
+$app->get('/createprojects', function() use ($app, $log) {
+    $app->render('create_projects.html.twig', $recordList);
+});
+
+//AJAX retreive PROJECTS
 $app->get('/projects', function() use ($app, $log) {
     //$userID=getAuthUserID();
     //if (!$userID) return;
@@ -439,40 +443,103 @@ $app->delete('/job/:ID', function($ID) {
 ////////////////////////////////////////////////////////////////////////////////
 //Sate 1: First show FREELANCER PORTFOLIO
 $app->get('/freelancer', function() use ($app, $log) {
-    $app->render('freelancer.html.twig');
+    $app->render('freelancer_portfolio.html.twig');
 });
+
 //State 2: Submission FREELANCER PORTFOLIO    
 $app->post('/freelancer(/:id)', function($id = '') use ($app, $log) {
-    /*//Next lines to allow freelancer to upload his pictures
-    $target_dir = "uploads/";
-    $max_file_size = 5 * 1024 * 1024;
-    $fileUpload = $_FILES['fileToUpload'];
-    $check = getimagesize($fileUpload["tmp_name"]);
-    if (!$check) {
-        die("Error: This file was not an image file.");
-    }
-    switch ($check['mime']) {
-        case 'image/bmp':
-        case 'image/gif':
-        case 'image/jpeg':
-        case 'image/png':
-            break;
-        default :
-            die("Error: Only accepting valid bmp, gif, jpg and png files.");
-    }
-    if ($fileUpload['size'] > $max_file_size) {
-        die("Error: File too big, maximum accepted is $max_file_size bytes.");
-    }
-    //generating our own file name, preventing SQL injection
-    $file_extension = explode('/', $check['mime'])[1];
-    $target_file = $target_dir . md5($fileUpload["name"] . time()) . '.' . $file_extension;
-
-    if (move_uploaded_file($fileUpload, ["tmp_name"], $target_file)) {
-        alert("The file " . basename($fileUpload["name"]) . " has been uploaded.");
-    } else {
-        alert("Sorry, there was an error uploading your file.");
-    }*/
+    //retrieving inputs from form
+    $skills = $app->request->post('skills');
+    $overview = $app->request->post('overview');
+    $errorList = array();
     
+    $log->debug("sessin: " . $_SESSION);
+    //$freelancer=DB::queryFirstRow("SELECT * FROM users WHERE ID=%d", $_SESSION['user']['ID']);
+    
+   
+
+//keep the next line it comes from Greg, about rejecting bad stuff from array
+//array array_intersect ( array $array1 , array $array2 [, array $... ] )
+
+
+    
+
+
+
+
+
+    DB::update('users', array(
+        'skills' => json_encode($skills)
+    ),'ID=%d', $_SESSION['user']['ID']);
+
+    //keep the next line it comes from Greg, about view
+    //$skills = json_decode($user['skills']);
+    
+    //overview check:must be between 5 and 1000 characters long
+    if ((strlen($overview) < 5) || (strlen($overview) > 1000)) {
+        array_push($errorList, "Overview must be between 5 and 1000 characters long.");
+    }
+
+
+
+    /*
+      $valueList = array(
+      'skills' => $skills,
+      'overview' => $overview
+      );
+      $errorList = array();
+      if (isset($_POST["skill"])){
+      //$query="INSERT INTO users(skills) VALUES ('".$_POST["skill"]."')";
+
+      DB::update('users', array(
+      'msg' => $msg,
+      'price' => $price,
+      'contactEmail' => $contactEmail
+      ),
+      'ID=%s', $id);
+      $log->debug("Ad updated with ID=".$id);
+      }
+      //Show the user his creation
+      $app->render('postadform_success.html.twig',
+      array(
+      'msg' => $msg,
+      'price' => $price,
+      'contactEmail' => $contactEmail));
+
+
+      }
+     */
+
+    /* //Next lines to allow freelancer to upload his pictures
+      $target_dir = "uploads/";
+      $max_file_size = 5 * 1024 * 1024;
+      $fileUpload = $_FILES['fileToUpload'];
+      $check = getimagesize($fileUpload["tmp_name"]);
+      if (!$check) {
+      die("Error: This file was not an image file.");
+      }
+      switch ($check['mime']) {
+      case 'image/bmp':
+      case 'image/gif':
+      case 'image/jpeg':
+      case 'image/png':
+      break;
+      default :
+      die("Error: Only accepting valid bmp, gif, jpg and png files.");
+      }
+      if ($fileUpload['size'] > $max_file_size) {
+      die("Error: File too big, maximum accepted is $max_file_size bytes.");
+      }
+      //generating our own file name, preventing SQL injection
+      $file_extension = explode('/', $check['mime'])[1];
+      $target_file = $target_dir . md5($fileUpload["name"] . time()) . '.' . $file_extension;
+
+      if (move_uploaded_file($fileUpload, ["tmp_name"], $target_file)) {
+      alert("The file " . basename($fileUpload["name"]) . " has been uploaded.");
+      } else {
+      alert("Sorry, there was an error uploading your file.");
+      } */
+
     //checkboxes here
 });
 
