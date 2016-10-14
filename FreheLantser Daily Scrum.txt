@@ -99,3 +99,19 @@ Nikolay:
 1- I worked messaging form - almost done.
 2- I will finish messaging form and work on PayPal API.
 3- I need to check is there is a way to use PayPal API only for testing.
+
+
+/////Friday: October 14, 2016/////
+Nathalie:
+1- I did work on freelancer's portfolio/profile,
+   fixed the login/logout when user/no user in navigation
+   and email exists in registration.
+2- I will work on that freelancer's portfolio page.
+3- I will Google about inserting checkboxes values into database and still will need help from Nikolay the Great,
+   mainly about that uploading picture.
+
+Nikolay:
+1- I finished creating project form, worked on send messages form. 
+2- I will make changes in database so to be able to register mesages, make auctions and register payments.
+3- I need to take the last version of DB from Nathalie and return it with corrections as soon as possible.
+
