@@ -619,12 +619,4 @@ $app->post('/freelancer(/:id)', function($id = '') use ($app, $log) {
     //$skills = json_decode($user['skills']);
 });
 
-////////////////////////////////////////////////////////////////////////////////
-//Sate 1: First show FREELANCER PORTFOLIO_UPDATE
-$app->get('/freelancer_portfolio_update', function() use ($app, $log) {
-    $app->render('freelancer_portfolio_update.html.twig');
-});
-
-
-
 $app->run();
