@@ -7,6 +7,16 @@
     <script>
         $(document).ready(function () {
             
+            //////////////////////////////////////////////////////////my picture
+            $('#submitmypicture').click(function () {
+                /*
+                 var regexfileupload = /.+\.(gif|jpe?g|png)/;
+                 if (!mypicture.match(regexfileupload)) {
+                 $("#filealerttype").show();
+                 */
+            });//end of submitmypicture button function
+            
+            //////////////////////////////////////////////////////////////skills
             $('#submitskills').click(function () {
                 var skill = [];
                 $('.skills_class:checked').each(function () {
@@ -14,7 +24,6 @@
                         skill.push($(this).val());
                     }
                 });
-                
                 skill = skill.toString();
                 $.ajax({
                     url: "index.php/freelancer",
@@ -25,77 +34,32 @@
                     }
                 });//end of ajax*/
             });//end of submitskills button function
-            
+
+            ////////////////////////////////////////////////////////////overview
             $('#submitoverview').click(function () {
-                
-            }
-            
+                var overviewRaw = $("#overviewtextarea").val();
+                if ((overviewRaw.length < 50) || (overviewRaw.length > 1000)) {
+                    $("#overviewalert").show();
+                } else {
+                    $.ajax({
+                        url: "index.php/freelancer",
+                        statusCode: {
+                            400: function (xhr) {
+                                var msg = xhr.responseText;
+                                alert("400 received: " + msg);
+                            }
+                        },
+                        data: JSON.stringify({
+                            overview: overviewRaw
+                        }),
+                        type: "POST",
+                        dataType: "json"
+                    }).done(function () {
+                        alert("Overview into database.");
+                    });//end done
+                }//end else
+            });//end submitoverview button function
         });//end of document ready
-
-
-
-
-
-
-
-
-
-
-
-        /*   
-         
-         }
-         /*var skills = $('input:checkbox:checked.skills_class').map(function () {
-         return this.value;
-         }).get().join(",");
-         
-         });
-         
-         /*<?php
-         $target_dir = "uploads/";
-         $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-         $uploadOk = 1;
-         $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-         // Check if image file is an actual image or fake image
-         if(isset($_POST["submit"])) {
-         $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-         if($check !== false) {
-         echo "File is an image - " . $check["mime"] . ".";
-         $uploadOk = 1;
-         } else {
-         echo "File is not an image.";
-         $uploadOk = 0;
-         }
-         }
-         // Check if file already exists
-         if (file_exists($target_file)) {
-         echo "Sorry, file already exists.";
-         $uploadOk = 0;
-         }
-         // Check file size
-         if ($_FILES["fileToUpload"]["size"] > 500000) {
-         echo "Sorry, your file is too large.";
-         $uploadOk = 0;
-         }
-         // Allow certain file formats
-         if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-         && $imageFileType != "gif" ) {
-         echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-         $uploadOk = 0;
-         }
-         // Check if $uploadOk is set to 0 by an error
-         if ($uploadOk == 0) {
-         echo "<br>Sorry, your file was not uploaded.";
-         // if everything is ok, try to upload file
-         } else {
-         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-         echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-         } else {
-         echo "Sorry, there was an error uploading your file.";
-         }
-         }        
-         
-         ?> */
     </script>
 {% endblock %}  
 
@@ -103,7 +67,7 @@
     <div class="blueContainer">
         <br>
         <h1>Freelancer portfolio</h1>
-        <form class="form-horizontal" id="portfolioForm" method="POST" action="">
+        <form class="form-horizontal" id="portfolioForm" method="POST" action="" enctype="multipart/form-data">
 
             <!-- Picture input -->
             <div class="form-group">
@@ -113,15 +77,21 @@
                         <input type="file" name="mypicture" id="mypicture" value="{{v.imagePath}}"> 
                     </div> 
                 </fieldset>
-                    <!-- Save my skills button --> 
-            <div class="row" id="submitmypicturerow">
-                <div class="form-group"> 
-                    <div class="col-sm-offset-2 col-sm-10 text-center">
-                        <button type="submit" class="btn btn-primary" name="submitmypicture" id="submitmypicture">Save my picture</button>
-                        <br><br>
+                <div class="alert alert-danger collapse" id="filealerttype">
+                    <strong>Sorry</strong>, only GIF, JPEG, JPG & PNG files are allowed.
+                </div>
+                <div class="alert alert-danger collapse" id="filealertsize">
+                    <strong>Sorry</strong>, your file is too large.
+                </div>                    
+                <!-- Save my picture button --> 
+                <div class="row" id="submitmypicturerow">
+                    <div class="form-group"> 
+                        <div class="col-sm-offset-2 col-sm-10 text-center">
+                            <button type="submit" class="btn btn-primary" name="submitmypicture" id="submitmypicture">Save my picture</button>
+                            <br><br>
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
 
             <!-- Skills input -->
@@ -145,37 +115,39 @@
                 </fieldset>
                 <h3 id="result"></h3>
                 <!-- Save my skills button --> 
-            <div class="row" id="submitskillsrow">
-                <div class="form-group"> 
-                    <div class="col-sm-offset-2 col-sm-10 text-center">
-                        <button type="submit" class="btn btn-primary" name="submitskills" id="submitskills">Save my skills</button>
-                        <br><br>
+                <div class="row" id="submitskillsrow">
+                    <div class="form-group"> 
+                        <div class="col-sm-offset-2 col-sm-10 text-center">
+                            <button type="submit" class="btn btn-primary" name="submitskills" id="submitskills">Save my skills</button>
+                            <br><br>
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
 
             <!-- Overview input -->
-            <div class="form-group">
+            <div class="form-group">                
                 <fieldset class="fieldset-border">
                     <legend class="fieldset-border">Overview</legend>
-                    <div class="form-group">
-                        <label for="comment">Comment:</label>
+                    <div class="form-group">                        
                         <textarea class="form-control" rows="5" id="overviewtextarea"></textarea>
                     </div>
                 </fieldset>
+                <div class="alert alert-danger collapse" id="overviewalert">
+                    <strong>Overview</strong> must be between 50 and 1000 characters.
+                </div>       
                 <h3 id="result"></h3>
                 <!-- Overview button --> 
-            <div class="row" id="submitoverviewrow">
-                <div class="form-group"> 
-                    <div class="col-sm-offset-2 col-sm-10 text-center">
-                        <button type="submit" class="btn btn-primary" name="submitoverview" id="submitoverview">Save my overview</button>
-                        <br><br>
+                <div class="row" id="submitoverviewrow">
+                    <div class="form-group"> 
+                        <div class="col-sm-offset-2 col-sm-10 text-center">
+                            <button type="submit" class="btn btn-primary" name="submitoverview" id="submitoverview">Save my overview</button>
+                            <br><br>
+                        </div>
                     </div>
                 </div>
             </div>
-            </div>
-<!--
+            <!--
             <!-- Save my skills button 
             <div class="row" id="submitbutton">
                 <div class="form-group"> 

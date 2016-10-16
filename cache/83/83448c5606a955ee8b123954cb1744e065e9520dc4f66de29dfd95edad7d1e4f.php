@@ -38,16 +38,6 @@ class __TwigTemplate_21913e670b88381bf7fe815e8bf6677d746b409a35d321c5035a7579ae9
         echo "    
     <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js\"></script>
     <script>
-
-    </script>
-";
-    }
-
-    // line 12
-    public function block_content($context, array $blocks = array())
-    {
-        // line 13
-        echo "    <script>
         //////////////////////////////////////////////////////////Facebook login
         // This is called with the results from from FB.getLoginStatus().
         function statusChangeCallback(response) {
@@ -131,18 +121,26 @@ class __TwigTemplate_21913e670b88381bf7fe815e8bf6677d746b409a35d321c5035a7579ae9
         }
         ///////////////////////////////////////////////////////////Regular Login
     </script>
+";
+    }
+
+    // line 93
+    public function block_content($context, array $blocks = array())
+    {
+        // line 94
+        echo "       
     <div class=\"container-fluid blueContainer\">
         <br>
         <h1>Login</h1>
 
         ";
-        // line 101
+        // line 99
         if ((isset($context["loginFailed"]) ? $context["loginFailed"] : null)) {
-            // line 102
+            // line 100
             echo "            <p>Invalid username or password</p>
         ";
         }
-        // line 104
+        // line 102
         echo "
 
 
@@ -157,7 +155,7 @@ class __TwigTemplate_21913e670b88381bf7fe815e8bf6677d746b409a35d321c5035a7579ae9
                 <label class=\"control-label col-sm-2\" for=\"password\">Password:</label>
                 <div class=\"col-sm-9\"> 
                     <input type=\"password\" class=\"form-control input-lg\" name=\"password\" value=\"";
-        // line 117
+        // line 115
         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["v"]) ? $context["v"] : null), "password", array()), "html", null, true);
         echo "\" placeholder=\"Enter password\" data-toggle=\"tooltip\" title=\"Must be between 8 and 50 characters long, with at least one of each: uppercase letter, lowercase letter, number and special character.\">
                 </div>
@@ -166,6 +164,10 @@ class __TwigTemplate_21913e670b88381bf7fe815e8bf6677d746b409a35d321c5035a7579ae9
                 <div class=\"col-sm-5 text-center\">
                     <button type=\"submit\" class=\"btn btn-primary\" value=\"Login\">Login</button>
                 </div>
+            </div>
+
+            <div style=\"font-size: 1.5em;\">    
+                <a href=\"/password_reset\"><span class=\"glyphicon glyphicon-question-sign\"></span>&nbsp;Ooops! I forgot my password!</a>
             </div>
             <div>    
                 <div class=\"fb-login-button\" data-max-rows=\"1\" data-size=\"xlarge\" data-show-faces=\"false\" data-auto-logout-link=\"false\"></div>
@@ -192,7 +194,7 @@ class __TwigTemplate_21913e670b88381bf7fe815e8bf6677d746b409a35d321c5035a7579ae9
 
     public function getDebugInfo()
     {
-        return array (  161 => 117,  146 => 104,  142 => 102,  140 => 101,  50 => 13,  47 => 12,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  159 => 115,  144 => 102,  140 => 100,  138 => 99,  131 => 94,  128 => 93,  36 => 5,  30 => 3,  11 => 1,);
     }
 
     public function getSource()
@@ -203,12 +205,6 @@ class __TwigTemplate_21913e670b88381bf7fe815e8bf6677d746b409a35d321c5035a7579ae9
 
 {% block head %}    
     <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js\"></script>
-    <script>
-
-    </script>
-{% endblock %}
-
-{% block content %}
     <script>
         //////////////////////////////////////////////////////////Facebook login
         // This is called with the results from from FB.getLoginStatus().
@@ -293,6 +289,10 @@ class __TwigTemplate_21913e670b88381bf7fe815e8bf6677d746b409a35d321c5035a7579ae9
         }
         ///////////////////////////////////////////////////////////Regular Login
     </script>
+{% endblock %}
+
+{% block content %}
+       
     <div class=\"container-fluid blueContainer\">
         <br>
         <h1>Login</h1>
@@ -320,6 +320,10 @@ class __TwigTemplate_21913e670b88381bf7fe815e8bf6677d746b409a35d321c5035a7579ae9
                 <div class=\"col-sm-5 text-center\">
                     <button type=\"submit\" class=\"btn btn-primary\" value=\"Login\">Login</button>
                 </div>
+            </div>
+
+            <div style=\"font-size: 1.5em;\">    
+                <a href=\"/password_reset\"><span class=\"glyphicon glyphicon-question-sign\"></span>&nbsp;Ooops! I forgot my password!</a>
             </div>
             <div>    
                 <div class=\"fb-login-button\" data-max-rows=\"1\" data-size=\"xlarge\" data-show-faces=\"false\" data-auto-logout-link=\"false\"></div>

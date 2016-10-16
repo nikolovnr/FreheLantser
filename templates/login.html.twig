@@ -5,12 +5,6 @@
 {% block head %}    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
-
-    </script>
-{% endblock %}
-
-{% block content %}
-    <script>
         //////////////////////////////////////////////////////////Facebook login
         // This is called with the results from from FB.getLoginStatus().
         function statusChangeCallback(response) {
@@ -94,6 +88,10 @@
         }
         ///////////////////////////////////////////////////////////Regular Login
     </script>
+{% endblock %}
+
+{% block content %}
+       
     <div class="container-fluid blueContainer">
         <br>
         <h1>Login</h1>
@@ -121,6 +119,10 @@
                 <div class="col-sm-5 text-center">
                     <button type="submit" class="btn btn-primary" value="Login">Login</button>
                 </div>
+            </div>
+
+            <div style="font-size: 1.5em;">    
+                <a href="/password_reset"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;Ooops! I forgot my password!</a>
             </div>
             <div>    
                 <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="false"></div>
