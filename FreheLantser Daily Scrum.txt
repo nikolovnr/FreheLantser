@@ -115,3 +115,5 @@ Nikolay:
 2- I will make changes in database so to be able to register mesages, make auctions and register payments.
 3- I need to take the last version of DB from Nathalie and return it with corrections as soon as possible.
 
+Nikolay, I created a new table:passwordresets, added a unique to userID, but was not able to get relational views to add a foreign key... Why?
+
