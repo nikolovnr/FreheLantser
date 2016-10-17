@@ -10,192 +10,187 @@
 {% endblock %}
 
 {% block content %}
-    <div class="jumbotron text-center blueContainer" id="freelancerhowto">
-        
-        <h2>Build your freelance business</h2>
-        <p>If you have amazing skills, we have amazing<br>freelance jobs. With 4+ million clients using our<br>platform, Upwork has opportunities for all types of<br>professionals. Click through below to learn more.</p>
-        <br>
-        <div class="row slideanim">
-            <div class="col-sm-3">
-                <a href="#"></a>         
-            </div>            
-            <div class="col-sm-3">
-                <a href="#searchjobs"><h4>SEARCH JOBS</h4></a>         
+    <div style="font-size: 1.3em;">
+        <div class="jumbotron text-center blueContainer" id="freelancerhowto">
+            <h2>Build your freelance business</h2>
+            <p>If you have amazing skills, we have amazing<br>freelance jobs. With 4+ million clients using our<br>platform, Upwork has opportunities for all types of<br>professionals. Click through below to learn more.</p>
+            
+            <div class="row slideanim">
+                <div class="col-sm-3">
+                    <a href="#"></a>         
+                </div>            
+                <div class="col-sm-3">
+                    <a href="#searchjobs"><h4>SEARCH JOBS</h4></a>         
+                </div>
+                <div class="col-sm-3">
+                    <a href="#getstarted"><h4>GET STARTED</h4></a>
+                </div>
             </div>
-            <div class="col-sm-3">
-                <a href="#getstarted"><h4>GET STARTED</h4></a>
+            <br><br>
+            <div class="row slideanim">
+                <div class="col-sm-3">
+                    <a href="#"></a>         
+                </div>
+                <div class="col-sm-2">
+                    <a href="#gethired"><h4>GET HIRED</h4></a>
+                </div>
+                <div class="col-sm-2">
+                    <a href="#growacareer"><h4>GROW A CAREER</h4></a>
+                </div>
+                <div class="col-sm-2">
+                    <a href="#payments"><h4>GET PAID</h4></a>         
+                </div>            
+            </div>
+            <br><br>        
+            <div class="col-md-12 center-block text-center">  
+                <a href="/register" class="btn btn-primary">Get Started</a>
+                <a href="/freelancer" class="btn btn-primary">My portfolio</a>
             </div>
         </div>
-        <br><br>
-        <div class="row slideanim">
-             <div class="col-sm-3">
-                <a href="#"></a>         
-            </div>
-            <div class="col-sm-2">
-                <a href="#gethired"><h4>GET HIRED</h4></a>
-            </div>
-            <div class="col-sm-2">
-                <a href="#growacareer"><h4>GROW A CAREER</h4></a>
-            </div>
-            <div class="col-sm-2">
-                <a href="#payments"><h4>GET PAID</h4></a>         
-            </div>            
-        </div>
-        <br><br>        
-        <div class="col-md-11 center-block text-center">  
-            <a href="/register" class="btn btn-primary">Get Started</a>
-            <a href="/freelancer" class="btn btn-primary">My portfolio</a>
-        </div>
-    </div>
 
-    <!-- Container (Search jobs Section) -->
-    <div id="searchjobs" class="container-fluid whiteContainer">
-        <br><br><br><br><br>
-        <div class="row">
-            <div class="col-sm-6 text-left">
-                <br>
-                <h2>What projects can I find on Upwork?</h2><br>                
-                <p>Search below to see who's hiring freelancers now for these and other projects.<p>
-                <ul>
-                    <li><a href="#">Web, Mobile & Software Dev jobs</a></li>
-                    <li><a href="#">IT & Networking jobs</a></li>
-                    <li><a href="#">Data Science & Analytics jobs</a></li>
-                    <li><a href="#">Engineering & Architecture jobs</a></li>
-                    <li><a href="#">Design & Creative jobs</a></li>
-                    <li><a href="#">Writing jobs</a></li>
-                    <li><a href="#">Translation jobs</a></li>
-                    <li><a href="#">Legal jobs</a></li>
-                    <li><a href="#">Admin Support jobs</a></li>
-                    <li><a href="#">Customer Service jobs</a></li>
-                    <li><a href="#">Sales & Marketing jobs</a></li>
-                    <li><a href="#">Accounting & Consulting jobs</a></li>
-                    <li><a href="#">View all job categories</a></li>
-                </ul>
+        <!-- Container (Search jobs Section) -->
+        <div id="searchjobs" class="container-fluid whiteContainer">
+            <br><br>
+            <div class="row">
+                <div class="col-sm-6 text-left">
+                    <br>
+                    <h2>What projects can I find on Upwork?</h2><br>                
+                    <p>Search below to see who's hiring freelancers now for these and other projects.<p>
+                    <ul>
+                        <li><a href="#">Web, Mobile & Software Dev jobs</a></li>
+                        <li><a href="#">IT & Networking jobs</a></li>
+                        <li><a href="#">Data Science & Analytics jobs</a></li>
+                        <li><a href="#">Engineering & Architecture jobs</a></li>
+                        <li><a href="#">Design & Creative jobs</a></li>
+                        <li><a href="#">Writing jobs</a></li>
+                        <li><a href="#">Translation jobs</a></li>
+                        <li><a href="#">Legal jobs</a></li>
+                        <li><a href="#">Admin Support jobs</a></li>
+                        <li><a href="#">Customer Service jobs</a></li>
+                        <li><a href="#">Sales & Marketing jobs</a></li>
+                        <li><a href="#">Accounting & Consulting jobs</a></li>
+                        <li><a href="#">View all job categories</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6">
+                    <img src="/images/searchjobs.png" alt="Search jobs" height="300">
+                </div>
             </div>
-            <div class="col-sm-6">
-                <img src="/images/searchjobs.png" alt="Search jobs" height="300">
-            </div>
+            <br><br>
+            <a href="#freelancerhowto">
+                <span class="glyphicon glyphicon-chevron-up"></span>
+            </a>
+            <br><br>
         </div>
-        <br><br>
-        <a href="#freelancerhowto">
-            <span class="glyphicon glyphicon-chevron-up"></span>
-        </a>
-        <br><br>
-    </div>
 
-    <!-- Container (Get Started Section) -->
-    <div id="getstarted" class="container-fluid blueContainer">
-        <br><br><br><br><br>
-        <div class="row">
-            <div class="col-sm-6">
-                <img src="/images/getstarted.png" alt="Get started" height="400">
+        <!-- Container (Get Started Section) -->
+        <div id="getstarted" class="container-fluid blueContainer">           
+            <div class="row">
+                <div class="col-sm-6">
+                    <img src="/images/getstarted.png" alt="Get started" height="400">
+                </div>
+                <div class="col-sm-6 text-left">
+                    <br>
+                    <h2>How do I get started?</h2><br> 
+                    <p>All you need to get started is a computer, Internet connection and amazing skills. Your next step is creating an outstanding freelancer profile to showcase your business. Think of it as an introduction, resume, and personal marketing brochure rolled into one, highlighting your:<p>
+                    <ul>
+                        <li>Professional skills, experience, and portfolio</li>
+                        <li>Education and accomplishments</li>
+                        <li>FreheLantser skills test results</li>
+                    </ul>
+                    <p>The best profiles are complete, well-written, error-free, and feature a professional, friendly looking picture.</p>
+                </div>
             </div>
-            <div class="col-sm-6 text-left">
-                <br>
-                <h2>How do I get started?</h2><br> 
-                <p>All you need to get started is a computer, Internet connection and amazing skills. Your next step is creating an outstanding freelancer profile to showcase your business. Think of it as an introduction, resume, and personal marketing brochure rolled into one, highlighting your:<p>
-                <ul>
-                    <li>Professional skills, experience, and portfolio</li>
-                    <li>Education and accomplishments</li>
-                    <li>FreheLantser skills test results</li>
-                </ul>
-                <p>The best profiles are complete, well-written, error-free, and feature a professional, friendly looking picture.</p>
-            </div>
+            <br><br>
+            <a href="#freelancerhowto">
+                <span class="glyphicon glyphicon-chevron-up"></span>
+            </a>
+            <br><br>    
         </div>
-        <br><br>
-        <a href="#freelancerhowto">
-            <span class="glyphicon glyphicon-chevron-up"></span>
-        </a>
-        <br><br>    
-    </div>
 
-    <!-- Container (Get hired Section) -->
-    <div id="gethired" class="container-fluid whiteContainer">
-        <br><br><br><br><br>
-        <div class="row">
-            <div class="col-sm-6 text-left">
-                <br>
-                <h2>How do I get hired by clients?</h2><br>
-                <p>Getting freelance work is a lot like traditional searching — you submit applications on projects, then impress potential clients before being offered the project.</p>
-                <p>You can start by sending the client a compelling application. This will greatly increase your likelihood of getting an interview, so consider making sure yours is:</p>
-                <ul>
-                    <li>Professional, well-written, and error-free</li>
-                    <li>Tailor-made for the work you're seeking</li>
-                    <li>A true representation of your strengths and skills</li>                    
-                </ul>
+        <!-- Container (Get hired Section) -->
+        <div id="gethired" class="container-fluid whiteContainer">            
+            <div class="row">
+                <div class="col-sm-6 text-left">
+                    <br>
+                    <h2>How do I get hired by clients?</h2><br>
+                    <p>Getting freelance work is a lot like traditional searching — you submit applications on projects, then impress potential clients before being offered the project.</p>
+                    <p>You can start by sending the client a compelling application. This will greatly increase your likelihood of getting an interview, so consider making sure yours is:</p>
+                    <ul>
+                        <li>Professional, well-written, and error-free</li>
+                        <li>Tailor-made for the work you're seeking</li>
+                        <li>A true representation of your strengths and skills</li>                    
+                    </ul>
+                </div>
+                <div class="col-sm-6">
+                    <img src="/images/gethired.png" alt="Get hired" height="400">
+                </div>        
             </div>
-            <div class="col-sm-6">
-                <img src="/images/gethired.png" alt="Get hired" height="400">
-            </div>        
+            <br><br>
+            <a href="#freelancerhowto">
+                <span class="glyphicon glyphicon-chevron-up"></span>
+            </a>
+            <br><br>    
         </div>
-        <br><br>
-        <a href="#freelancerhowto">
-            <span class="glyphicon glyphicon-chevron-up"></span>
-        </a>
-        <br><br>    
-    </div>
 
-    <!-- Container (Grow a career Section) -->
-    <div id="growacareer" class="container-fluid blueContainer">
-        <br><br><br><br><br>
-        <div class="row">
-            <div class="col-sm-6 ">
-                <br><br>
-                <img src="/images/growacareer.png" alt="Grow a career" height="400">
-            </div> 
-            <div class="col-sm-6 text-left">
-                <br>
-                <h2>Can I grow my business on FreheLantser?</h2><br>
-                <p>Yes, you can build an online business that's personally and professionally rewarding. When you deliver great work to your clients, success will follow.</p>
-                <p>The most successful freelancers are:</p>
-                <ul>
-                    <li>Responsive to client needs</li>
-                    <li>Excellent at communicating with their clients</li>
-                    <li>Upfront about their abilities and deadlines</li>
-                    <li>Able to deliver excellent work on time, every time</li>
-                </ul>
+        <!-- Container (Grow a career Section) -->
+        <div id="growacareer" class="container-fluid blueContainer">            
+            <div class="row">
+                <div class="col-sm-6 ">
+                    <br><br>
+                    <img src="/images/growacareer.png" alt="Grow a career" height="400">
+                </div> 
+                <div class="col-sm-6 text-left">
+                    <br>
+                    <h2>Can I grow my business on FreheLantser?</h2><br>
+                    <p>Yes, you can build an online business that's personally and professionally rewarding. When you deliver great work to your clients, success will follow.</p>
+                    <p>The most successful freelancers are:</p>
+                    <ul>
+                        <li>Responsive to client needs</li>
+                        <li>Excellent at communicating with their clients</li>
+                        <li>Upfront about their abilities and deadlines</li>
+                        <li>Able to deliver excellent work on time, every time</li>
+                    </ul>
+                </div>
             </div>
+            <br><br>
+            <a href="#freelancerhowto">
+                <span class="glyphicon glyphicon-chevron-up"></span>
+            </a>
+            <br><br>
         </div>
-        <br><br>
-        <a href="#freelancerhowto">
-            <span class="glyphicon glyphicon-chevron-up"></span>
-        </a>
-        <br><br>
-    </div>
 
-    <!-- Container (Payments Section) -->
-    <div id="payments" class="container-fluid whiteContainer">
-        <br><br><br><br><br>
-        <div class="row">
-            <div class="col-sm-6 text-left">
-                <br>
-                <h2>How will I get paid by my clients?</h2><br>
-                <p>All payments are made securely through the FreheLantser platform. Receive funds via whatever payment methods works best for you:</p>
-                <ul>
-                    <li>Direct Deposit / ACH</li>
-                    <li>Local Funds Transfer (LFT)</li>
-                    <li>Payoneer</li>
-                    <li>PayPal</li>
-                    <li>Skrill</li>
-                    <li>Wire Transfer</li> 
-                </ul>
+        <!-- Container (Payments Section) -->
+        <div id="payments" class="container-fluid whiteContainer">            
+            <div class="row">
+                <div class="col-sm-6 text-left">
+                    <br>
+                    <h2>How will I get paid by my clients?</h2><br>
+                    <p>All payments are made securely through the FreheLantser platform. Receive funds via whatever payment methods works best for you:</p>
+                    <ul>
+                        <li>Direct Deposit / ACH</li>
+                        <li>Local Funds Transfer (LFT)</li>
+                        <li>Payoneer</li>
+                        <li>PayPal</li>
+                        <li>Skrill</li>
+                        <li>Wire Transfer</li> 
+                    </ul>
+                </div>
+                <div class="col-sm-6">
+                    <img src="/images/payments.png" alt="Payments" height="300">
+                </div>        
             </div>
-            <div class="col-sm-6">
-                <img src="/images/payments.png" alt="Payments" height="300">
-            </div>        
-        </div>
-        <br><br>
-        <a href="#freelancerhowto">
-            <span class="glyphicon glyphicon-chevron-up"></span>
-        </a>
-        <br><br>    
-    </div>
-    <br><br><br><br> 
-    <div class="row">
-        <div class="col-md-11 center-block text-center">  
-            <a href="/register" class="btn btn-primary">Get Started</a>
-            <a href="/freelancer" class="btn btn-primary">My portfolio</a>
+            <br><br>
+            <a href="#freelancerhowto">
+                <span class="glyphicon glyphicon-chevron-up"></span>
+            </a>
+            <br><br>    
+        </div>         
+        <div class="row">
+            <div class="col-md-11 center-block text-center">  
+                <a href="/register" class="btn btn-primary">Get Started</a>
+                <a href="/freelancer" class="btn btn-primary">My portfolio</a>
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}

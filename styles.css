@@ -3,14 +3,21 @@
     Author     : Nathalie Desrosiers & Nikolay Nikolov
 */
 
-/* Nathalie everything width to 100%*/
+
+/* Nathalie font bigger everywhere */
+body{
+    font-size: 1.3em;
+}
+
+/* Nathalie everything width to 100% */
 .container{
     width:100%;
     padding: 0;
 }
 
 /* Nathalie */
-#navigation{    
+#navigation{ 
+    margin: 0;
     padding: 10px;
     height: 100px !important;
 }
@@ -25,14 +32,14 @@
 /* Nathalie */
 .blueContainer{
     margin: 0px;
-    padding: 0px; 
+    padding: 25px; 
     background-color: #e6faff;    
 }
 
 /* Nathalie */
 .whiteContainer{
     margin: 0px;
-    padding: 0px;    
+    padding: 25px;    
     background-color: #ffffff;    
 }
 
@@ -62,7 +69,7 @@
     background-image: url('/images/background-how-it-works-freelancer.png');
     background-size: 100%;
     background-repeat:no-repeat;
-    height: 475px;   
+    height: 525px;   
 }
 
 /* Nathalie freelancer portfolio fieldset border */
@@ -82,4 +89,12 @@ legend.fieldset-border {
     width: inherit; /* Or auto */
     padding: 0 10px; 
     border-bottom: none;
+}
+
+/* Nathalie freelancer portfolio view container */
+.profileview{
+    margin: auto;
+    border: 5px groove #337ab7;
+    background-color: #ffffff;
+    width: 50%;
 }

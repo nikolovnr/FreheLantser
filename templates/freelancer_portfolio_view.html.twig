@@ -1,6 +1,6 @@
 {% extends "master.html.twig" %}
 
-{% block title %}{{"My portfolio"}}{% endblock %}
+{% block title %}{{"Portfolio view"}}{% endblock %}
 
 {% block head %}    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -19,13 +19,7 @@
         <br>
         <div class="profileview">
             <br> 
-            <div id="freelancerCarousel" class="carousel slide text-center whiteContainer" data-ride="carousel">
-                 
-            <!-- Wrapper for slides --> 
-            <div class="carousel-inner" role="listbox">           
-           
-                <div class="item active">
-                   {% for user in userList %}  
+                   {% for user in userList %}
                     <br><br>
                     <img class="img-circle" src="/uploads/{{user.mypicture}}" alt="Freelancer picture" height="200" width="200" >
                     <br>
@@ -61,24 +55,9 @@
                         <br>
                     </div>
                          {% endfor %}
-                </div>
-                       
+                </div>                       
             <br>
-        </div>    
-        <!-- Left and right controls -->
-        <a class="left carousel-control" href="#freelancerCarousel" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#freelancerCarousel" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-    <br><br>
-    </div>
-        <br><br>
-    </div>
+        </div> 
     <br><br>
 
 {% endblock %}

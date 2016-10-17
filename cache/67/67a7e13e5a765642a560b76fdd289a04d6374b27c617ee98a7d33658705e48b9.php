@@ -158,14 +158,6 @@ class __TwigTemplate_0332183e9d45b3daac036740c3b01486b5ca4fd2bd580f8eb15b57a46a5
 </div>
 </div>
 ";
-        // line 116
-        if ((isset($context["sessionUser"]) ? $context["sessionUser"] : null)) {
-            // line 117
-            echo "    ";
-            echo twig_escape_filter($this->env, (isset($context["username"]) ? $context["username"] : null), "html", null, true);
-            echo "
-";
-        }
     }
 
     public function getTemplateName()
@@ -180,7 +172,7 @@ class __TwigTemplate_0332183e9d45b3daac036740c3b01486b5ca4fd2bd580f8eb15b57a46a5
 
     public function getDebugInfo()
     {
-        return array (  164 => 117,  162 => 116,  62 => 18,  56 => 16,  54 => 15,  48 => 11,  45 => 10,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  62 => 18,  56 => 16,  54 => 15,  48 => 11,  45 => 10,  36 => 5,  30 => 3,  11 => 1,);
     }
 
     public function getSource()
@@ -300,9 +292,6 @@ class __TwigTemplate_0332183e9d45b3daac036740c3b01486b5ca4fd2bd580f8eb15b57a46a5
     </div>
 </div>
 </div>
-{% if sessionUser %}
-    {{username}}
-{% endif %}
 {% endblock %}";
     }
 }

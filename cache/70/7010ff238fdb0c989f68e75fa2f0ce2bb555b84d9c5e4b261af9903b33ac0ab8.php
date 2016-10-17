@@ -47,7 +47,7 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
                 }).done(function (data) {
                     if (data) {
                         \$(\"#emailalertalreadyexists\").show();
-                        \$(\"#everythingelse\").hide();                        
+                        \$(\"#everythingelse\").hide();
                     } else {
                         \$(\"#emailalertalreadyexists\").hide();
                     }
@@ -221,7 +221,7 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
             } else if (allGood) {
                 \$(\"#submit\").show();
             }
-           
+
             /////////////////////////////////////////////////////Register button
             \$('#registrationForm').submit(function (event) {
                 var email = \$(\"input[name=email]\").val();
@@ -628,6 +628,20 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
                     Both <strong>passwords</strong> must be identical.
                 </div>
 
+                <!-- Captcha input 
+                <div>
+                    <img src=\"/captcha.php\">
+                </div>
+                <div class=\"row\" id=\"captcharow\">
+                    <div class=\"form-group add-on form-group-lg\">
+                        <label class=\"control-label col-sm-2\" for=\"captcha\"></label>
+                        <div class=\"col-sm-10\"> 
+                            <input type=\"text\" class=\"form-control input-lg\" id=\"captcha\" name=\"captcha\" placeholder=\"Type what you see\" required=\"true\">
+                        </div>
+                    </div>
+                </div>-->
+
+
                 <!-- Submit button --> 
                 <div class=\"row\" id=\"registerbutton\">
                     <div class=\"form-group\"> 
@@ -676,7 +690,7 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
                 }).done(function (data) {
                     if (data) {
                         \$(\"#emailalertalreadyexists\").show();
-                        \$(\"#everythingelse\").hide();                        
+                        \$(\"#everythingelse\").hide();
                     } else {
                         \$(\"#emailalertalreadyexists\").hide();
                     }
@@ -850,7 +864,7 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
             } else if (allGood) {
                 \$(\"#submit\").show();
             }
-           
+
             /////////////////////////////////////////////////////Register button
             \$('#registrationForm').submit(function (event) {
                 var email = \$(\"input[name=email]\").val();
@@ -1235,6 +1249,20 @@ class __TwigTemplate_30424c6afa5b528cc0568d53a800d3f397b19dbc0c2cc4510b434db999c
                 <div class=\"alert alert-danger collapse\" id=\"password2alertdifferent\">
                     Both <strong>passwords</strong> must be identical.
                 </div>
+
+                <!-- Captcha input 
+                <div>
+                    <img src=\"/captcha.php\">
+                </div>
+                <div class=\"row\" id=\"captcharow\">
+                    <div class=\"form-group add-on form-group-lg\">
+                        <label class=\"control-label col-sm-2\" for=\"captcha\"></label>
+                        <div class=\"col-sm-10\"> 
+                            <input type=\"text\" class=\"form-control input-lg\" id=\"captcha\" name=\"captcha\" placeholder=\"Type what you see\" required=\"true\">
+                        </div>
+                    </div>
+                </div>-->
+
 
                 <!-- Submit button --> 
                 <div class=\"row\" id=\"registerbutton\">

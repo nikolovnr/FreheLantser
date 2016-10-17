@@ -6,7 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
-            
+
             //////////////////////////////////////////////////////////my picture
             $('#submitmypicture').click(function () {
                 /*
@@ -15,7 +15,7 @@
                  $("#filealerttype").show();
                  */
             });//end of submitmypicture button function
-            
+
             //////////////////////////////////////////////////////////////skills
             $('#submitskills').click(function () {
                 var skill = [];
@@ -64,72 +64,78 @@
 {% endblock %}  
 
 {% block content %}
-    <div class="blueContainer">
+    <div class="blueContainer" style="font-size: 1.3em;">
         <br>
         <h1>Freelancer portfolio</h1>
         <form class="form-horizontal" id="portfolioForm" method="POST" action="" enctype="multipart/form-data">
+            <div class="row ">
+                <!-- Picture input -->
+                <div class="form-group col-sm-6">
+                    <fieldset class="fieldset-border">
+                        <legend class="fieldset-border">A picture of me:</legend>
+                        <div class="row" id="pictureinputrow" style="padding:25px;">
+                            <input type="file" name="mypicture" id="mypicture" value="{{v.imagePath}}"> 
+                        </div> 
+                    </fieldset>
+                    <div class="alert alert-danger collapse" id="filealerttype">
+                        <strong>Sorry</strong>, only GIF, JPEG, JPG & PNG files are allowed.
+                    </div>
+                    <div class="alert alert-danger collapse" id="filealertsize">
+                        <strong>Sorry</strong>, your file is too large.
+                    </div>                    
+                    <!-- Save my picture button --> 
+                    <div class="row" id="submitmypicturerow">
+                        <div class="form-group"> 
+                            <div class="col-sm-offset-2 col-sm-8 text-center">
+                                <button type="submit" class="btn btn-primary" name="submitmypicture" id="submitmypicture">Save my picture</button>
 
-            <!-- Picture input -->
-            <div class="form-group">
-                <fieldset class="fieldset-border">
-                    <legend class="fieldset-border">A picture of me:</legend>
-                    <div class="row" id="pictureinputrow">
-                        <input type="file" name="mypicture" id="mypicture" value="{{v.imagePath}}"> 
-                    </div> 
-                </fieldset>
-                <div class="alert alert-danger collapse" id="filealerttype">
-                    <strong>Sorry</strong>, only GIF, JPEG, JPG & PNG files are allowed.
-                </div>
-                <div class="alert alert-danger collapse" id="filealertsize">
-                    <strong>Sorry</strong>, your file is too large.
-                </div>                    
-                <!-- Save my picture button --> 
-                <div class="row" id="submitmypicturerow">
-                    <div class="form-group"> 
-                        <div class="col-sm-offset-2 col-sm-10 text-center">
-                            <button type="submit" class="btn btn-primary" name="submitmypicture" id="submitmypicture">Save my picture</button>
-                            <br><br>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Skills input -->
-            <div class="form-group">
-                <fieldset class="fieldset-border">
-                    <legend class="fieldset-border">Skills</legend>
-                    <div class="checkbox col-sm-3 lefttext" id="skills" style="padding-left:25px;" >
-                        <label><input type="checkbox" name="skills[]" class="skills_class" value="C">C</label><br>
-                        <label><input type="checkbox" name="skills[]" class="skills_class" value="C++">C++</label><br>
-                        <label><input type="checkbox" name="skills[]" class="skills_class" value="C#">C#</label><br>
-                        <label><input type="checkbox" name="skills[]" class="skills_class" value="Objective C">Objective C</label><br>
-                        <label><input type="checkbox" name="skills[]" class="skills_class" value="CSS">CSS</label><br>
-                        <label><input type="checkbox" name="skills[]" class="skills_class" value="HTML">HTML</label><br>
-                        <label><input type="checkbox" name="skills[]" class="skills_class" value="Java">Java</label><br>
-                        <label><input type="checkbox" name="skills[]" class="skills_class" value="JavaScript">JavaScript</label><br>
-                        <label><input type="checkbox" name="skills[]" class="skills_class" value="PHP">PHP</label><br>
-                        <label><input type="checkbox" name="skills[]" class="skills_class" value="Python">Python</label><br>
-                        <label><input type="checkbox" name="skills[]" class="skills_class" value="Ruby">Ruby</label><br>
-                        <label><input type="checkbox" name="skills[]" class="skills_class" value="Other">Other</label><br>
-                    </div>
-                </fieldset>
-                <h3 id="result"></h3>
-                <!-- Save my skills button --> 
-                <div class="row" id="submitskillsrow">
-                    <div class="form-group"> 
-                        <div class="col-sm-offset-2 col-sm-10 text-center">
-                            <button type="submit" class="btn btn-primary" name="submitskills" id="submitskills">Save my skills</button>
-                            <br><br>
+                <!-- Skills input -->
+                <div class="col-sm-6 form-group">
+                    <fieldset class="fieldset-border">
+                        <legend class="fieldset-border">Skills</legend>
+                        <div class="checkbox col-sm-3 lefttext" id="skills" style="padding-left:25px;" >
+                            <label><input type="checkbox" name="skills[]" class="skills_class" value="C">C</label><br>
+                            <label><input type="checkbox" name="skills[]" class="skills_class" value="C++">C++</label><br>
+                            <label><input type="checkbox" name="skills[]" class="skills_class" value="C#">C#</label><br>
+                            <label><input type="checkbox" name="skills[]" class="skills_class" value="Objective C">Objective C</label><br>
+                        </div>
+                        <div class="checkbox col-sm-3 lefttext" id="skills" style="padding-left:25px;">
+                            <label><input type="checkbox" name="skills[]" class="skills_class" value="CSS">CSS</label><br>
+                            <label><input type="checkbox" name="skills[]" class="skills_class" value="HTML">HTML</label><br>
+                            <label><input type="checkbox" name="skills[]" class="skills_class" value="Java">Java</label><br>
+                            <label><input type="checkbox" name="skills[]" class="skills_class" value="JavaScript">JavaScript</label><br></div>
+                        <div class="checkbox col-sm-3 lefttext" id="skills" style="padding-left:25px;">
+                            <label><input type="checkbox" name="skills[]" class="skills_class" value="PHP">PHP</label><br>
+                            <label><input type="checkbox" name="skills[]" class="skills_class" value="Python">Python</label><br>
+                            <label><input type="checkbox" name="skills[]" class="skills_class" value="Ruby">Ruby</label><br>
+                            <label><input type="checkbox" name="skills[]" class="skills_class" value="Other">Other</label><br>
+                        </div>
+                    </fieldset>
+                    <h3 id="result"></h3>
+                    <!-- Save my skills button --> 
+                    <div class="row" id="submitskillsrow">
+                        <div class="form-group"> 
+                            <div class=" col-sm-12 text-center">
+                                <button type="submit" class="btn btn-primary" name="submitskills" id="submitskills">Save my skills</button>
+
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
+
 
             <!-- Overview input -->
             <div class="form-group">                
                 <fieldset class="fieldset-border">
                     <legend class="fieldset-border">Overview</legend>
-                    <div class="form-group">                        
+                    <div class="form-group"  style="padding:25px;">                        
                         <textarea class="form-control" rows="5" id="overviewtextarea"></textarea>
                     </div>
                 </fieldset>
@@ -140,9 +146,9 @@
                 <!-- Overview button --> 
                 <div class="row" id="submitoverviewrow">
                     <div class="form-group"> 
-                        <div class="col-sm-offset-2 col-sm-10 text-center">
+                        <div class="col-sm-offset-2 col-sm-8 text-center">
                             <button type="submit" class="btn btn-primary" name="submitoverview" id="submitoverview">Save my overview</button>
-                            <br><br>
+
                         </div>
                     </div>
                 </div>

@@ -613,10 +613,52 @@ $app->post('/freelancer(/:id)', function($id = '') use ($app, $log) {
                 'overview' => json_encode($overview)
                     ), 'ID=%d', $_SESSION['user']['ID']);
             $app->render('freelancer_portfolio_update.html.twig');
-        }
-    }//end if isset overview
+        }//end else
+    }//end if isset overview    
+});
+
+////////////////////////////////////////////////////////////////////////////////
+//Sate 1: First show FREELANCER PORTFOLIO VIEW
+$app->get('/freelancer_view', function() use ($app, $log) {
+    
+$userList = DB::query("SELECT * FROM users WHERE skills IS NOT NULL");
+    $app->render('freelancer_portfolio_view.html.twig', array(
+        'userList' => $userList
+    ));
+    /*
+$starList= DB::query("SELECT rating FROM users");
+    $app->render('freelancer_portfolio_view.html.twig', array(
+        'starList' => $starList
+    ));*/
+    /*
+$rating = $_GET['users']['rating'];
+$app->render('freelancer_portfolio_view.html.twig', array(
+        'rating' => $rating
+    ));*/
+    
     //keep the next line it comes from Greg, about view
     //$skills = json_decode($user['skills']);
 });
 
+
+////////////////////////////////////////////////////////////////////////////////
+//Clean up
+$app->get('/scheduled/daily', function() use ($app, $log) {
+    DB::$error_handler = FALSE;
+    DB::$throw_exception_on_error = TRUE;
+            // PLACE THE ORDER
+    $log->debug("Daily scheduler run started");
+    // 1. clean up old password reset requests
+    try {
+        DB::delete('passwordresets', "expiryDateTime < NOW()");    
+        $log->debug("Password resets cleaned up, removed." . DB::affectedRows());
+    } catch (MeekroDBException $e) {
+        sql_error_handler(array(
+                    'error' => $e->getMessage(),
+                    'query' => $e->getQuery()
+                ));
+    }
+    $log->debug("Daily scheduler run completed");
+    echo "Completed";
+});
 $app->run();
