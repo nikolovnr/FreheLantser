@@ -115,5 +115,17 @@ Nikolay:
 2- I will make changes in database so to be able to register mesages, make auctions and register payments.
 3- I need to take the last version of DB from Nathalie and return it with corrections as soon as possible.
 
-Nikolay, I created a new table:passwordresets, added a unique to userID, but was not able to get relational views to add a foreign key... Why?
+
+/////Week-end: October 15-16, 2016/////
+Nathalie:
+1- I did work on reseting password, updating picture, skills and overview in portfolio file.
+2- I will work on that freelancer's portfolio viewing page + my part of power point presentation + practicising.
+3- I need Nikolay to check why I can't add a foreign key in cpanel database and check my freelancer uploading. Skills ok, but not picture and no overview. PLEASE? (For viewing sake, I will add stuff in database manually.)
+
+Nikolay:
+1- I did 
+2- I will 
+3- I need to 
+
+!!!!!!!!!!!!!!!!!!!!!Nikolay, I created a new table:passwordresets, added a unique to userID, but was not able to get relational views to add a foreign key... Why??????????????????????????
 
