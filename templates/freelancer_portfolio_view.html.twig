@@ -21,7 +21,7 @@
             <br> 
                    {% for user in userList %}
                     <br><br>
-                    <img class="img-circle" src="/uploads/{{user.mypicture}}" alt="Freelancer picture" height="200" width="200" >
+                    <img class="img-circle" src="{{user.myImagePath}}" alt="Freelancer picture" height="200" width="200" >
                     <br>
 
                     <h3>{{user.firstName}}&nbsp;{{user.lastName}}</h3>

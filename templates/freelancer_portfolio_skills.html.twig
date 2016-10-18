@@ -6,7 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#submitchanges').click(function () {
+            $('#savemyskills').click(function () {
                 
                 //////////////////////////////////////////////////////////skills
                 var skill = [];
@@ -23,30 +23,7 @@
                     success: function (data) {
                         $('#result').html(data);
                     }
-                });//end of ajax 
-                ////////////////////////////////////////////////////////overview
-                var overviewRaw = $("#overviewtextarea").val();
-                if ((overviewRaw.length < 50) || (overviewRaw.length > 1000)) {
-                    $("#overviewalert").show();
-                } else {
-                    
-                    $.ajax({
-                        url: "/freelancer",
-                        statusCode: {
-                            400: function (xhr) {
-                                var msg = xhr.responseText;
-                                alert("400 received: " + msg);
-                            }
-                        },
-                        data: JSON.stringify({
-                            overview: overviewRaw                            
-                        }),
-                        type: "POST",
-                        dataType: "json"
-                    }).done(function () {
-                        alert("Overview into database.");
-                    });//end done
-                }//end else
+                });//end of ajax                 
             });//end of submitchanges button
         });//end of document ready
     </script>
@@ -55,26 +32,11 @@
 {% block content %}
     <div class="blueContainer" style="font-size: 1.3em;">
         <br>
-        <h1>Freelancer portfolio</h1>
-        <form class="form-horizontal" id="portfolioForm" method="POST" action="" enctype="multipart/form-data">
-            <div class="row ">
-                <!-- Picture input -->
-                <div class="form-group col-sm-6">
-                    <fieldset class="fieldset-border">
-                        <legend class="fieldset-border">A picture of me:</legend>
-                        <div class="row" id="pictureinputrow" style="padding:25px;">
-                            <input type="file" name="mypicture" id="mypicture" value="{{v.imagePath}}"> 
-                        </div> 
-                    </fieldset>
-                    <div class="alert alert-danger collapse" id="filealerttype">
-                        <strong>Sorry</strong>, only GIF, JPEG, JPG & PNG files are allowed.
-                    </div>
-                    <div class="alert alert-danger collapse" id="filealertsize">
-                        <strong>Sorry</strong>, your file is too large.
-                    </div>
-                </div>
+        <h1>Freelancer portfolio skills</h1>
+        <form class="form-horizontal" id="portfolioForm" method="POST" action="">
+            <div class="row">               
                 <!-- Skills input -->
-                <div class="col-sm-6 form-group">
+                <div class="col-sm-10 form-group">
                     <fieldset class="fieldset-border">
                         <legend class="fieldset-border">Skills</legend>
                         <div class="checkbox col-sm-4 lefttext" id="skills" style="padding-left:25px;" >
@@ -97,25 +59,12 @@
                     </fieldset>
                     <h3 id="result"></h3>                    
                 </div>
-            </div>
-            <!-- Overview input -->
-            <div class="form-group">                
-                <fieldset class="fieldset-border">
-                    <legend class="fieldset-border">Overview</legend>
-                    <div class="form-group"  style="padding:25px;">                        
-                        <textarea class="form-control" rows="5" id="overviewtextarea"></textarea>
-                    </div>
-                </fieldset>
-                <div class="alert alert-danger collapse" id="overviewalert">
-                    <strong>Overview</strong> must be between 50 and 1000 characters.
-                </div>       
-                <h3 id="result"></h3>
-            </div>
-            <!-- Save my changes button --> 
+            </div>            
+            <!-- Save my skills button --> 
             <div class="row">
                 <div class="form-group"> 
                     <div class="col-sm-offset-2 col-sm-8 text-center">
-                        <button type="submit" class="btn btn-primary" name="submit" id="submitchanges">Save my changes</button>
+                        <button type="submit" class="btn btn-primary" name="submit" id="savemyskills">Save my skills</button>
                     </div>
                 </div>
             </div>

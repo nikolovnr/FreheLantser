@@ -1,0 +1,40 @@
+{% extends "master.html.twig" %}
+
+{% block title %}{{"My portfolio"}}{% endblock %}
+
+{% block head %}    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>   
+{% endblock %}  
+
+{% block content %}
+    <div class="blueContainer" style="font-size: 1.3em;">
+        <br>
+        <h1>Freelancer portfolio picture</h1>
+        <form class="form-horizontal" id="portfolioForm" method="POST" action="" enctype="multipart/form-data">
+            <div class="row ">
+                <!-- Picture input -->
+                <div class="form-group col-sm-6">
+                    <fieldset class="fieldset-border">
+                        <legend class="fieldset-border">A picture of me:</legend>
+                        <div class="row" id="pictureinputrow" style="padding:25px;">
+                            <input type="file" name="mypicture" id="mypicture" value="{{v.imagePath}}"> 
+                        </div> 
+                    </fieldset>
+                    <div class="alert alert-danger collapse" id="filealerttype">
+                        <strong>Sorry</strong>, only GIF, JPEG, JPG & PNG files are allowed.
+                    </div>
+                    <div class="alert alert-danger collapse" id="filealertsize">
+                        <strong>Sorry</strong>, your file is too large.
+                    </div>
+                </div>                
+            <!-- Save my picture button --> 
+            <div class="row">
+                <div class="form-group"> 
+                    <div class="col-sm-offset-2 col-sm-8 text-center">
+                        <button type="submit" class="btn btn-primary" name="submit" id="submitpicture">Save my picture</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

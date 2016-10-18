@@ -15,29 +15,27 @@ $log->pushHandler(new StreamHandler('logs/errors.log', Logger::ERROR));
 
 
 
-//if ($_SERVER['SERVER_NAME'] == 'localhost') {
+if ($_SERVER['SERVER_NAME'] == 'localhost') {
 //Nathalie HOME
-DB::$dbName = 'frehelantser';
-DB::$user = 'frehelantser';
-DB::$password = 'Q4MGJPYZDtzhSZdv';
+    DB::$dbName = 'frehelantser';
+    DB::$user = 'frehelantser';
+    DB::$password = 'Q4MGJPYZDtzhSZdv';
 //DB::$host = 'ipd.info';
 //Nikolay HOME
 //DB::$dbName = 'frehelantser';
 //DB::$user = 'frehelantser';
 //DB::$password = 'RHam3MzPjMBwvrWH';
-/*
-  //Nikolay SCHOOL
-  DB::$dbName = 'frehelantser';
-  DB::$user = 'frehelantser';
-  DB::$password = 'ZTs9AZyyPsyGman7';
-
-  } else {
-  //frehelantser.ipd8.info
-  DB::$dbName = 'cp4724_frehelantser';
-  DB::$user = 'cp4724_frehelant';
-  DB::$password = 'HoeEw2DFIagZ';
-  DB::$host = 'ipd8.info';
-  } */
+    //Nikolay SCHOOL
+    //DB::$dbName = 'frehelantser';
+    //DB::$user = 'frehelantser';
+    //DB::$password = 'ZTs9AZyyPsyGman7';
+} else {
+    //frehelantser.ipd8.info
+    DB::$dbName = 'cp4724_frehelantser';
+    DB::$user = 'cp4724_frehelant';
+    DB::$password = 'HoeEw2DFIagZ';
+    DB::$host = 'ipd8.info';
+}
 
 
 DB::$error_handler = 'sql_error_handler';
@@ -393,6 +391,12 @@ $app->post('/login(/:id)', function($id = '') use ($app, $log) {
 });
 
 ////////////////////////////////////////////////////////////////////////////////
+//State 1: First show LOGIN SUCCESS
+$app->get('/login_success', function() use ($app, $log) {
+    $app->render('login_success.html.twig');
+});
+
+////////////////////////////////////////////////////////////////////////////////
 //Logout
 $app->get('/logout', function() use ($app, $log) {
     if ($_SESSION['user']) {
@@ -542,102 +546,109 @@ $app->delete('/job/:ID', function($ID) {
 
 
 ////////////////////////////////////////////////////////////////////////////////
-//Sate 1: First show FREELANCER PORTFOLIO
+//State 1: First show FREELANCER PORTFOLIO
 $app->get('/freelancer', function() use ($app, $log) {
     $app->render('freelancer_portfolio.html.twig');
 });
 
-//State 2: Submission FREELANCER PORTFOLIO    
-$app->post('/freelancer(/:id)', function($id = '') use ($app, $log) {
-    //Next lines to allow freelancer to upload his pictures
-    if (isset($_POST["mypicture"])) {
-        $target_dir = "uploads/";
-        $max_file_size = 5 * 1024 * 1024;
-        $fileUpload = $_FILES['mypicture'];
-        $check = getimagesize($fileUpload["tmp_name"]);
-        if (!$check) {
-            die("Error: This file was not an image file.");
-        }
-        switch ($check['mime']) {
-            case 'image/bmp':
-            case 'image/gif':
-            case 'image/jpeg':
-            case 'image/png':
-                break;
-            default :
-                die("Error: Only accepting valid bmp, gif, jpg and png files.");
-        }
-        if ($fileUpload['size'] > $max_file_size) {
-            die("Error: File too big, maximum accepted is $max_file_size bytes.");
-        }
-        //generating our own file name, preventing SQL injection
-        $file_extension = explode('/', $check['mime'])[1];
-        $target_file = $target_dir . md5($fileUpload["name"] . time()) . '.' . $file_extension;
-
-        if (move_uploaded_file($fileUpload["tmp_name"], $target_file)) {
-            alert("The file " . basename($fileUpload["name"]) . " has been uploaded.");                       
-        } else {
-            alert("Sorry, there was an error uploading your file.");
-        }
-        DB::update('users', array(
-            'mypicture'=>$target_file
-        ), 'ID=%d', $_SESSION['user']['ID']);        
-        $app->render('freelancer_portfolio_update.html.twig');
+////////////////////////////////////////////////////////////////////////////////
+//State 1: First show FREELANCER PORTFOLIO PICTURE
+$app->get('/freelancer_portfolio_picture', function() use ($app, $log) {
+    $app->render('freelancer_portfolio_picture.html.twig');
+});
+//State 2: Submission FREELANCER PORTFOLIO PICTURE 
+$app->post('/freelancer_portfolio_picture(/:id)', function($id = '') use ($app, $log) {
+    $target_dir = "uploads/";
+    $max_file_size = 5 * 1024 * 1024;
+    $fileUpload = $_FILES['mypicture'];
+    $check = getimagesize($fileUpload["tmp_name"]);
+    if (!$check) {
+        die("Error: This file was not an image file.");
     }
-    ////////////////////////////////////////////////end uploading picture file
-    //retrieving inputs from form
-    //$skills = $app->request->post('skills');
-    //$overview = $app->request->post('overview');
-    //$errorList = array();
+    switch ($check['mime']) {
+        case 'image/bmp':
+        case 'image/gif':
+        case 'image/jpeg':
+        case 'image/png':
+            break;
+        default :
+            die("Error: Only accepting valid bmp, gif, jpg and png files.");
+    }
+    if ($fileUpload['size'] > $max_file_size) {
+        die("Error: File too big, maximum accepted is $max_file_size bytes.");
+    }
+    //generating our own file name, preventing SQL injection
+    $file_extension = explode('/', $check['mime'])[1];
+    $target_file = $target_dir . md5($fileUpload["name"] . time()) . '.' . $file_extension;
 
-    //$log->debug("session: " . $_SESSION);
-    //$freelancer=DB::queryFirstRow("SELECT * FROM users WHERE ID=%d", $_SESSION['user']['ID']);
-    //keep the next line it comes from Greg, about rejecting bad stuff from array
-    //array array_intersect ( array $array1 , array $array2 [, array $... ] )
+    if (move_uploaded_file($fileUpload["tmp_name"], $target_file)) {
+        echo "The file " . basename($fileUpload["name"]) . " has been uploaded.";
+    } else {
+        echo "Sorry, there was an error uploading your file.";
+    }
+    DB::update('users', array(
+        'myImagePath' => $target_file
+            ), 'ID=%d', $_SESSION['user']['ID']);
+    $app->render('freelancer_portfolio_update.html.twig');
+});
+
+
+////////////////////////////////////////////////////////////////////////////////
+//State 1: First show FREELANCER PORTFOLIO SKILLS
+$app->get('/freelancer_portfolio_skills', function() use ($app, $log) {
+    $app->render('freelancer_portfolio_skills.html.twig');
+});
+//State 2: Submission FREELANCER PORTFOLIO SKILLS   
+$app->post('/freelancer_portfolio_skills(/:id)', function($id = '') use ($app, $log) {
     if (isset($_POST["skills"])) {
         $skills = $app->request->post('skills');
         DB::update('users', array(
             'skills' => json_encode($skills)
-                ), 'ID=%d', $_SESSION['user']['ID']);        
+                ), 'ID=%d', $_SESSION['user']['ID']);
         $app->render('freelancer_portfolio_update.html.twig');
-    }//end if isset skills
+    }//end if isset skills      
+});
 
-    if (isset($_POST["overview"])) {
-        $overview = $app->request->post('overview');
-        $errorList = array();
-        //overview check: must be between 5 and 1000 characters long
-        if ((strlen($overview) < 5) || (strlen($overview) > 1000)) {
-            array_push($errorList, "Overview must be between 5 and 1000 characters long.");
-        } else {
-            DB::update('users', array(
-                'overview' => json_encode($overview)
-                    ), 'ID=%d', $_SESSION['user']['ID']);
-            $app->render('freelancer_portfolio_update.html.twig');
-        }//end else
-    }//end if isset overview    
+
+////////////////////////////////////////////////////////////////////////////////
+//State 1: First show FREELANCER PORTFOLIO OVERVIEW
+$app->get('/freelancer_portfolio_overview', function() use ($app, $log) {
+    $app->render('freelancer_portfolio_overview.html.twig');
+});
+//State 2: Submission FREELANCER PORTFOLIO OVERVIEW   
+$app->post('/freelancer_portfolio_overview(/:id)', function($id = '') use ($app, $log) {
+    $body = $app->request->getBody();
+    //$log->debug("after $body");
+    $record = json_decode($body, TRUE);
+    //if (isset($record["overview"])) {
+    $overview = $record["overview"];
+    //$log->debug("after 623");
+    $errorList = array();
+    //overview check: must be between 50 and 1000 characters long
+    if ((strlen($overview) < 50) || (strlen($overview) > 1000)) {
+        array_push($errorList, "Overview must be between 50 and 1000 characters long.");
+    } else {
+        DB::update('users', array(
+            'overview' => json_encode($overview)
+                ), 'ID=%d', $_SESSION['user']['ID']);
+    }//end else
+    // }//end if isset overview
+    //$app->render('freelancer_portfolio_update.html.twig');   
 });
 
 ////////////////////////////////////////////////////////////////////////////////
-//Sate 1: First show FREELANCER PORTFOLIO VIEW
+//State 1: First show FREELANCER PORTFOLIO VIEW
 $app->get('/freelancer_view', function() use ($app, $log) {
-    
-$userList = DB::query("SELECT * FROM users WHERE skills IS NOT NULL");
+
+    $userList = DB::query("SELECT * FROM users WHERE skills IS NOT NULL");
     $app->render('freelancer_portfolio_view.html.twig', array(
         'userList' => $userList
     ));
-    /*
-$starList= DB::query("SELECT rating FROM users");
-    $app->render('freelancer_portfolio_view.html.twig', array(
-        'starList' => $starList
-    ));*/
-    /*
-$rating = $_GET['users']['rating'];
-$app->render('freelancer_portfolio_view.html.twig', array(
-        'rating' => $rating
-    ));*/
-    
     //keep the next line it comes from Greg, about view
-    //$skills = json_decode($user['skills']);
+    //$request = file_get_contents('php://input');
+    //$input = json_decode($request);
+    //$skills = json_decode($user['skills']);    
+    //alert(skills);
 });
 
 
@@ -646,19 +657,20 @@ $app->render('freelancer_portfolio_view.html.twig', array(
 $app->get('/scheduled/daily', function() use ($app, $log) {
     DB::$error_handler = FALSE;
     DB::$throw_exception_on_error = TRUE;
-            // PLACE THE ORDER
+    // PLACE THE ORDER
     $log->debug("Daily scheduler run started");
     // 1. clean up old password reset requests
     try {
-        DB::delete('passwordresets', "expiryDateTime < NOW()");    
+        DB::delete('passwordresets', "expiryDateTime < NOW()");
         $log->debug("Password resets cleaned up, removed." . DB::affectedRows());
     } catch (MeekroDBException $e) {
         sql_error_handler(array(
-                    'error' => $e->getMessage(),
-                    'query' => $e->getQuery()
-                ));
+            'error' => $e->getMessage(),
+            'query' => $e->getQuery()
+        ));
     }
     $log->debug("Daily scheduler run completed");
     echo "Completed";
 });
+
 $app->run();

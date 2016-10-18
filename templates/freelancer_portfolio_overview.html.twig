@@ -1,0 +1,65 @@
+{% extends "master.html.twig" %}
+
+{% block title %}{{"My portfolio"}}{% endblock %}
+
+{% block head %}    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#saveoverview').click(function () {
+                var overviewRaw = $("#overviewtextarea").val();
+                if ((overviewRaw.length < 50) || (overviewRaw.length > 1000)) {
+                    $("#overviewalert").show();
+                } else {                    
+                    $.ajax({
+                        url: "/freelancer",
+                        statusCode: {
+                            400: function (xhr) {
+                                var msg = xhr.responseText;
+                                alert("400 received: " + msg);
+                            }
+                        },
+                        data: JSON.stringify({
+                            overview: overviewRaw                            
+                        }),
+                        type: "POST",
+                        dataType: "json"
+                    }).done(function () {
+                        alert("Overview into database.");
+                    });//end done
+                }//end else
+            });//end of submitchanges button
+        });//end of document ready
+    </script>
+{% endblock %}  
+
+{% block content %}
+    <div class="blueContainer" style="font-size: 1.3em;">
+        <br>
+        <h1>Freelancer portfolio</h1>
+        <form class="form-horizontal" id="portfolioForm" method="POST" action="">
+            <div class="row ">               
+            <!-- Overview input -->
+            <div class="form-group">                
+                <fieldset class="fieldset-border">
+                    <legend class="fieldset-border">Overview</legend>
+                    <div class="form-group"  style="padding:25px;">                        
+                        <textarea class="form-control" rows="5" id="overviewtextarea"></textarea>
+                    </div>
+                </fieldset>
+                <div class="alert alert-danger collapse" id="overviewalert">
+                    <strong>Overview</strong> must be between 50 and 1000 characters.
+                </div>       
+                <h3 id="result"></h3>
+            </div>
+            <!-- Save my overview button --> 
+            <div class="row">
+                <div class="form-group"> 
+                    <div class="col-sm-offset-2 col-sm-8 text-center">
+                        <button type="submit" class="btn btn-primary" name="submit" id="saveoverview">Save my overview</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -8,9 +8,9 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid blueContainer">
+    <div class="container-fluid blueContainer" style="font-size: 1.3em;">
         <br>
-        <h1>Welcome {{firstname}} {{lastname}} from {{email}}</h1>
+        <h1>Welcome {{user.firstname}} {{user.lastname}} from {{user.email}}</h1>
         <br><br><br><br><br>        
 
         <div class="row">
@@ -26,7 +26,10 @@
             <div class="col-sm-2 sidenav navbar-right">
                 <p>I am a freelancer</a></p>
                 <p><a href="/become_a_freelancer">How it works?</a></p>
-                <p><a href="/freelancer">My portfolio</a></p>
+                <p><a href="/freelancer_portfolio_overview">Update my overview</a></p>
+                <p><a href="/freelancer_portfolio_picture">Upload my picture</a></p>
+                <p><a href="/freelancer_portfolio_skills">Update my skills</a></p>
+                <p><a href="/freelancer_portfolio_view">My portfolio</a></p>
             </div>
         </div>
     </div>
