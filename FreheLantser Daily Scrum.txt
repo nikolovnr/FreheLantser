@@ -123,9 +123,21 @@ Nathalie:
 3- I need Nikolay to check why I can't add a foreign key in cpanel database and check my freelancer uploading. Skills ok, but not picture and no overview. PLEASE? (For viewing sake, I will add stuff in database manually.)
 
 Nikolay:
-1- I did 
-2- I will 
-3- I need to 
+1- I did sending messages form.
+2- I will fix some bugs on forms created by me.
+3- I need to read more documentation on PayPal API.
+
+
+/////Monday: October 17, 2016/////
+Nathalie:
+1- I did work on portfolio pages, started captcha and presentation.
+2- I still need to fix the update picture & overview from form and viewing the rating (stars instead of a number) & picture and put that into a Carousel.
+3- Google did not help this week-end, I have to turn to a real person.
+
+Nikolay:
+1- I did Power Point presentation (half of it).
+2- I will fix some small problems and merge presentation slides.
+3- I need to speak with Nathalie about presentation.
 
 !!!!!!!!!!!!!!!!!!!!!Nikolay, I created a new table:passwordresets, added a unique to userID, but was not able to get relational views to add a foreign key... Why??????????????????????????
 
