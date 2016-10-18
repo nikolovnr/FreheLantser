@@ -138,6 +138,3 @@ Nikolay:
 1- I did Power Point presentation (half of it).
 2- I will fix some small problems and merge presentation slides.
 3- I need to speak with Nathalie about presentation.
-
-!!!!!!!!!!!!!!!!!!!!!Nikolay, I created a new table:passwordresets, added a unique to userID, but was not able to get relational views to add a foreign key... Why??????????????????????????
-
